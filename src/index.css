@@ -1,25 +1,66 @@
+/* estedad */
 @font-face {
     font-family: "estedad";
-    src: 
-    url(assets/fonts/Estedad/ttf/Estedad-Black.ttf),
-     url(assets/fonts/Estedad/ttf/Estedad-Bold.ttf),
-     url(assets/fonts/Estedad/ttf/Estedad-Light.ttf),
-     url(assets/fonts/Estedad/ttf/Estedad-Medium.ttf),
-     url(assets/fonts/Estedad/ttf/Estedad-Regular.ttf),
-     url(assets/fonts/Estedad/ttf/Estedad-SemiBold.ttf),
-     url(assets/fonts/Estedad/ttf/Estedad-SemiBold.ttf),
+    font-weight: 100;
+    src: url(assets/fonts/Estedad/ttf/Estedad-Light.ttf);
+}
+
+@font-face {
+    font-family: "estedad";
+    font-weight: 200;
+    src: url(assets/fonts/Estedad/ttf/Estedad-Black.ttf);
+}
+
+@font-face {
+    font-family: "estedad";
+    font-weight: 300;
+    src: url(assets/fonts/Estedad/ttf/Estedad-Regular.ttf);
+}
+
+@font-face {
+    font-family: "estedad";
+    font-weight: 400;
+    src: url(assets/fonts/Estedad/ttf/Estedad-Medium.ttf);
+}
+
+@font-face {
+    font-family: "estedad";
+    font-weight: 500;
+    src: url(assets/fonts/Estedad/ttf/Estedad-Bold.ttf);
+}
+
+@font-face {
+    font-family: "estedad";
+    font-weight: 600;
+    src: url(assets/fonts/Estedad/ttf/Estedad-SemiBold.ttf);
+}
+
+/* shabnam */
+@font-face {
+    font-family: "shabnam";
+    font-weight: 100;
+    src: url(assets/fonts/shabnam/Shabnam-Light-FD.ttf);
 }
 
 @font-face {
     font-family: "shabnam";
-    src: 
-    url(assets/fonts/shabnam/Shabnam-Bold-FD.ttf),
-    url(assets/fonts/shabnam/Shabnam-Light-FD.ttf),
-    url(assets/fonts/shabnam/Shabnam-Medium-FD.ttf),
-    url(assets/fonts/shabnam/Shabnam-FD.ttf),
+    font-weight: 300;
+    src: url(assets/fonts/shabnam/Shabnam-FD.ttf);
 }
 
-*{
+@font-face {
+    font-family: "shabnam";
+    font-weight: 400;
+    src: url(assets/fonts/shabnam/Shabnam-Medium-FD.ttf);
+}
+
+@font-face {
+    font-family: "shabnam";
+    font-weight: 500;
+    src: url(assets/fonts/shabnam/Shabnam-Bold-FD.ttf);
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;

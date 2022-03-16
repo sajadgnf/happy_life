@@ -10,7 +10,17 @@ import Layout from "./components/Layout";
 const theme = createTheme({
   direction: 'rtl',
   typography: {
-    fontFamily: "estedad"
+    fontFamily: [
+      "estedad",
+      "shabnam"
+    ].join(","),
+    fontWeightLight: 100,
+    fontWeightRegular: 200,
+    fontWeightMedium: 400,
+    fontWeightBold: 500
+  },
+  shadows: {
+    15: " 2px 4px 17px 0px rgba(3, 3, 3, 0.28)"
   }
 })
 
