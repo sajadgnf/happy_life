@@ -9,18 +9,46 @@ import Layout from "./components/Layout";
 
 const theme = createTheme({
   direction: 'rtl',
+
+  breakpoints: {
+    values:{
+      xxs:340,
+      xs: 520,
+      sm: 620,
+      ml: 720,
+      lg: 980,
+      xl: 1200
+    }
+  },
+
   typography: {
     fontFamily: [
       "estedad",
       "shabnam"
     ].join(","),
+
     fontWeightLight: 100,
     fontWeightRegular: 200,
     fontWeightMedium: 400,
-    fontWeightBold: 500
+    fontWeightBold: 500,
+
+    body1: {
+      fontFamily: "estedad",
+      fontWeight: 100
+    }
   },
+
+  palette: {
+    primary:{
+      main:"#227872",
+      light:"#30aca3",
+      dark:"#1b625d"
+    }
+  },
+
   shadows: {
-    15: " 2px 4px 17px 0px rgba(3, 3, 3, 0.28)"
+    14: "1.0543478727340698px 1.4057972431182861px 2.8115944862365723px 0px rgba(0, 0, 0, .2)",
+    15: " 2px 4px 17px 0px rgba(3, 3, 3, 0.28)",
   }
 })
 
