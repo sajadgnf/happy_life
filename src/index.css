@@ -71,15 +71,38 @@
     display: -webkit-box; /* Not needed if autoprefixing */
     display: -ms-flexbox; /* Not needed if autoprefixing */
     display: flex;
-    margin-left: -30px; /* gutter size offset */
+    margin-left: -30px;
     width: auto;
 }
 .my-masonry-grid_column {
-    padding-left: 30px; /* gutter size */
+    padding-left: 30px; 
     background-clip: padding-box;
 }
 
 /* Style your items */
 .my-masonry-grid_column > div {
-    margin-bottom: 30px;
+    margin-bottom: 16px;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 0;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #c9c9c9; 
+    border-radius: 100px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }

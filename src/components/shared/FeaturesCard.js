@@ -7,29 +7,19 @@ const useStyle = makeStyles(theme => {
         featureCard: {
             height: 64,
             width: 64,
-            margin: 'auto',
 
             [theme.breakpoints.up('xs')]: {
                 width: 'auto',
                 height: 80,
-                borderRadius: "25px !important"
             },
             [theme.breakpoints.up('lg')]: {
-                height: 120,
-                borderRadius: "40px !important",
-                fontSize: "14px !important"
+                height: 110,
             },
             [theme.breakpoints.up('xl')]: {
-                height: 184,
-                borderRadius: "58px !important"
-            }
-        },
-        featureTitle: {
-            [theme.breakpoints.up('ml')]: {
-                fontSize: "8.5px !important"
+                height: 120,
             },
-            [theme.breakpoints.up('lg')]: {
-                fontSize: "14px !important"
+            [theme.breakpoints.up('xxl')]: {
+                height: 130,
             }
         }
     }
@@ -43,7 +33,15 @@ const FeaturesCard = ({ feature }) => {
         <Card
             elevation={14}
             className={classes.featureCard}
-            sx={{ borderRadius: "18.77px" }}
+            sx={{
+                borderRadius: {
+                    xxs: "20px",
+                    xs: "25px",
+                    lg: "35px",
+                    xl: "45px",
+                    xxl: "56px"
+                }
+            }}
         >
             <CardMedia
                 component='img'
@@ -52,11 +50,15 @@ const FeaturesCard = ({ feature }) => {
                 alt="feature"
                 sx={{ objectFit: "contain" }}
             />
-            <CardContent sx={{ padding: 0 }}>
+            <CardContent sx={{ p: 0 }}>
                 <Typography
                     align='center'
                     className={classes.featureTitle}
-                    sx={{ fontSize: 4.77 }}
+                    sx={{
+                        fontSize: {
+                            xxs: 4.77, ml: 8.5, lg: 12
+                        }
+                    }}
                 >
                     {feature.title}
                 </Typography>
