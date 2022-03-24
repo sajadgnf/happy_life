@@ -169,23 +169,21 @@ const Navbar = ({ show }) => {
                     onOpen={() => setOpen(true)}
                     onClose={() => setOpen(false)}
                 >
-                    <div>
-                        <IconButton sx={{ marginRight: "18px" }} onClick={() => setOpen(false)}>
-                            <ArrowForwardSharpIcon />
-                        </IconButton>
-                    </div>
+                    <IconButton sx={{ marginLeft: "58px" }} onClick={() => setOpen(false)}>
+                        <ArrowForwardSharpIcon />
+                    </IconButton>
 
                     <Divider>
                         <List>
                             <ListItem>
                                 <Link className={classes.nabarLinks} to='#'>
-                                    <Typography fontSize={{ xxs: 14, ml: 16 }} marginLeft={1}>موبایل</Typography>
+                                    <Typography fontSize={{ xxs: 14, ml: 16 }} marginLeft={1} color="primary">موبایل</Typography>
                                     <img src={mobile} alt="mobile" />
                                 </Link>
                             </ListItem>
                             <ListItem>
                                 <Link className={classes.nabarLinks} to='#'>
-                                    <Typography fontSize={{ xxs: 14, ml: 16 }} marginLeft={1}>لوازم جانبی</Typography>
+                                    <Typography fontSize={{ xxs: 14, ml: 16 }} marginLeft={1} color="primary">لوازم جانبی</Typography>
                                     <img src={musicPlay} alt="headphone" />
                                 </Link>
                             </ListItem>
