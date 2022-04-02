@@ -3,9 +3,9 @@ import React from 'react';
 // functions
 import { useTitle } from '../helper/functions';
 
-const Login = () => {
+const Signin = () => {
 
-    useTitle("هپی لایف - ورود")
+    useTitle("هپی لایف - ثبت نام")
 
     return (
         <div>
@@ -14,4 +14,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Signin;

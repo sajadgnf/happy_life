@@ -7,7 +7,7 @@ import payment from "../assets/images/icons/payment.svg"
 import price from "../assets/images/icons/price.svg"
 import support from "../assets/images/icons/support.svg"
 import clock from "../assets/images/icons/clock.svg"
-import baner from "../assets/images/icons/baner.svg"
+import banner from "../assets/images/icons/banner.svg"
 import medal from "../assets/images/icons/medal.svg"
 import fiveG from "../assets/images/icons/5G.svg"
 import headphone from "../assets/images/icons/headphone.svg"
@@ -16,6 +16,14 @@ import user from "../assets/images/icons/user.svg"
 import moneyBag from "../assets/images/icons/money_bag.svg"
 import mobile from "../assets/images/icons/mobile.svg"
 import musicPlay from "../assets/images/icons/music-play.svg"
+import facebook from "../assets/images/icons/facebook.svg"
+import send from "../assets/images/icons/send.svg"
+import bell from "../assets/images/icons/bell.svg"
+import heart from "../assets/images/icons/heart.svg"
+import security from "../assets/images/icons/security.svg"
+import aboutUs from "../assets/images/icons/aboutUs.svg"
+import contactIcon from "../assets/images/icons/contactIcon.svg"
+import supportIcon from "../assets/images/icons/supportIcon.svg"
 
 export {
     logo,
@@ -26,7 +34,7 @@ export {
     price,
     support,
     clock,
-    baner,
+    banner,
     medal,
     fiveG,
     headphone,
@@ -35,5 +43,13 @@ export {
     cart,
     user,
     mobile,
-    musicPlay
+    musicPlay,
+    facebook,
+    send,
+    bell,
+    heart,
+    security,
+    aboutUs,
+    contactIcon,
+    supportIcon,
 }

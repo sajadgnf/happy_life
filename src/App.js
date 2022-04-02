@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 
 // components
 import Login from "./components/Login";
-import Singin from "./components/Singin";
+import Signin from "./components/Signin";
 import Layout from "./components/Layout";
 import { Provider } from "react-redux";
 
@@ -18,6 +18,7 @@ const theme = createTheme({
   breakpoints: {
     values: {
       xxs: 0,
+      xsm: 414,
       xs: 520,
       sm: 620,
       ml: 720,
@@ -49,6 +50,12 @@ const theme = createTheme({
       light: "#30aca3",
       dark: "#1b625d"
     },
+    customYellow: {
+      main: '#FFC93F',
+    },
+    customRed: {
+      main: '#782228',
+    },
     secondary: {
       main: "#cbcbcb",
       light: "#e4e4e4",
@@ -73,7 +80,7 @@ const App = () => {
           <Routes>
             <Route path="/*" element={<Layout />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signin" element={<Singin />} />
+            <Route path="/signin" element={<Signin />} />
           </Routes>
         </div>
       </Provider>

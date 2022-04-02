@@ -1,34 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 // components
-import Contac from './Contac';
+import Contact from './Contact';
 import Footer from './Footer';
 import Landing from './Landing';
 import Navbar from './Navbar';
-import Products from './Products';
+import Mobiles from './Mobiles';
+import Accessories from './Accessories'
+import Headphones from "./Headphones"
+import Details from './Details';
 import Support from './Support';
 import AboutUs from './AboutUs'
 import Cart from "./Cart"
+import { Paper } from '@mui/material';
+
+// api
+import { fetchProducts } from '../redux/products/productsAction';
 
 const Layout = () => {
 
+    const dispatch = useDispatch()
+    const productsState = useSelector(store => store.productsState)
+    const productsCategories = useSelector(store=> store.productsCategoriesState)
     const [searchBarText, setSearchBarText] = useState(() => window.innerWidth < 620 ?
         "جستوجو..." :
         "نام محصول یا کالای مورد نظر خود را تایپ نمایید..."
     )
-    const [show, setShow] = useState(() => window.innerWidth < 620 ? false : true)
+    const [show, setShow] = useState(() => window.innerWidth < 720 ? false : true)
 
-    // window resize listener
     useEffect(() => {
+
+        // window resize listener
         window.addEventListener('resize', () => {
 
             if (window.innerWidth < 620) {
                 setSearchBarText("جستوجو...")
-                setShow(false)
             } else {
                 setSearchBarText("نام محصول یا کالای مورد نظر خود را تایپ نمایید...")
-                setShow(true)
             }
             if (window.innerWidth < 720) {
                 setShow(false)
@@ -36,22 +46,34 @@ const Layout = () => {
                 setShow(true)
             }
         })
+
+        // get Products
+        if (!productsState.products.length) dispatch(fetchProducts())
     }, [])
 
+    const { loading, error } = productsState
+
     return (
-        <div>
-            <Navbar show={show} />
-            <Routes>
-                <Route path='/' element={<Landing searchBarText={searchBarText} />} />
-                <Route path="*" element={<Navigate to="/" />} />
-                <Route path='/products' element={<Products />} />
-                <Route path='/support' element={<Support />} />
-                <Route path='/contac' element={<Contac />} />
-                <Route path='/aboutUs' element={<AboutUs />} />
-                <Route path='/cart' element={<Cart />} />
-            </Routes>
-            <Footer />
-        </div>
+        loading ?
+            <p>Loading</p> :
+            error ?
+                <p>Something went wrong</p> :
+                <Paper elevation={0}>
+                    <Navbar show={show} />
+                    <Routes>
+                        <Route path='/' element={<Landing searchBarText={searchBarText} productsState={productsState} />} />
+                        <Route path="*" element={<Navigate to="/" />} />
+                        <Route path='/mobiles' element={<Mobiles show={show} productsState={productsState} />} />
+                        <Route path='/accessories' element={<Accessories show={show} productsState={productsState} />} />
+                        <Route path='/headphones' element={<Headphones show={show} productsState={productsState} />} />
+                        <Route path={`${productsCategories}/:id`} element={<Details category={productsCategories} searchBarText={searchBarText}/>} />
+                        <Route path='/support' element={<Support />} />
+                        <Route path='/contact' element={<Contact />} />
+                        <Route path='/aboutUs' element={<AboutUs />} />
+                        <Route path='/cart' element={<Cart />} />
+                    </Routes>
+                    <Footer />
+                </Paper>
     );
 };
 

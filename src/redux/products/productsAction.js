@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { mobile } from '../../constants/icons'
 
 const fetchProductsRequest = () => {
     return {
@@ -20,14 +21,33 @@ const fetchProductsFailure = error => {
     }
 }
 
+const BASE_URL = "https://happy-life-api.herokuapp.com"
+
 export const fetchProducts = () => {
     return dispatch => {
         dispatch(fetchProductsRequest())
-        axios.get('https://happy-life-api.herokuapp.com/products')
-            .then(response => {
-                const products = response.data
-                dispatch(fetchProductsSuccess(products))
-            })
+        axios.all([
+            axios.get(`${BASE_URL}/mobiles`),
+            axios.get(`${BASE_URL}/accessories`),
+            axios.get(`${BASE_URL}/headphones`),
+            axios.get(`${BASE_URL}/amazing`),
+            axios.get(`${BASE_URL}/most-visited`),
+            axios.get(`${BASE_URL}/most-sales`),
+
+        ])
+            .then(
+                axios.spread((mobiles, accessories, headphones, amazing, mostVisited, mostSales) => {
+                    const products = {
+                        mobiles: mobiles.data,
+                        accessories: accessories.data,
+                        headphones: headphones.data,
+                        amazing: amazing.data,
+                        mostVisited: mostVisited.data,
+                        mostSales: mostSales.data
+                    }
+                    dispatch(fetchProductsSuccess(products))
+                })
+            )
             .catch(error => {
                 const errorMessage = error.message
                 dispatch(fetchProductsFailure(errorMessage))

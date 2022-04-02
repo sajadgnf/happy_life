@@ -1,9 +1,15 @@
 import React from 'react';
 
+// functions
+import { useTitle } from '../helper/functions';
+
 const Support = () => {
+
+    useTitle("هپی لایف - پشتیبانی")
+
     return (
         <div>
-            support
+            coming soon
         </div>
     );
 };

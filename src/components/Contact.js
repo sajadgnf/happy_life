@@ -3,9 +3,9 @@ import React from 'react';
 // functions
 import { useTitle } from '../helper/functions';
 
-const Login = () => {
+const Contact = () => {
 
-    useTitle("هپی لایف - ورود")
+    useTitle("تماس با ما")
 
     return (
         <div>
@@ -14,4 +14,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Contact;

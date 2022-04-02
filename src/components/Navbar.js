@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { AppBar, Badge, IconButton, Toolbar, Typography, Button, Container, SwipeableDrawer, List, ListItem, Divider } from '@mui/material';
+import React, { useState } from 'react';
+import { AppBar, Badge, IconButton, Toolbar, Typography, Container, SwipeableDrawer, List, ListItem, Divider } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/system';
 import { makeStyles } from '@mui/styles';
 import ArrowForwardSharpIcon from '@mui/icons-material/ArrowForwardSharp';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // icons
-import { user, cart, mobile, musicPlay, navbarLogo } from "../constants/icons"
+import {
+    user, cart, mobile, musicPlay, navbarLogo, aboutUs, contactIcon, supportIcon
+} from "../constants/icons"
 
 const useStyle = makeStyles(theme => {
     return {
@@ -44,9 +47,9 @@ const useStyle = makeStyles(theme => {
                 borderBottom: `2px solid ${theme.palette.primary.main}`
             }
         },
-        nabarLinks: {
+        navbarLinks: {
             textDecoration: 'none',
-            paddingRight: 20,
+            marginRight: 20,
             display: "flex"
         }
     }
@@ -54,7 +57,7 @@ const useStyle = makeStyles(theme => {
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
-        top: 1,
+        top: 12,
         left: -3,
         fontSize: 6,
         minWidth: 10,
@@ -79,6 +82,7 @@ const Navbar = ({ show }) => {
 
     const classes = useStyle()
     const [open, setOpen] = useState(false)
+    const counter = useSelector(store => store.cartState.itemsCounter)
 
     return (
         <AppBar
@@ -106,17 +110,17 @@ const Navbar = ({ show }) => {
                     </IconButton>
                     {
                         show &&
-                        <Box display='flex' alignItems='unset'>
-                            <Link to='/' className={classes.nabarLinks}>
+                        <Box display='flex' alignItems='center'>
+                            <Link to='/' className={classes.navbarLinks}>
                                 <Typography className={classes.navOption} fontSize={{ xxs: 10, lg: 12 }} color='#333'>صفحه اصلی</Typography>
                             </Link>
-                            <Link to='/support' className={classes.nabarLinks}>
+                            <Link to='/support' className={classes.navbarLinks}>
                                 <Typography className={classes.navOption} fontSize={{ xxs: 10, lg: 12 }} color='#333'>پشتیبانی</Typography>
                             </Link>
-                            <Link to='/contac' className={classes.nabarLinks}>
+                            <Link to='/contact' className={classes.navbarLinks}>
                                 <Typography className={classes.navOption} fontSize={{ xxs: 10, lg: 12 }} color='#333'>تماس با ما</Typography>
                             </Link>
-                            <Link to='/aboutUs' className={classes.nabarLinks}>
+                            <Link to='/aboutUs' className={classes.navbarLinks}>
                                 <Typography className={classes.navOption} fontSize={{ xxs: 10, lg: 12 }} color='#333'>درباره ما</Typography>
                             </Link>
                         </Box>
@@ -125,7 +129,8 @@ const Navbar = ({ show }) => {
                 <Box sx={{
                     position: 'absolute',
                     left: '50%',
-                    transform: "translateX(-50%)"
+                    transform: "translateX(-50%)",
+                    pt: 1
                 }}>
                     <img className={classes.logo} src={navbarLogo} alt="log" />
                 </Box>
@@ -150,7 +155,7 @@ const Navbar = ({ show }) => {
                     >
                         <StyledBadge
                             color='primary'
-                            badgeContent={1}
+                            badgeContent={counter}
                             anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
                         >
                             <Link to="/cart">
@@ -169,24 +174,86 @@ const Navbar = ({ show }) => {
                     onOpen={() => setOpen(true)}
                     onClose={() => setOpen(false)}
                 >
-                    <IconButton sx={{ marginLeft: "58px" }} onClick={() => setOpen(false)}>
+                    <IconButton
+                        disableRipple
+                        className={classes.root}
+                        sx={{ marginLeft: "58px" }}
+                        onClick={() => setOpen(false)}
+                    >
                         <ArrowForwardSharpIcon />
                     </IconButton>
 
                     <Divider>
                         <List>
+                            {
+                                !show &&
+                                <ListItem>
+                                    <Link
+                                        className={classes.navbarLinks}
+                                        to='/'
+                                        onClick={() => setOpen(false)}
+                                    >
+                                        <Typography fontSize={{ xxs: 14, ml: 16 }} marginLeft={1} color="primary">صفحه اصلی</Typography>
+                                        {/* <img src={musicPlay} alt="headphone" /> */}
+                                    </Link>
+                                </ListItem>
+                            }
+
                             <ListItem>
-                                <Link className={classes.nabarLinks} to='#'>
+                                <Link
+                                    className={classes.navbarLinks}
+                                    to='/mobiles'
+                                    onClick={() => setOpen(false)}
+                                >
                                     <Typography fontSize={{ xxs: 14, ml: 16 }} marginLeft={1} color="primary">موبایل</Typography>
                                     <img src={mobile} alt="mobile" />
                                 </Link>
                             </ListItem>
                             <ListItem>
-                                <Link className={classes.nabarLinks} to='#'>
+                                <Link
+                                    className={classes.navbarLinks}
+                                    to='/accessories'
+                                    onClick={() => setOpen(false)}
+                                >
                                     <Typography fontSize={{ xxs: 14, ml: 16 }} marginLeft={1} color="primary">لوازم جانبی</Typography>
                                     <img src={musicPlay} alt="headphone" />
                                 </Link>
                             </ListItem>
+                            {
+                                !show &&
+                                <>
+                                    <ListItem>
+                                        <Link
+                                            className={classes.navbarLinks}
+                                            to='/support'
+                                            onClick={() => setOpen(false)}
+                                        >
+                                            <Typography fontSize={{ xxs: 14, ml: 16 }} marginLeft={1} color="primary">پشتیبانی</Typography>
+                                            <img src={supportIcon} alt="support" />
+                                        </Link>
+                                    </ListItem>
+                                    <ListItem>
+                                        <Link
+                                            className={classes.navbarLinks}
+                                            to='/contact'
+                                            onClick={() => setOpen(false)}
+                                        >
+                                            <Typography fontSize={{ xxs: 14, ml: 16 }} marginLeft={1} color="primary">تماس با ما</Typography>
+                                            <img src={contactIcon} alt="contact" />
+                                        </Link>
+                                    </ListItem>
+                                    <ListItem>
+                                        <Link
+                                            className={classes.navbarLinks}
+                                            to='/aboutUs'
+                                            onClick={() => setOpen(false)}
+                                        >
+                                            <Typography fontSize={{ xxs: 14, ml: 16 }} marginLeft={1} color="primary">درباره ما</Typography>
+                                            <img src={aboutUs} alt="aboutUs" />
+                                        </Link>
+                                    </ListItem>
+                                </>
+                            }
                         </List>
                     </Divider>
 
