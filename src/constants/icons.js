@@ -24,6 +24,8 @@ import security from "../assets/images/icons/security.svg"
 import aboutUs from "../assets/images/icons/aboutUs.svg"
 import contactIcon from "../assets/images/icons/contactIcon.svg"
 import supportIcon from "../assets/images/icons/supportIcon.svg"
+import wallet from "../assets/images/icons/wallet.svg"
+import loginLogo from "../assets/images/icons/loginLogo.svg"
 
 export {
     logo,
@@ -52,4 +54,6 @@ export {
     aboutUs,
     contactIcon,
     supportIcon,
+    wallet,
+    loginLogo
 }

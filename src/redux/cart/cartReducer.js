@@ -14,7 +14,7 @@ const sumItems = items => {
 const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD_ITEM':
-            if (!state.selectedItems.find(item => item.title === action.payload.title && item.color === action.color)) {
+            if (!state.selectedItems.find(item => item.title === action.payload.title && item.color.title === action.color.title)) {
                 state.selectedItems.push({
                     ...action.payload,
                     quantity: 1,
@@ -30,7 +30,7 @@ const cartReducer = (state = initialState, action) => {
             }
         case 'REMOVE_ITEM':
             const checkSelectedItems = state.selectedItems.filter(item => item.title !== action.payload.title)
-            const checkColor = state.selectedItems.filter(item => item.title === action.payload.title).filter(item => item.color !== action.color)
+            const checkColor = state.selectedItems.filter(item => item.title === action.payload.title).filter(item => item.color.title !== action.color.title)
             const newSelectedItems = [...checkSelectedItems, ...checkColor]
 
             return {
@@ -39,14 +39,14 @@ const cartReducer = (state = initialState, action) => {
                 ...sumItems(newSelectedItems)
             }
         case 'INCREASE':
-            const indexI = state.selectedItems.findIndex(item => item.title === action.payload.title && item.color === action.color)
+            const indexI = state.selectedItems.findIndex(item => item.title === action.payload.title && item.color.title === action.color.title)
             state.selectedItems[indexI].quantity++
             return {
                 ...state,
                 ...sumItems(state.selectedItems)
             }
         case 'DECREASE':
-            const indexD = state.selectedItems.findIndex(item => item.title === action.payload.title && item.color === action.color)
+            const indexD = state.selectedItems.findIndex(item => item.title === action.payload.title && item.color.title === action.color.title)
             state.selectedItems[indexD].quantity--
             return {
                 ...state,

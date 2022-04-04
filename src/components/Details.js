@@ -166,7 +166,7 @@ const Details = ({ category, searchBarText }) => {
     const [selected, setSelected] = useState(() => [])
     const [showImage, setShowImage] = useState('')
     const [open, setOpen] = useState(false)
-    const [selectedColor, setSelectedColor] = useState('')
+    const [selectedColor, setSelectedColor] = useState([])
     const [openSearch, setOpenSearch] = useState(false)
     const dispatch = useDispatch()
     const cartState = useSelector(store => store.cartState)
@@ -361,7 +361,7 @@ const Details = ({ category, searchBarText }) => {
                     {/* colors */}
                     <Box>
                         <Typography className={classes.productProperty} marginBottom="15px !important">
-                            رنگ : {selectedColor}
+                            رنگ : {selectedColor.title}
                         </Typography>
 
                         <Box display="flex">
@@ -375,7 +375,7 @@ const Details = ({ category, searchBarText }) => {
                                         className={classes.colorBtn}
                                         sx={{
                                             "&::before": {
-                                                borderBottom: (color.title === selectedColor) ? '2px solid #777' : 'none'
+                                                borderBottom: (color.title === selectedColor.title) ? '2px solid #777' : 'none'
                                             }
                                         }}
                                     >
@@ -391,7 +391,7 @@ const Details = ({ category, searchBarText }) => {
                                                 boxShadow: "0 0 11px 0 rgba(0, 0, 0, .5)",
                                                 "&:hover": { backgroundColor: color.hex }
                                             }}
-                                            onClick={() => { setSelectedColor(color.title) }}
+                                            onClick={() => { setSelectedColor({...color}) }}
                                         ></Button>
                                     </Box>
                                 ))
@@ -421,7 +421,7 @@ const Details = ({ category, searchBarText }) => {
                             alignItems='center'
                         >
                             {
-                                quantityCount(cartState, product.title, selectedColor) > 1 &&
+                                quantityCount(cartState, product.title, selectedColor.title) > 1 &&
                                 <Button
                                     variant='contained'
                                     disabled={!selectedColor}
@@ -436,7 +436,7 @@ const Details = ({ category, searchBarText }) => {
                                 </Button>
                             }
                             {
-                                quantityCount(cartState, product.title, selectedColor) === 1 &&
+                                quantityCount(cartState, product.title, selectedColor.title) === 1 &&
                                 <Button
                                     variant='contained'
                                     disabled={!selectedColor}
@@ -451,11 +451,11 @@ const Details = ({ category, searchBarText }) => {
                                 </Button>
                             }
                             {
-                                quantityCount(cartState, product.title, selectedColor) >= 1 &&
-                                <Typography fontFamily='shabnam' fontSize={26} fontWeight={700} sx={{ px: 2 }}>{quantityCount(cartState, product.title, selectedColor)}</Typography>
+                                quantityCount(cartState, product.title, selectedColor.title) >= 1 &&
+                                <Typography fontFamily='shabnam' fontSize={26} fontWeight={700} sx={{ px: 2 }}>{quantityCount(cartState, product.title, selectedColor.title)}</Typography>
                             }
                             {
-                                checkCart(cartState, product.title, selectedColor) ?
+                                checkCart(cartState, product.title, selectedColor.title) ?
                                     <Button
                                         variant='contained'
                                         disabled={!selectedColor}
@@ -470,7 +470,7 @@ const Details = ({ category, searchBarText }) => {
                                     </Button> :
                                     <Button
                                         variant='contained'
-                                        disabled={!selectedColor}
+                                        disabled={!selectedColor.title}
                                         sx={{
                                             fontSize: 14,
                                             fontFamily: 'shabnam',
