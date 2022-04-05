@@ -23,7 +23,7 @@ const Layout = () => {
 
     const dispatch = useDispatch()
     const productsState = useSelector(store => store.productsState)
-    const productsCategories = useSelector(store=> store.productsCategoriesState)
+    const productsCategories = useSelector(store => store.productsCategoriesState)
     const [searchBarText, setSearchBarText] = useState(() => window.innerWidth < 620 ?
         "جستوجو..." :
         "نام محصول یا کالای مورد نظر خود را تایپ نمایید..."
@@ -66,7 +66,7 @@ const Layout = () => {
                         <Route path='/mobiles' element={<Mobiles show={show} productsState={productsState} />} />
                         <Route path='/accessories' element={<Accessories show={show} productsState={productsState} />} />
                         <Route path='/headphones' element={<Headphones show={show} productsState={productsState} />} />
-                        <Route path={`${productsCategories}/:id`} element={<Details category={productsCategories} searchBarText={searchBarText}/>} />
+                        <Route path={`${productsCategories}/:id`} element={<Details category={productsCategories} searchBarText={searchBarText} />} />
                         <Route path='/support' element={<Support />} />
                         <Route path='/contact' element={<Contact />} />
                         <Route path='/aboutUs' element={<AboutUs />} />

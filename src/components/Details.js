@@ -19,6 +19,7 @@ import { addItem, decrease, increase, removeItem } from '../redux/cart/cartActio
 
 // functions
 import { checkCart, quantityCount, useTitle } from '../helper/functions';
+import { display } from '@mui/system';
 
 const useStyle = makeStyles(theme => {
     return {
@@ -155,6 +156,15 @@ const useStyle = makeStyles(theme => {
                 color: "#fff"
             }
         },
+        buttonsContainer: {
+            border: `2px solid ${theme.palette.primary.main}`,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 45,
+            borderRadius: 10,
+            overflow: 'hidden'
+        }
     }
 })
 
@@ -391,7 +401,7 @@ const Details = ({ category, searchBarText }) => {
                                                 boxShadow: "0 0 11px 0 rgba(0, 0, 0, .5)",
                                                 "&:hover": { backgroundColor: color.hex }
                                             }}
-                                            onClick={() => { setSelectedColor({...color}) }}
+                                            onClick={() => { setSelectedColor({ ...color }) }}
                                         ></Button>
                                     </Box>
                                 ))
@@ -421,67 +431,56 @@ const Details = ({ category, searchBarText }) => {
                             alignItems='center'
                         >
                             {
-                                quantityCount(cartState, product.title, selectedColor.title) > 1 &&
-                                <Button
-                                    variant='contained'
-                                    disabled={!selectedColor}
-                                    sx={{
-                                        fontSize: 30,
-                                        width: 30,
-                                        height: 40
-                                    }}
-                                    onClick={() => dispatch(decrease(product, selectedColor))}
-                                >
-                                    -
-                                </Button>
-                            }
-                            {
-                                quantityCount(cartState, product.title, selectedColor.title) === 1 &&
-                                <Button
-                                    variant='contained'
-                                    disabled={!selectedColor}
-                                    sx={{
-                                        fontSize: 30,
-                                        width: 30,
-                                        height: 40
-                                    }}
-                                    onClick={() => dispatch(removeItem(product, selectedColor))}
-                                >
-                                    <DeleteIcon />
-                                </Button>
-                            }
-                            {
-                                quantityCount(cartState, product.title, selectedColor.title) >= 1 &&
-                                <Typography fontFamily='shabnam' fontSize={26} fontWeight={700} sx={{ px: 2 }}>{quantityCount(cartState, product.title, selectedColor.title)}</Typography>
-                            }
-                            {
-                                checkCart(cartState, product.title, selectedColor.title) ?
+                                checkCart(cartState, product.title, selectedColor.title) &&
+                                <Box className={classes.buttonsContainer}>
                                     <Button
-                                        variant='contained'
-                                        disabled={!selectedColor}
                                         sx={{
                                             fontSize: 30,
-                                            width: 30,
-                                            height: 40
                                         }}
                                         onClick={() => dispatch(increase(product, selectedColor))}
                                     >
                                         +
-                                    </Button> :
-                                    <Button
-                                        variant='contained'
-                                        disabled={!selectedColor.title}
-                                        sx={{
-                                            fontSize: 14,
-                                            fontFamily: 'shabnam',
-                                            py: 1.3,
-                                            px: 6,
-                                        }}
-                                        startIcon={<ShoppingCartOutlinedIcon sx={{ marginLeft: 1 }} />}
-                                        onClick={() => dispatch(addItem(product, selectedColor))}
-                                    >
-                                        افزودن به سبد خرید
                                     </Button>
+
+                                    {
+                                        quantityCount(cartState, product.title, selectedColor.title) >= 1 &&
+                                        <Typography fontFamily='shabnam' fontSize={26} fontWeight={700} sx={{ px: 2 }}>{quantityCount(cartState, product.title, selectedColor.title)}</Typography>
+                                    }
+
+                                    {
+                                        quantityCount(cartState, product.title, selectedColor.title) >= 1 &&
+                                        <Button
+                                            sx={{
+                                                fontSize: 30,
+                                            }}
+                                            onClick={() => {
+                                                dispatch(quantityCount(cartState, product.title, selectedColor.title) > 1 ?
+                                                    decrease(product, selectedColor) :
+                                                    dispatch(removeItem(product, selectedColor)))
+                                            }
+                                            }
+                                        >
+                                            -
+                                        </Button>
+                                    }
+                                </Box>
+                            }
+                            {
+                                !checkCart(cartState, product.title, selectedColor.title) &&
+                                <Button
+                                    variant='contained'
+                                    disabled={!selectedColor.title}
+                                    sx={{
+                                        fontSize: 14,
+                                        fontFamily: 'shabnam',
+                                        py: 1.3,
+                                        px: 6,
+                                    }}
+                                    startIcon={<ShoppingCartOutlinedIcon sx={{ marginLeft: 1 }} />}
+                                    onClick={() => dispatch(addItem(product, selectedColor))}
+                                >
+                                    افزودن به سبد خرید
+                                </Button>
                             }
                         </Box>
                     </Box>

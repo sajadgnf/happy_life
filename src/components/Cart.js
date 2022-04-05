@@ -1,20 +1,39 @@
 import React from 'react';
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Container, IconButton, Typography } from "@mui/material"
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Container, IconButton, Paper, Typography } from "@mui/material"
 import { makeStyles } from '@mui/styles'
 import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from "react-router-dom"
 
 // functions
 import { useTitle } from '../helper/functions';
 
 // icon 
-import { wallet, security } from '../constants/icons'
+import { wallet, security, emptyCart } from '../constants/icons'
 
 // redux actions
-import { decrease, increase, removeItem } from '../redux/cart/cartActions';
+import { decrease, increase, removeItem, checkout as checkOut } from '../redux/cart/cartActions';
 
 const useStyle = makeStyles(theme => {
     return {
+        complete: {
+            display: 'flex',
+            justifyContent: "center",
+            alignItems: 'center',
+            flexDirection: 'column',
+            height: 'calc(100vh - 100px)'
+        },
+        completeImage: {
+            width: "300px",
+            background: "#fff",
+            [theme.breakpoints.up('xsm')]: {
+                width: "400px",
+            },
+        },
+        completeBtn: {
+            textDecoration: 'none',
+            color: '#fff'
+        },
         container: {
             padding: "80px 40px 50px",
             display: 'flex',
@@ -100,93 +119,108 @@ const Cart = () => {
     const cartState = useSelector(store => store.cartState)
     const dispatch = useDispatch()
 
-    const { itemsCounter, total, selectedItems } = cartState
+    const { itemsCounter, total, selectedItems, checkout } = cartState
 
     return (
-        <div className={classes.container}>
-            <Box width={{ xxs: "100%", xl: "70%" }}>
-                {selectedItems.map(item => (
-                    <Card
-                        className={classes.card}
-                        key={item.title + item.color.title}
-                        sx={{ marginBottom: 2 }}
-                    >
-                        <Box display="flex" alignItems="center">
-                            <CardMedia
-                                component="img"
-                                height={65}
-                                sx={{ width: 65 }}
-                                image={item.image.main}
-                                alt="عکس محصول"
-                            />
-                            <CardContent sx={{ width: "100%", pb: "5px !important" }}>
-                                <Typography width="75%" variant='h6' noWrap fontSize={{ xxs: 13, xs: 16 }}>
-                                    {item.title}
-                                </Typography>
-                                <Box margin="10px 0" display="flex" alignItems="center">
-                                    <img className={classes.securityIcon} src={security} alt="security" />
-                                    <Typography color="primary" marginBottom='0 !important' marginRight fontSize={{ xxs: 10, xs: 12 }}>گارانتی 18 ماهه سام تل</Typography>
-                                </Box>
-                                <Box margin="10px 0" display="flex" alignItems="center">
-                                    <Box
-                                        disableRipple
-                                        sx={{
-                                            background: item.color.hex,
-                                            width: { xxs: 14, xs: 16 },
-                                            height: { xxs: 14, xs: 16 },
-                                            borderRadius: "100%",
-                                            ml: 1,
-                                            boxShadow: "0 0 11px 0 rgba(0, 0, 0, .5)",
-                                            "&:hover": { backgroundColor: item.color.hex }
-                                        }}
-                                    ></Box>
-                                    <Typography color="primary" marginBottom='0 !important' marginRight fontSize={{ xxs: 10, xs: 12 }}>{item.color.title}</Typography>
-                                </Box>
-                            </CardContent>
-                        </Box>
+        checkout || itemsCounter < 1 ?
+            <div className={classes.complete}>
+                <img className={classes.completeImage} src={emptyCart} alt="صبد خرید خالی" />
+                <Typography variant='h6' marginBottom fontSize={16}>سبد خرید شما خالی است!</Typography>
+                <Button variant='contained' sx={{ width: 130 }}>
+                    <Link to="/" className={classes.completeBtn}>خرید</Link>
+                </Button>
+            </div> :
 
-                        <Box marginLeft="10%"
-                            marginBottom={3}
-                            alignItems="end"
-                            display="flex"
-                            flexDirection="column"
+            <Paper elevation={0} className={classes.container}>
+                <Box width={{ xxs: "100%", xl: "70%" }}>
+                    {selectedItems.map(item => (
+                        <Card
+                            className={classes.card}
+                            key={item.title + item.color.title}
+                            sx={{ marginBottom: 2 }}
                         >
-                            <Box display="flex" alignItems="center" marginBottom={1}>
-                                <IconButton onClick={() => dispatch(removeItem(item, item.color))}><DeleteOutlineSharpIcon color='primary' /></IconButton>
-                                <Box className={classes.quantityButtonContainer}>
-                                    <Button onClick={() => dispatch(increase(item, item.color))} className={classes.quantityButton}>+</Button>
-                                    <Typography>{item.quantity}</Typography>
-                                    <Button onClick={() => item.quantity === 1 ? dispatch(removeItem(item, item.color)) : dispatch(decrease(item, item.color))} className={classes.quantityButton}>-</Button>
-                                </Box>
+                            <Box display="flex" alignItems="center">
+                                <CardMedia
+                                    component="img"
+                                    height={65}
+                                    sx={{ width: 65 }}
+                                    image={item.image.main}
+                                    alt="عکس محصول"
+                                />
+                                <CardContent sx={{ width: "100%", pb: "5px !important" }}>
+                                    <Typography width="75%" variant='h6' noWrap fontSize={{ xxs: 13, xs: 16 }}>
+                                        {item.title}
+                                    </Typography>
+                                    <Box margin="10px 0" display="flex" alignItems="center">
+                                        <img className={classes.securityIcon} src={security} alt="security" />
+                                        <Typography color="primary" marginBottom='0 !important' marginRight fontSize={{ xxs: 10, xs: 12 }}>گارانتی 18 ماهه سام تل</Typography>
+                                    </Box>
+                                    <Box margin="10px 0" display="flex" alignItems="center">
+                                        <Box
+                                            sx={{
+                                                background: item.color.hex,
+                                                width: { xxs: 14, xs: 16 },
+                                                height: { xxs: 14, xs: 16 },
+                                                borderRadius: "100%",
+                                                ml: 1,
+                                                mr: '1px',
+                                                boxShadow: "0 0 11px 0 rgba(0, 0, 0, .5)",
+                                                "&:hover": { backgroundColor: item.color.hex }
+                                            }}
+                                        ></Box>
+                                        <Typography color="primary" marginBottom='0 !important' marginRight fontSize={{ xxs: 10, xs: 12 }}>{item.color.title}</Typography>
+                                    </Box>
+                                </CardContent>
                             </Box>
-                            <Typography variant='h6' fontFamily='shabnam' fontSize={{ xxs: 14, xs: 16 }}>{item.price.toLocaleString()} تومان</Typography>
-                        </Box>
-                    </Card>
-                ))}
-            </Box>
 
-            <Card className={classes.card} sx={{ width: { xxs: "100%", xl: '25%' }, p: { xxs: 1, xsm: 4 }, mt: { xxs: 2, ml: 0 } }}>
-                <CardContent sx={{ padding: 0 }}>
-                    <Box className={classes.paymentContainer} marginBottom={3}>
-                        <Typography className={classes.payment}>قیمت کالاها({itemsCounter})</Typography>
-                        <Typography className={classes.payment}>{Number(total).toLocaleString()} تومان</Typography>
-                    </Box>
-                    <Box className={classes.paymentContainer} borderBottom='1px solid #cbcbcb' paddingBottom={5}>
-                        <Typography className={classes.payment}>هزینه ارسال</Typography>
-                        <Typography className={classes.payment}>رایگان</Typography>
-                    </Box>
-                    <Box className={classes.paymentContainer} marginTop={2.5}>
-                        <Typography className={classes.payment} fontWeight={400}>جمع سبد خرید</Typography>
-                        <Typography className={classes.payment} fontWeight={400}>{Number(total).toLocaleString()} تومان</Typography>
-                    </Box>
-                </CardContent>
-                <CardActions sx={{ display: 'flex', justifyContent: 'center', pt: 4, pb: 0 }}>
-                    <Button variant='contained' fullWidth sx={{ py: 1.2 }} startIcon={<img src={wallet} alt="wallet" className={classes.paymentIcon} />}>
-                        پرداخت
-                    </Button>
-                </CardActions>
-            </Card>
-        </div>
+                            <Box marginLeft="10%"
+                                marginBottom={3}
+                                alignItems="end"
+                                display="flex"
+                                flexDirection="column"
+                            >
+                                <Box display="flex" alignItems="center" marginBottom={1}>
+                                    <IconButton onClick={() => dispatch(removeItem(item, item.color))}><DeleteOutlineSharpIcon color='primary' /></IconButton>
+                                    <Box className={classes.quantityButtonContainer}>
+                                        <Button onClick={() => dispatch(increase(item, item.color))} className={classes.quantityButton}>+</Button>
+                                        <Typography>{item.quantity}</Typography>
+                                        <Button onClick={() => item.quantity === 1 ? dispatch(removeItem(item, item.color)) : dispatch(decrease(item, item.color))} className={classes.quantityButton}>-</Button>
+                                    </Box>
+                                </Box>
+                                <Typography variant='h6' fontFamily='shabnam' fontSize={{ xxs: 14, xs: 16 }}>{item.price.toLocaleString()} تومان</Typography>
+                            </Box>
+                        </Card>
+                    ))}
+                </Box>
+
+                <Card className={classes.card} sx={{ width: { xxs: "100%", xl: '25%' }, p: { xxs: 1, xsm: 4 }, mt: { xxs: 2, ml: 0 } }}>
+                    <CardContent sx={{ padding: 0 }}>
+                        <Box className={classes.paymentContainer} marginBottom={3}>
+                            <Typography className={classes.payment}>قیمت کالاها({itemsCounter})</Typography>
+                            <Typography className={classes.payment}>{Number(total).toLocaleString()} تومان</Typography>
+                        </Box>
+                        <Box className={classes.paymentContainer} borderBottom='1px solid #cbcbcb' paddingBottom={5}>
+                            <Typography className={classes.payment}>هزینه ارسال</Typography>
+                            <Typography className={classes.payment}>رایگان</Typography>
+                        </Box>
+                        <Box className={classes.paymentContainer} marginTop={2.5}>
+                            <Typography className={classes.payment} fontWeight={400}>جمع سبد خرید</Typography>
+                            <Typography className={classes.payment} fontWeight={400}>{Number(total).toLocaleString()} تومان</Typography>
+                        </Box>
+                    </CardContent>
+                    <CardActions sx={{ display: 'flex', justifyContent: 'center', pt: 4, pb: 0 }}>
+                        <Button
+                            onClick={() => dispatch(checkOut())}
+                            variant='contained'
+                            fullWidth
+                            sx={{ py: 1.2 }}
+                            startIcon={<img src={wallet} alt="wallet" className={classes.paymentIcon} />}
+                        >
+                            پرداخت
+                        </Button>
+                    </CardActions>
+                </Card>
+            </Paper>
     );
 };
 

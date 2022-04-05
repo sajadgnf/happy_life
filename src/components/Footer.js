@@ -18,7 +18,7 @@ const useStyle = makeStyles(theme => {
             background: `url(${forest}) no-repeat center`,
             backgroundSize: 'cover',
             position: 'relative',
-            bottom: -136,
+            bottom: 0,
             height: 71,
             [theme.breakpoints.up('sm')]: {
                 height: 100

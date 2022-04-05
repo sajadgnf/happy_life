@@ -26,6 +26,7 @@ import contactIcon from "../assets/images/icons/contactIcon.svg"
 import supportIcon from "../assets/images/icons/supportIcon.svg"
 import wallet from "../assets/images/icons/wallet.svg"
 import loginLogo from "../assets/images/icons/loginLogo.svg"
+import emptyCart from "../assets/images/icons/empty_cart.svg"
 
 export {
     logo,
@@ -55,5 +56,6 @@ export {
     contactIcon,
     supportIcon,
     wallet,
-    loginLogo
+    loginLogo,
+    emptyCart
 }

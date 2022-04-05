@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { mobile } from '../../constants/icons'
 
 const fetchProductsRequest = () => {
     return {

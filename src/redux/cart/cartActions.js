@@ -31,10 +31,5 @@ const checkout = () => {
         type: "CHECKOUT"
     }
 }
-const clear = () => {
-    return {
-        type: "CLEAR"
-    }
-}
 
-export { addItem, increase, decrease, removeItem, checkout, clear }
+export { addItem, increase, decrease, removeItem, checkout }
