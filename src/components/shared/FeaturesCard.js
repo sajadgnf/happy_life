@@ -5,8 +5,8 @@ import React from 'react';
 const useStyle = makeStyles(theme => {
     return {
         featureCard: {
-            height: 64,
-            width: 64,
+            height: 85,
+            width: 85,
 
             [theme.breakpoints.up('xs')]: {
                 width: 'auto',
@@ -35,8 +35,7 @@ const FeaturesCard = ({ feature }) => {
             className={classes.featureCard}
             sx={{
                 borderRadius: {
-                    xxs: "20px",
-                    xs: "25px",
+                    xxs: "25px",
                     lg: "35px",
                     xl: "45px",
                     xxl: "56px"
@@ -56,7 +55,7 @@ const FeaturesCard = ({ feature }) => {
                     className={classes.featureTitle}
                     sx={{
                         fontSize: {
-                            xxs: 4.77, ml: 8.5, lg: 12
+                            xxs: 8, xs: 4.77, ml: 8.5, lg: 12
                         }
                     }}
                 >

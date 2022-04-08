@@ -146,7 +146,7 @@ const useStyle = makeStyles(theme => {
             width: 146,
             display: "flex",
             justifyContent: "center",
-            margin: '40px auto 16px',
+            margin: '60px auto 40px',
 
             [theme.breakpoints.up('sm')]: {
                 height: 'auto',
@@ -166,7 +166,7 @@ const useStyle = makeStyles(theme => {
 
         // features
         featuresContainer: {
-            paddingBottom: '40px',
+            padding: '0px 40px 40px',
 
             [theme.breakpoints.up('sm')]: {
                 padding: '0px 38px 40px'
@@ -179,8 +179,13 @@ const useStyle = makeStyles(theme => {
             },
         },
         featureContainer: {
-            padding: 2,
-
+            paddingBottom: 10,
+            display: 'flex',
+            justifyContent: 'center',
+            [theme.breakpoints.up('xs')]: {
+                display: 'unset',
+                padding: 2
+            },
             [theme.breakpoints.up('ml')]: {
                 padding: 5
             },
@@ -254,7 +259,7 @@ const useStyle = makeStyles(theme => {
                 content: '""',
                 position: 'absolute',
                 background: theme.palette.primary.main,
-                bottom: '-10px',
+                bottom: '-8px',
                 right: 0,
                 width: '100%',
                 height: 3,
@@ -305,24 +310,24 @@ const useStyle = makeStyles(theme => {
             background: '#fff',
             fontSize: "30px !important",
             position: "absolute",
-            top: '46.2%',
+            top: '41.2%',
 
             [theme.breakpoints.up('sm')]: {
-                top: '45%',
+                top: '41%',
             },
             [theme.breakpoints.up('ml')]: {
-                top: '47%',
+                top: '45%',
                 fontSize: "36px !important",
             },
             [theme.breakpoints.up('lg')]: {
-                top: '45%',
+                top: '43%',
             },
             [theme.breakpoints.up('xxl')]: {
-                top: '48%',
+                top: '46%',
             },
         },
         forwardScroll: {
-            left: 0,
+            left: 0
         },
         backScroll: {
             right: 0,
@@ -418,7 +423,7 @@ const Landing = ({ searchBarText, productsState }) => {
             >
                 {
                     features.map(feature => (
-                        <Grid item xs={2} key={feature.title} className={classes.featureContainer}>
+                        <Grid item xxs={4} xs={2} key={feature.title} className={classes.featureContainer}>
                             <FeaturesCard feature={feature} />
                         </Grid>
                     ))
@@ -485,7 +490,7 @@ const Landing = ({ searchBarText, productsState }) => {
                             ref={visited}
                             wrap='nowrap'
                             spacing={{ xxs: 1, ml: 2, xxl: 6 }}
-                            sx={{ overflowX: 'auto', scrollBehavior: "smooth", pb: { xxs: "24px", ml: "40px" }, pr: .5 }}
+                            sx={{ overflowX: 'auto', scrollBehavior: "smooth", pb: 5, pr: .5 }}
                         >
                             {
                                 mostVisited.map(item => (
@@ -624,7 +629,7 @@ const Landing = ({ searchBarText, productsState }) => {
                             ref={sales}
                             wrap='nowrap'
                             spacing={{ xxs: 1, ml: 2, xxl: 6 }}
-                            sx={{ overflowX: 'auto', scrollBehavior: "smooth", pb: { xxs: "24px", ml: "40px" }, pr: .5 }}
+                            sx={{ overflowX: 'auto', scrollBehavior: "smooth", pb: 5, pr: .5 }}
                         >
                             {
                                 mostSales.map(item => (
