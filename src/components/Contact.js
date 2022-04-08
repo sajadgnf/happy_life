@@ -268,7 +268,7 @@ const Contact = () => {
                         color='focus'
                         fullWidth
                         required
-                        sx={{ marginTop: { xxs: 5 }, color: "#fff", fontSize: { xxs: 12, sm: 14, lg: 16 } }}
+                        sx={{ marginTop: { xxs: 2, sm: 4 }, color: "#fff", fontSize: { xxs: 12, sm: 14, lg: 16 } }}
                         value={information.phoneNumber}
                         onChange={e => inputHandler(e)}
                         onFocus={e => focusHandler(e)}
