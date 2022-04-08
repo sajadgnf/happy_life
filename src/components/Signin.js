@@ -284,7 +284,7 @@ const Signin = () => {
                         fullWidth
                         className={classes.submitBtn}
                     >
-                        ورود
+ثبت نام
                     </Button>
                 </form>
             </Box>
