@@ -60,6 +60,20 @@
     src: url(assets/fonts/shabnam/Shabnam-Bold-FD.ttf);
 }
 
+/* arsoo */
+@font-face {
+    font-family: "arsoo";
+    font-weight: 700;
+    src: url(assets/fonts/arsoo/FP_Arsoo.ttf);
+}
+
+/* maktab */
+@font-face {
+    font-family: "maktab";
+    font-weight: 700;
+    src: url(assets/fonts/maktab/MaktabRita-Regular.otf);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -94,7 +108,7 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: transparent; 
 }
 
 /* Handle */

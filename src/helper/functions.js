@@ -23,15 +23,17 @@ const useTitle = title => {
 const validate = (data, type) => {
     const errors = {}
 
-    if (!data.userName.trim()) {
-        errors.userName = "لظفا نام کاربری خود را وارد کنید"
+    if (!data.email) {
+        errors.email = "لطفا ایمیل خود را وارد کنید"
+    } else if (!/^[a-z0-9]+@[a-z]+\.[a-z]{2,4}$/.test(data.email)) {
+        errors.email = "لطفا ایمیل خود را به صورت صحیح وارد کنید"
     } else {
-        delete errors.userName
+        delete errors.email
     }
 
     if (!data.password) {
         errors.password = "لطفا پسوردتان را وارد کنید"
-    } else if (data.password.length < 6) {
+    } else if (data.password.length < 8 || data.password.length > 16) {
         errors.password = "پسورد باید بین 8 الی 16 کارکتر باشد"
     } else {
         delete errors.password
@@ -48,12 +50,11 @@ const validate = (data, type) => {
             delete errors.confirmPassword
         }
 
-        if (!data.email) {
-            errors.email = "لطفا ایمیل خود را وارد کنید"
-        } else if (!/^[a-z0-9]+@[a-z]+\.[a-z]{2,4}$/.test(data.email)) {
-            errors.email = "لطفا ایمیل خود را به صورت صحیح وارد کنید"
+
+        if (!data.userName.trim()) {
+            errors.userName = "لظفا نام کاربری خود را وارد کنید"
         } else {
-            delete errors.email
+            delete errors.userName
         }
     }
 

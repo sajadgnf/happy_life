@@ -62,12 +62,12 @@ const Layout = () => {
                     <Navbar show={show} />
                     <Routes>
                         <Route path='/' element={<Landing searchBarText={searchBarText} productsState={productsState} />} />
-                        <Route path="*" element={<Navigate to="/" />} />
+                        <Route path="*" element={<Navigate to="/error" />} />
                         <Route path='/mobiles' element={<Mobiles show={show} productsState={productsState} />} />
                         <Route path='/accessories' element={<Accessories show={show} productsState={productsState} />} />
                         <Route path='/headphones' element={<Headphones show={show} productsState={productsState} />} />
                         <Route path={`${productsCategories}/:id`} element={<Details category={productsCategories} searchBarText={searchBarText} />} />
-                        <Route path='/support' element={<Support />} />
+                        <Route path='/support' element={<Support show={show} />} />
                         <Route path='/contact' element={<Contact />} />
                         <Route path='/aboutUs' element={<AboutUs />} />
                         <Route path='/cart' element={<Cart />} />

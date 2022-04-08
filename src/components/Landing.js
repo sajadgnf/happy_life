@@ -356,18 +356,19 @@ const useStyle = makeStyles(theme => {
 
 const Landing = ({ searchBarText, productsState }) => {
 
-    const ref = useRef()
+    const sales = useRef()
+    const visited = useRef()
     const [gridValue, setGridValue] = useState(0)
     const classes = useStyle()
 
     // scroll handler
-    const scrollHandler = () => {
+    const scrollHandler = ref => {
         const cardWidth = ref.current.firstElementChild.offsetWidth
         ref.current.scrollLeft = ref.current.scrollLeft - cardWidth
         setGridValue(ref.current.scrollLeft - cardWidth)
     }
 
-    const scrollBackHandler = () => {
+    const scrollBackHandler = ref => {
         const cardWidth = ref.current.firstElementChild.offsetWidth
         ref.current.scrollLeft = ref.current.scrollLeft + cardWidth
         if (ref.current.scrollLeft > (-cardWidth)) {
@@ -477,11 +478,11 @@ const Landing = ({ searchBarText, productsState }) => {
                     <div className={classes.cards}>
                         {
                             gridValue !== 0 &&
-                            <ArrowForwardIcon className={`${classes.scrollIcon} ${classes.backScroll}`} onMouseDown={scrollBackHandler} />
+                            <ArrowForwardIcon className={`${classes.scrollIcon} ${classes.backScroll}`} onMouseDown={() => scrollBackHandler(visited)} />
                         }
                         <Grid
                             container
-                            ref={ref}
+                            ref={visited}
                             wrap='nowrap'
                             spacing={{ xxs: 1, ml: 2, xxl: 6 }}
                             sx={{ overflowX: 'auto', scrollBehavior: "smooth", pb: { xxs: "24px", ml: "40px" }, pr: .5 }}
@@ -498,7 +499,7 @@ const Landing = ({ searchBarText, productsState }) => {
                                 ))
                             }
                         </Grid>
-                        <ArrowBackIcon className={`${classes.scrollIcon} ${classes.forwardScroll}`} onMouseDown={scrollHandler} />
+                        <ArrowBackIcon className={`${classes.scrollIcon} ${classes.forwardScroll}`} onMouseDown={() => scrollHandler(visited)} />
                     </div>
                 </div>
 
@@ -616,11 +617,11 @@ const Landing = ({ searchBarText, productsState }) => {
                     <div className={classes.cards}>
                         {
                             gridValue !== 0 &&
-                            <ArrowForwardIcon className={`${classes.scrollIcon} ${classes.backScroll}`} onMouseDown={scrollBackHandler} />
+                            <ArrowForwardIcon className={`${classes.scrollIcon} ${classes.backScroll}`} onMouseDown={() => scrollBackHandler(sales)} />
                         }
                         <Grid
                             container
-                            ref={ref}
+                            ref={sales}
                             wrap='nowrap'
                             spacing={{ xxs: 1, ml: 2, xxl: 6 }}
                             sx={{ overflowX: 'auto', scrollBehavior: "smooth", pb: { xxs: "24px", ml: "40px" }, pr: .5 }}
@@ -637,7 +638,7 @@ const Landing = ({ searchBarText, productsState }) => {
                                 ))
                             }
                         </Grid>
-                        <ArrowBackIcon className={`${classes.scrollIcon} ${classes.forwardScroll}`} onMouseDown={scrollHandler} />
+                        <ArrowBackIcon className={`${classes.scrollIcon} ${classes.forwardScroll}`} onMouseDown={() => scrollHandler(sales)} />
                     </div>
                 </div>
             </div>

@@ -31,6 +31,7 @@ const cartReducer = (state = initialState, action) => {
                     ...action.payload,
                     quantity: 1,
                     color: action.color,
+                    section: action.section,
                     ...state.itemsCounter
                 })
             }
@@ -71,6 +72,8 @@ const cartReducer = (state = initialState, action) => {
         case "CHECKOUT":
             localStorage.setItem("cart_list", JSON.stringify([]))
             localStorage.setItem("checkout", JSON.stringify(true))
+            localStorage.setItem("itemsCounter", JSON.stringify(0))
+            localStorage.setItem("total", JSON.stringify(0))
             return {
                 selectedItems: [],
                 total: 0,

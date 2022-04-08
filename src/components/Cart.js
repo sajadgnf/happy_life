@@ -1,9 +1,14 @@
 import React from 'react';
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Container, IconButton, Paper, Typography } from "@mui/material"
+import { Box, Button, Card, CardActions, CardContent, CardMedia, IconButton, Paper, Typography } from "@mui/material"
 import { makeStyles } from '@mui/styles'
 import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from "react-router-dom"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// toast
+import { notify } from './shared/Toast';
 
 // functions
 import { useTitle } from '../helper/functions';
@@ -21,7 +26,8 @@ const useStyle = makeStyles(theme => {
             justifyContent: "center",
             alignItems: 'center',
             flexDirection: 'column',
-            height: 'calc(100vh - 100px)'
+            minHeight: 'calc(100vh - 100px)',
+            marginBottom: 30
         },
         completeImage: {
             width: "300px",
@@ -32,7 +38,9 @@ const useStyle = makeStyles(theme => {
         },
         completeBtn: {
             textDecoration: 'none',
-            color: '#fff'
+            color: '#fff',
+            padding: '5px 0',
+            width: "100%"
         },
         container: {
             padding: "80px 40px 50px",
@@ -109,6 +117,12 @@ const useStyle = makeStyles(theme => {
                 fontSize: 26,
             }
         },
+        cardLink: {
+            color: "#333",
+            textDecoration: 'none',
+            display: "flex",
+            alignItems: "center"
+        },
     }
 })
 
@@ -121,12 +135,23 @@ const Cart = () => {
 
     const { itemsCounter, total, selectedItems, checkout } = cartState
 
+    const detailsHandler = item => {
+        dispatch({ type: item.section.toUpperCase() })
+    }
+
+    const paymentHandler = () => {
+        notify('خرید شما با موفقیت انجام شد', "success")
+        setTimeout(() => {
+            dispatch(checkOut())
+        }, 3000)
+    }
+
     return (
         checkout || itemsCounter < 1 ?
             <div className={classes.complete}>
                 <img className={classes.completeImage} src={emptyCart} alt="صبد خرید خالی" />
                 <Typography variant='h6' marginBottom fontSize={16}>سبد خرید شما خالی است!</Typography>
-                <Button variant='contained' sx={{ width: 130 }}>
+                <Button variant='contained' sx={{ width: 130, p: 0 }}>
                     <Link to="/" className={classes.completeBtn}>خرید</Link>
                 </Button>
             </div> :
@@ -139,38 +164,44 @@ const Cart = () => {
                             key={item.title + item.color.title}
                             sx={{ marginBottom: 2 }}
                         >
-                            <Box display="flex" alignItems="center">
-                                <CardMedia
-                                    component="img"
-                                    height={65}
-                                    sx={{ width: 65 }}
-                                    image={item.image.main}
-                                    alt="عکس محصول"
-                                />
-                                <CardContent sx={{ width: "100%", pb: "5px !important" }}>
-                                    <Typography width="75%" variant='h6' noWrap fontSize={{ xxs: 13, xs: 16 }}>
-                                        {item.title}
-                                    </Typography>
-                                    <Box margin="10px 0" display="flex" alignItems="center">
-                                        <img className={classes.securityIcon} src={security} alt="security" />
-                                        <Typography color="primary" marginBottom='0 !important' marginRight fontSize={{ xxs: 10, xs: 12 }}>گارانتی 18 ماهه سام تل</Typography>
-                                    </Box>
-                                    <Box margin="10px 0" display="flex" alignItems="center">
-                                        <Box
-                                            sx={{
-                                                background: item.color.hex,
-                                                width: { xxs: 14, xs: 16 },
-                                                height: { xxs: 14, xs: 16 },
-                                                borderRadius: "100%",
-                                                ml: 1,
-                                                mr: '1px',
-                                                boxShadow: "0 0 11px 0 rgba(0, 0, 0, .5)",
-                                                "&:hover": { backgroundColor: item.color.hex }
-                                            }}
-                                        ></Box>
-                                        <Typography color="primary" marginBottom='0 !important' marginRight fontSize={{ xxs: 10, xs: 12 }}>{item.color.title}</Typography>
-                                    </Box>
-                                </CardContent>
+                            <Box>
+                                <Link
+                                    to={`/${item.section}/${item.id}`}
+                                    className={classes.cardLink}
+                                    onClick={() => detailsHandler(item)}
+                                >
+                                    <CardMedia
+                                        component="img"
+                                        height={65}
+                                        sx={{ width: 65 }}
+                                        image={item.image.main}
+                                        alt="عکس محصول"
+                                    />
+                                    <CardContent sx={{ width: "100%", pb: "5px !important" }}>
+                                        <Typography width="75%" variant='h6' noWrap fontSize={{ xxs: 13, xs: 16 }}>
+                                            {item.title}
+                                        </Typography>
+                                        <Box margin="10px 0" display="flex" alignItems="center">
+                                            <img className={classes.securityIcon} src={security} alt="security" />
+                                            <Typography color="primary" marginBottom='0 !important' marginRight fontSize={{ xxs: 10, xs: 12 }}>گارانتی 18 ماهه سام تل</Typography>
+                                        </Box>
+                                        <Box margin="10px 0" display="flex" alignItems="center">
+                                            <Box
+                                                sx={{
+                                                    background: item.color.hex,
+                                                    width: { xxs: 14, xs: 16 },
+                                                    height: { xxs: 14, xs: 16 },
+                                                    borderRadius: "100%",
+                                                    ml: 1,
+                                                    mr: '1px',
+                                                    boxShadow: "0 0 11px 0 rgba(0, 0, 0, .5)",
+                                                    "&:hover": { backgroundColor: item.color.hex }
+                                                }}
+                                            ></Box>
+                                            <Typography color="primary" marginBottom='0 !important' marginRight fontSize={{ xxs: 10, xs: 12 }}>{item.color.title}</Typography>
+                                        </Box>
+                                    </CardContent>
+                                </Link>
                             </Box>
 
                             <Box marginLeft="10%"
@@ -210,7 +241,7 @@ const Cart = () => {
                     </CardContent>
                     <CardActions sx={{ display: 'flex', justifyContent: 'center', pt: 4, pb: 0 }}>
                         <Button
-                            onClick={() => dispatch(checkOut())}
+                            onClick={paymentHandler}
                             variant='contained'
                             fullWidth
                             sx={{ py: 1.2 }}
@@ -220,6 +251,7 @@ const Cart = () => {
                         </Button>
                     </CardActions>
                 </Card>
+                <ToastContainer theme="colored" />
             </Paper>
     );
 };

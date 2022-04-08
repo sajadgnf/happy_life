@@ -7,6 +7,7 @@ import { styled } from '@mui/system';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// toast
 import { notify } from './shared/Toast';
 
 // functions
@@ -143,6 +144,8 @@ const Signin = () => {
         setInformation({ ...information, [e.target.id]: e.target.value })
     }
 
+    const focusHandler = event => setTouched({ ...touched, [event.target.id]: true })
+
     useEffect(() => {
         setErrors(validate(information, 'signUp'))
     }, [information, touched])
@@ -207,6 +210,7 @@ const Signin = () => {
                             id="email"
                             value={information.email}
                             onChange={e => inputHandler(e)}
+                            onFocus={event => focusHandler(event)}
                         />
                         {errors.email && touched.email && <Typography variant='body2' marginTop={.5} color={"#d00808"}>{errors.email}</Typography>}
                     </FormControl>
@@ -227,6 +231,7 @@ const Signin = () => {
                             id="userName"
                             value={information.userName}
                             onChange={e => inputHandler(e)}
+                            onFocus={event => focusHandler(event)}
                         />
                         {errors.userName && touched.userName && <Typography variant='body2' marginTop={.5} color={"#d00808"}>{errors.userName}</Typography>}
                     </FormControl>
@@ -247,6 +252,7 @@ const Signin = () => {
                             id="password"
                             value={information.password}
                             onChange={e => inputHandler(e)}
+                            onFocus={event => focusHandler(event)}
                         />
                         {errors.password && touched.password && <Typography variant='body2' marginTop={.5} color={"#d00808"}>{errors.password}</Typography>}
                     </FormControl>
@@ -267,6 +273,7 @@ const Signin = () => {
                             id="confirmPassword"
                             value={information.confirmPassword}
                             onChange={e => inputHandler(e)}
+                            onFocus={event => focusHandler(event)}
                         />
                         {errors.confirmPassword && touched.confirmPassword && <Typography variant='body2' marginTop={.5} color={"#d00808"}>{errors.confirmPassword}</Typography>}
                     </FormControl>

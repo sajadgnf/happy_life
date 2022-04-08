@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import Signin from "./components/Signin";
 import Layout from "./components/Layout";
 import { Provider } from "react-redux";
+import ErrorPage from "./components/ErrorPage";
 
 // redux
 import store from "./redux/store";
@@ -31,7 +32,9 @@ const theme = createTheme({
   typography: {
     fontFamily: [
       "estedad",
-      "shabnam"
+      "shabnam",
+      "arsoo",
+      "maktab"
     ].join(","),
 
     body1: {
@@ -60,6 +63,11 @@ const theme = createTheme({
       main: "#cbcbcb",
       light: "#e4e4e4",
       dark: '#959595'
+    },
+    focus:{
+      main: "#92E3A9",
+      light: "#fff",
+      dark: '#f1f1f1'
     }
   },
 
@@ -81,6 +89,7 @@ const App = () => {
             <Route path="/*" element={<Layout />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signin" element={<Signin />} />
+            <Route path="/error" element={<ErrorPage />} />
           </Routes>
         </div>
       </Provider>

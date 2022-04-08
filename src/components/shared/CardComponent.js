@@ -2,7 +2,7 @@ import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import LinesEllipsis from 'react-lines-ellipsis'
 import { makeStyles } from '@mui/styles';
 import { Link } from "react-router-dom"
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 
 const useStyle = makeStyles(theme => {
@@ -69,7 +69,7 @@ const CardComponent = ({ item, section }) => {
                     sx={{ objectFit: 'contain', my: 1, height: { xxs: 117.7, ml: 150, xxl: 177 } }}
                 />
                 <div className={classes.cardUnderLine}></div>
-                <CardContent sx={{ p: '0 9px 10px !important' }}>
+                <CardContent sx={{ p: '0 9px 20px !important' }}>
 
                     <LinesEllipsis
                         className={classes.title}
@@ -80,28 +80,42 @@ const CardComponent = ({ item, section }) => {
                         component={'p'}
                         basedOn='words'
                     />
-                    <Typography
-                        align='left'
-                        fontSize={{ xxs: '11.37px', sm: "14px", xl: '16.2px' }}
-                        fontWeight='400'
-                        fontFamily='shabnam'
-                        sx={{ paddingTop: { xxs: "22.24px", lg: "36px" } }}
-                    >
-                        {item.discount ? item.discount.toLocaleString() : item.price.toLocaleString()} تومان
-                    </Typography>
+                    {
+                        item.available ?
+                            <>
+                                <Typography
+                                    align='left'
+                                    fontSize={{ xxs: '11.37px', sm: "14px", xl: '16.2px' }}
+                                    fontWeight='400'
+                                    fontFamily='shabnam'
+                                    sx={{ pt: { xxs: "22.24px", lg: "36px" } }}
+                                >
+                                    {item.discount ? item.discount.toLocaleString() : item.price.toLocaleString()} تومان
+                                </Typography>
 
-                    <Typography
-                        align='left'
-                        fontSize={{ xxs: '9.2px', sm: "11px", xl: '13px' }}
-                        fontWeight='400'
-                        color='secondary'
-                        sx={{
-                            textDecoration: "line-through",
-                            marginLeft: { xxs: 4, sm: 5, xl: 5.5 }
-                        }}
-                    >
-                        {item.discount && item.price.toLocaleString()}
-                    </Typography>
+                                <Typography
+                                    align='left'
+                                    fontSize={{ xxs: '9.2px', sm: "11px", xl: '13px' }}
+                                    fontWeight='400'
+                                    color='secondary'
+                                    sx={{
+                                        textDecoration: "line-through",
+                                        marginLeft: { xxs: 4, sm: 5, xl: 5.5 }
+                                    }}
+                                >
+                                    {item.discount && item.price.toLocaleString()}
+                                </Typography>
+                            </> :
+                            <Typography
+                                align='left'
+                                fontSize={{ xxs: '11.37px', sm: "14px", xl: '16.2px' }}
+                                fontWeight='400'
+                                fontFamily='shabnam'
+                                sx={{ pt: { xxs: "22.24px", lg: "36px" } }}
+                            >
+                                ناموجود
+                            </Typography>
+                    }
                 </CardContent>
             </Link>
         </Card >

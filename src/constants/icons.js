@@ -26,7 +26,12 @@ import contactIcon from "../assets/images/icons/contactIcon.svg"
 import supportIcon from "../assets/images/icons/supportIcon.svg"
 import wallet from "../assets/images/icons/wallet.svg"
 import loginLogo from "../assets/images/icons/loginLogo.svg"
+import office from "../assets/images/icons/office.svg"
+import email from "../assets/images/icons/email.svg"
 import emptyCart from "../assets/images/icons/empty_cart.svg"
+import arrowDown from "../assets/images/icons/arrow-down.svg"
+import contactUs from "../assets/images/icons/contact-us.svg"
+import callIcon from "../assets/images/icons/call-icon.svg"
 
 export {
     logo,
@@ -57,5 +62,10 @@ export {
     supportIcon,
     wallet,
     loginLogo,
-    emptyCart
+    emptyCart,
+    arrowDown,
+    contactUs,
+    office,
+    email,
+    callIcon
 }

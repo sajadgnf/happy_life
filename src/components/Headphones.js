@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid"
 import React from 'react';
 
 // components
-import Amazing from "./shared/CardComponent";
+import CardComponent from "./shared/CardComponent";
 
 // images
 import { eidOffer } from "../constants/images"
@@ -74,7 +74,7 @@ const Headphones = ({ show, productsState }) => {
                         {
                             productsState.products.headphones.map(item => (
                                 <Grid item key={item.id} xxs={6} lg={4}>
-                                    <Amazing item={item} section="mobiles" />
+                                    <CardComponent item={item} section="headphones" />
                                 </Grid>
                             ))
                         }

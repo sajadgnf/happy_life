@@ -6,7 +6,6 @@ import { Box, Button, Modal, ToggleButton, ToggleButtonGroup, Typography } from 
 import ReactTooltip from 'react-tooltip'
 import { Container } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch, useSelector } from 'react-redux'
 import React, { useEffect, useState } from 'react';
 
@@ -19,7 +18,6 @@ import { addItem, decrease, increase, removeItem } from '../redux/cart/cartActio
 
 // functions
 import { checkCart, quantityCount, useTitle } from '../helper/functions';
-import { display } from '@mui/system';
 
 const useStyle = makeStyles(theme => {
     return {
@@ -182,6 +180,7 @@ const Details = ({ category, searchBarText }) => {
     const cartState = useSelector(store => store.cartState)
     const params = useParams()
     const id = params.id
+    const section = params['*'].split('/')[0]
     const colors = []
 
     const handleOpen = event => {
@@ -416,74 +415,78 @@ const Details = ({ category, searchBarText }) => {
                     </Box>
 
                     {/* add to cart */}
-                    <Box
-                        display="flex"
-                        justifyContent="center"
-                        alignItems='center'
-                        flexDirection="column"
-                    >
-                        <Typography fontFamily='shabnam' fontWeight="700" fontSize={20} marginBottom>
-                            {product.price.toLocaleString()} تومان
-                        </Typography>
-                        <Box
-                            display="flex"
-                            justifyContent="center"
-                            alignItems='center'
-                        >
-                            {
-                                checkCart(cartState, product.title, selectedColor.title) &&
-                                <Box className={classes.buttonsContainer}>
-                                    <Button
-                                        sx={{
-                                            fontSize: 30,
-                                        }}
-                                        onClick={() => dispatch(increase(product, selectedColor))}
-                                    >
-                                        +
-                                    </Button>
-
+                    {
+                        product.available ?
+                            <Box
+                                display="flex"
+                                justifyContent="center"
+                                alignItems='center'
+                                flexDirection="column"
+                            >
+                                <Typography fontFamily='shabnam' fontWeight="700" fontSize={20} marginBottom>
+                                    {product.price.toLocaleString()} تومان
+                                </Typography>
+                                <Box
+                                    display="flex"
+                                    justifyContent="center"
+                                    alignItems='center'
+                                >
                                     {
-                                        quantityCount(cartState, product.title, selectedColor.title) >= 1 &&
-                                        <Typography fontFamily='shabnam' fontSize={26} fontWeight={700} sx={{ px: 2 }}>{quantityCount(cartState, product.title, selectedColor.title)}</Typography>
+                                        checkCart(cartState, product.title, selectedColor.title) &&
+                                        <Box className={classes.buttonsContainer}>
+                                            <Button
+                                                sx={{
+                                                    fontSize: 30,
+                                                }}
+                                                onClick={() => dispatch(increase(product, selectedColor, section))}
+                                            >
+                                                +
+                                            </Button>
+
+                                            {
+                                                quantityCount(cartState, product.title, selectedColor.title) >= 1 &&
+                                                <Typography fontFamily='shabnam' fontSize={26} fontWeight={700} sx={{ px: 2 }}>{quantityCount(cartState, product.title, selectedColor.title)}</Typography>
+                                            }
+
+                                            {
+                                                quantityCount(cartState, product.title, selectedColor.title) >= 1 &&
+                                                <Button
+                                                    sx={{
+                                                        fontSize: 30,
+                                                    }}
+                                                    onClick={() => {
+                                                        dispatch(quantityCount(cartState, product.title, selectedColor.title) > 1 ?
+                                                            decrease(product, selectedColor, section) :
+                                                            dispatch(removeItem(product, selectedColor, section)))
+                                                    }
+                                                    }
+                                                >
+                                                    -
+                                                </Button>
+                                            }
+                                        </Box>
                                     }
-
                                     {
-                                        quantityCount(cartState, product.title, selectedColor.title) >= 1 &&
+                                        !checkCart(cartState, product.title, selectedColor.title) &&
                                         <Button
+                                            variant='contained'
+                                            disabled={!selectedColor.title}
                                             sx={{
-                                                fontSize: 30,
+                                                fontSize: 14,
+                                                fontFamily: 'shabnam',
+                                                py: 1.3,
+                                                px: 6,
                                             }}
-                                            onClick={() => {
-                                                dispatch(quantityCount(cartState, product.title, selectedColor.title) > 1 ?
-                                                    decrease(product, selectedColor) :
-                                                    dispatch(removeItem(product, selectedColor)))
-                                            }
-                                            }
+                                            startIcon={<ShoppingCartOutlinedIcon sx={{ marginLeft: 1 }} />}
+                                            onClick={() => dispatch(addItem(product, selectedColor, section))}
                                         >
-                                            -
+                                            افزودن به سبد خرید
                                         </Button>
                                     }
                                 </Box>
-                            }
-                            {
-                                !checkCart(cartState, product.title, selectedColor.title) &&
-                                <Button
-                                    variant='contained'
-                                    disabled={!selectedColor.title}
-                                    sx={{
-                                        fontSize: 14,
-                                        fontFamily: 'shabnam',
-                                        py: 1.3,
-                                        px: 6,
-                                    }}
-                                    startIcon={<ShoppingCartOutlinedIcon sx={{ marginLeft: 1 }} />}
-                                    onClick={() => dispatch(addItem(product, selectedColor))}
-                                >
-                                    افزودن به سبد خرید
-                                </Button>
-                            }
-                        </Box>
-                    </Box>
+                            </Box> :
+                            <Typography >ناموجود</Typography>
+                    }
                 </Container>
 
                 <Container

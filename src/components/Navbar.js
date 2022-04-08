@@ -126,13 +126,16 @@ const Navbar = ({ show }) => {
                         </Box>
                     }
                 </Box>
-                <Box sx={{
-                    position: 'absolute',
-                    left: '50%',
-                    transform: "translateX(-50%)",
-                    pt: 1
-                }}>
-                    <img className={classes.logo} src={navbarLogo} alt="log" />
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        left: '50%',
+                        transform: "translateX(-50%)",
+                        pt: 1
+                    }}>
+                    <Link to="/">
+                        <img className={classes.logo} src={navbarLogo} alt="log" />
+                    </Link>
                 </Box>
                 <Box>
                     <IconButton

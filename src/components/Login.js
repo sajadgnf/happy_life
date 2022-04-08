@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, FormControl, InputLabel, InputBase, Paper, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // functions
-import { useTitle } from '../helper/functions';
+import { useTitle, validate } from '../helper/functions';
 
 // images & icons
 import { forestBg } from '../constants/images';
 import { loginLogo } from "../constants/icons"
+
+// toast
+import { notify } from './shared/Toast';
 
 const useStyle = makeStyles(theme => {
     return {
@@ -24,7 +29,6 @@ const useStyle = makeStyles(theme => {
         },
         content: {
             width: '300px',
-            height: 500,
             border: '2px solid #dadada',
             borderRadius: 40,
             display: 'flex',
@@ -63,6 +67,10 @@ const useStyle = makeStyles(theme => {
             fontSize: 14,
             textDecoration: "none",
             fontWeight: 700,
+        },
+        form: {
+            zIndex: 2,
+            paddingBottom: 25
         },
         active: {
             position: 'relative',
@@ -122,18 +130,49 @@ const Login = () => {
     useTitle("فروشگاه هپی لایف - ورود")
 
     const classes = useStyle()
+    const [touched, setTouched] = useState({})
+    const [errors, setErrors] = useState({})
+    const [information, setInformation] = useState({
+        email: '',
+        password: ''
+    })
+
+    const inputHandler = event => {
+        setInformation({ ...information, [event.target.id]: event.target.value })
+    }
+
+    const focusHandler = event => setTouched({ ...touched, [event.target.id]: true })
+
+    useEffect(() => {
+        setErrors(validate(information, "logIn"))
+    }, [information, touched])
+
+    const submitHandler = event => {
+        event.preventDefault()
+        fetch('https://api.freerealapi.com/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: information.email,
+                password: information.password,
+            })
+        })
+            .then((response) => {
+                if (!Object.keys(errors).length) {
+                    notify('شما با موفقیت وارد شدید', "success")
+                } else {
+                    notify('لطفا اطلاعات خود را به صورت صحیح وارد نمایید', "error")
+                    setTouched({
+                        email: true,
+                        password: true
+                    })
+                }
+                return response.json()
+            })
+            .then((json) => console.log(json))
+    }
 
 
-    //                         fetch('http://localhost:3300/auth/login', {
-    //                             method: 'POST',
-    //                         headers: {'Content-Type': 'application/json' },
-    //                         body: JSON.stringify({
-    //                             email: <test email>,
-    //                                 password: <test password>,
-    //     })
-    //   })
-    //   .then((response) => response.json())
-    //   .then((json) => console.log(json))
 
     return (
         <Paper elevation={0} className={classes.container}>
@@ -145,25 +184,69 @@ const Login = () => {
                     <Link to="/login" className={`${classes.headButton} ${classes.active}`}>ورود</Link>
                     <Link to="/signin" className={classes.headButton}>ثبت نام</Link>
                 </Box>
-                <form autoCapitalize='off' noValidate style={{ zIndex: 2 }}>
-                    <FormControl variant="standard" sx={{ width: "100%", mb: 2 }}>
-                        <InputLabel sx={{ color: '#fff', width: '129%', }} shrink focused={false} htmlFor="userName">
-                            نام کاربری
+                <form autoCapitalize='off' noValidate className={classes.form} onSubmit={event => submitHandler(event)}>
+                    <FormControl
+                        variant="standard"
+                        sx={{ width: "100%", mb: 2 }}
+                    >
+                        <InputLabel
+                            sx={{ color: '#fff', width: '129%' }}
+                            shrink
+                            focused={false}
+                            htmlFor="email"
+                        >
+                            ایمیل
                         </InputLabel>
-                        <BootstrapInput id="userName" />
+                        <BootstrapInput
+                            id="email"
+                            value={information.email}
+                            onChange={event => inputHandler(event)}
+                            onFocus={event => focusHandler(event)}
+                        />
+                        {errors.email && touched.email && <Typography variant='body2' marginTop={.5} color={"#d00808"}>{errors.email}</Typography>}
                     </FormControl>
 
-                    <FormControl variant="standard" sx={{ width: "100%", mb: 1 }}>
-                        <InputLabel sx={{ color: '#fff', width: '129%', }} shrink focused={false} htmlFor="password">
+                    <FormControl
+                        variant="standard"
+                        sx={{ width: "100%", mb: 1 }}
+                    >
+                        <InputLabel
+                            sx={{ color: '#fff', width: '129%' }}
+                            shrink
+                            focused={false}
+                            htmlFor="password"
+                        >
                             رمز عبور
                         </InputLabel>
-                        <BootstrapInput id="password" />
+                        <BootstrapInput
+                            id="password"
+                            value={information.password}
+                            onChange={event => inputHandler(event)}
+                            onFocus={event => focusHandler(event)}
+                        />
+                        {errors.password && touched.password && <Typography variant='body2' marginTop={.5} color={"#d00808"}>{errors.password}</Typography>}
                     </FormControl>
 
-                    <Typography fontSize={12} color={"#fff"} marginBottom={4} sx={{ cursor: 'pointer' }}>رمز عبور خود را فراموش کرده اید؟</Typography>
-                    <Button variant='contained' fullWidth className={classes.submitBtn}>ورود</Button>
+                    <Typography
+                        fontSize={12}
+                        color={"#fff"}
+                        marginBottom={4}
+                        sx={{ cursor: 'pointer' }}
+                    >
+                        رمز عبور خود را فراموش کرده اید؟
+                    </Typography>
+                    <Button
+                        type="submit"
+                        variant='contained'
+                        fullWidth
+                        className={classes.submitBtn}
+                    >
+                        ورود
+                    </Button>
                 </form>
             </Box>
+
+            <ToastContainer theme="colored" />
         </Paper>
     );
 };
