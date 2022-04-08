@@ -34,10 +34,14 @@ const useStyle = makeStyles(theme => {
         content: {
             background: "#757575",
             width: 280,
-            minWidth: '70%',
+            minWidth: '80%',
             borderRadius: 14.81,
             padding: "30px 20px",
             [theme.breakpoints.up("sm")]: {
+                padding: '60px 20px',
+                minWidth: '70%',
+            },
+            [theme.breakpoints.up("ml")]: {
                 padding: '60px 20px',
                 minWidth: '50%',
             },
@@ -250,7 +254,7 @@ const Contact = () => {
                         color='focus'
                         fullWidth
                         required
-                        sx={{ marginTop: { xxs: 2, sm: 4 }, color: "#fff", fontSize: { xxs: 12, sm: 14, lg: 16 } }}
+                        sx={{ marginTop: { xxs: 3, sm: 4 }, color: "#fff", fontSize: { xxs: 12, sm: 14, lg: 16 } }}
                         value={information.email}
                         onChange={e => inputHandler(e)}
                         onFocus={e => focusHandler(e)}
@@ -268,7 +272,7 @@ const Contact = () => {
                         color='focus'
                         fullWidth
                         required
-                        sx={{ marginTop: { xxs: 2, sm: 4 }, color: "#fff", fontSize: { xxs: 12, sm: 14, lg: 16 } }}
+                        sx={{ marginTop: { xxs: 3, sm: 4 }, color: "#fff", fontSize: { xxs: 12, sm: 14, lg: 16 } }}
                         value={information.phoneNumber}
                         onChange={e => inputHandler(e)}
                         onFocus={e => focusHandler(e)}
