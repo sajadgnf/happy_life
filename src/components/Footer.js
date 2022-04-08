@@ -19,7 +19,7 @@ const useStyle = makeStyles(theme => {
             backgroundSize: 'cover',
             position: 'relative',
             bottom: 0,
-            height: 71,
+            height: 91,
             [theme.breakpoints.up('sm')]: {
                 height: 100
             },
@@ -111,16 +111,16 @@ const Footer = () => {
             >
                 <Box display='flex' alignItems='center'>
                     <Link to='/' className={classes.footerLinks}>
-                        <Typography className={classes.navOption} fontSize={{ xxs: 6, xs: 10, sm: 12, xl: 14, xxl: 16 }} color='#333'>صفحه اصلی</Typography>
+                        <Typography className={classes.navOption} fontSize={{ xxs: 10, sm: 12, xl: 14, xxl: 16 }} color='#333'>صفحه اصلی</Typography>
                     </Link>
                     <Link to='/support' className={classes.footerLinks}>
-                        <Typography className={classes.navOption} fontSize={{ xxs: 6, xs: 10, sm: 12, xl: 14, xxl: 16 }} color='#333'>پشتیبانی</Typography>
+                        <Typography className={classes.navOption} fontSize={{ xxs: 10, sm: 12, xl: 14, xxl: 16 }} color='#333'>پشتیبانی</Typography>
                     </Link>
-                    <Link to='/contac' className={classes.footerLinks}>
-                        <Typography className={classes.navOption} fontSize={{ xxs: 6, xs: 10, sm: 12, xl: 14, xxl: 16 }} color='#333'>تماس با ما</Typography>
+                    <Link to='/contact' className={classes.footerLinks}>
+                        <Typography className={classes.navOption} fontSize={{ xxs: 10, sm: 12, xl: 14, xxl: 16 }} color='#333'>تماس با ما</Typography>
                     </Link>
                     <Link to='/aboutUs' className={classes.footerLinks}>
-                        <Typography className={classes.navOption} fontSize={{ xxs: 6, xs: 10, sm: 12, xl: 14, xxl: 16 }} color='#333'>درباره ما</Typography>
+                        <Typography className={classes.navOption} fontSize={{ xxs: 10, sm: 12, xl: 14, xxl: 16 }} color='#333'>درباره ما</Typography>
                     </Link>
                 </Box>
                 <Box width={{ xxs: 33, xs: 54, sm: 64, ml: 74, lg: 84, xl: 94, xxl: 120 }}>
