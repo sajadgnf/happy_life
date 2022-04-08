@@ -207,6 +207,7 @@ const Support = ({ show }) => {
 
                                                 <Typography
                                                     color={"#fff"}
+                                                    textAlign="center"
                                                     fontSize={{ xxs: 10, xsm: 12, ml: 14, xxl: 16 }}
                                                     sx={{ cursor: "pointer", mt: 1 }}
                                                     onClick={() => setOpen({ ...open, [question.title]: false })}
@@ -232,6 +233,8 @@ const Support = ({ show }) => {
             >
                 <Typography
                     fontSize={{ xxs: 18, ml: 24 }}
+                    letterSpacing={2}
+                    lineHeight={1.8}
                     color={"#fff"}
                     sx={{ py: 3, px: { xxs: 3, sm: 10, ml: 15, lg: 20 }, "WebkitTextStroke": "0.5px black" }}
                 >

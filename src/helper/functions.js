@@ -53,7 +53,7 @@ const validate = (data, type) => {
 
 
         if (!data.userName.trim()) {
-            errors.userName = "لظفا نام کاربری خود را وارد کنید"
+            errors.userName = "لطفا نام کاربری خود را وارد کنید"
         } else {
             delete errors.userName
         }
@@ -69,21 +69,21 @@ const validate = (data, type) => {
 
     if (type === "contact") {
         if (!data.name.trim()) {
-            errors.name = "لظفا نام و نام خانوادگی خود را وارد کنید"
+            errors.name = "لطفا نام و نام خانوادگی خود را وارد کنید"
         } else {
             delete errors.userName
         }
 
         if (!data.message.trim()) {
-            errors.message = "لظفا متن مورد نظر خود را وارد کنید"
+            errors.message = "لطفا متن مورد نظر خود را وارد کنید"
         } else {
             delete errors.userName
         }
 
         if (!data.phoneNumber) {
-            errors.phoneNumber = "لظفا شماره تلفن خود را وارد کنید"
+            errors.phoneNumber = "لطفا شماره تلفن خود را وارد کنید"
         } else if (!/^\d{11}$/.test(data.phoneNumber)) {
-            errors.phoneNumber = "لظفا شماره تلفن خود را  به صورت صحیح وارد کنید"
+            errors.phoneNumber = "لطفا شماره تلفن خود را  به صورت صحیح وارد کنید"
         } else {
             delete errors.userName
         }

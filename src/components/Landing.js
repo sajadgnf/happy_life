@@ -530,7 +530,7 @@ const Landing = ({ searchBarText, productsState }) => {
                                 borderRadius='4.666666030883789px'
                                 sx={{
                                     p: { xxs: "0 18px 0 0", ml: '0 40px 0 0', xl: '0 42px' },
-                                    minWidth: { xxs: 300, sm: 350, ml: 400, lg: "48%" },
+                                    minWidth: { xxs: 280, sm: 350, ml: 400, lg: "48%" },
                                     transition: 'all .3s ease',
                                     backgroundColor: () => item.image === fiveG ? "#8D9097" : "#227872",
                                     ml: () => item.image === fiveG && { xxs: "16px", ml: "26px", xxl: '46px' }

@@ -207,7 +207,7 @@ const Login = () => {
                             onChange={event => inputHandler(event)}
                             onFocus={event => focusHandler(event)}
                         />
-                        {errors.email && touched.email && <Typography variant='body2' marginTop={.5} color={"#d00808"}>{errors.email}</Typography>}
+                        {errors.email && touched.email && <Typography variant='body2' marginTop={.5} color={"#782228"}>{errors.email}</Typography>}
                     </FormControl>
 
                     <FormControl
@@ -228,7 +228,7 @@ const Login = () => {
                             onChange={event => inputHandler(event)}
                             onFocus={event => focusHandler(event)}
                         />
-                        {errors.password && touched.password && <Typography variant='body2' marginTop={.5} color={"#d00808"}>{errors.password}</Typography>}
+                        {errors.password && touched.password && <Typography variant='body2' marginTop={.5} color={"#782228"}>{errors.password}</Typography>}
                     </FormControl>
 
                     <Typography

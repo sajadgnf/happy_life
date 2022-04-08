@@ -212,7 +212,7 @@ const Signin = () => {
                             onChange={e => inputHandler(e)}
                             onFocus={event => focusHandler(event)}
                         />
-                        {errors.email && touched.email && <Typography variant='body2' marginTop={.5} color={"#d00808"}>{errors.email}</Typography>}
+                        {errors.email && touched.email && <Typography variant='body2' marginTop={.5} color={"#782228"}>{errors.email}</Typography>}
                     </FormControl>
 
                     <FormControl
@@ -233,7 +233,7 @@ const Signin = () => {
                             onChange={e => inputHandler(e)}
                             onFocus={event => focusHandler(event)}
                         />
-                        {errors.userName && touched.userName && <Typography variant='body2' marginTop={.5} color={"#d00808"}>{errors.userName}</Typography>}
+                        {errors.userName && touched.userName && <Typography variant='body2' marginTop={.5} color={"#782228"}>{errors.userName}</Typography>}
                     </FormControl>
 
                     <FormControl
@@ -254,7 +254,7 @@ const Signin = () => {
                             onChange={e => inputHandler(e)}
                             onFocus={event => focusHandler(event)}
                         />
-                        {errors.password && touched.password && <Typography variant='body2' marginTop={.5} color={"#d00808"}>{errors.password}</Typography>}
+                        {errors.password && touched.password && <Typography variant='body2' marginTop={.5} color={"#782228"}>{errors.password}</Typography>}
                     </FormControl>
 
                     <FormControl
@@ -275,7 +275,7 @@ const Signin = () => {
                             onChange={e => inputHandler(e)}
                             onFocus={event => focusHandler(event)}
                         />
-                        {errors.confirmPassword && touched.confirmPassword && <Typography variant='body2' marginTop={.5} color={"#d00808"}>{errors.confirmPassword}</Typography>}
+                        {errors.confirmPassword && touched.confirmPassword && <Typography variant='body2' marginTop={.5} color={"#782228"}>{errors.confirmPassword}</Typography>}
                     </FormControl>
 
                     <Button

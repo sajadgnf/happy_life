@@ -273,7 +273,7 @@ const Details = ({ searchBarText }) => {
                         <ToggleButton
                             value='like'
                             aria-label='like'
-                            color='primary'
+                            color='customRed'
                             data-tip="لایک"
                             className={classes.iconContainer}
                         >
@@ -291,7 +291,7 @@ const Details = ({ searchBarText }) => {
                         <ToggleButton
                             value='share'
                             aria-label='share'
-                            color="customRed"
+                            color="primary"
                             data-tip="اشتراک"
                             className={classes.iconContainer}
                         >

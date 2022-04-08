@@ -29,7 +29,7 @@ const Layout = () => {
     const productsState = useSelector(store => store.productsState)
     const productsCategories = useSelector(store => store.productsCategoriesState)
     const [searchBarText, setSearchBarText] = useState(() => window.innerWidth < 620 ?
-        "جست و جو..." :
+        "جستجو..." :
         "نام محصول یا کالای مورد نظر خود را تایپ نمایید..."
     )
     const [show, setShow] = useState(() => window.innerWidth < 720 ? false : true)

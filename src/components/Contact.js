@@ -72,7 +72,7 @@ const useStyle = makeStyles(theme => {
             }
         },
         details: {
-            fontSize: 12,
+            fontSize: 11,
             [theme.breakpoints.up("sm")]: {
                 fontSize: 14,
             },
@@ -89,7 +89,7 @@ const useStyle = makeStyles(theme => {
             padding: '30px 20px',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             [theme.breakpoints.up("xs")]: {
                 margin: "0 20px"
             },
@@ -237,11 +237,10 @@ const Contact = () => {
                         value={information.name}
                         onChange={e => inputHandler(e)}
                         onFocus={e => focusHandler(e)}
-                        error={errors.name}
                     />
                     {errors.name &&
                         touched.name &&
-                        <Typography variant='body2' marginTop={.5} color={"#d00808"}>
+                        <Typography variant='body2' marginTop={.5} color="#782228" fontSize={10} >
                             {errors.name}
                         </Typography>}
 
@@ -255,11 +254,10 @@ const Contact = () => {
                         value={information.email}
                         onChange={e => inputHandler(e)}
                         onFocus={e => focusHandler(e)}
-                        error={errors.email}
                     />
                     {errors.email &&
                         touched.email &&
-                        <Typography variant='body2' marginTop={.5} color={"#d00808"}>
+                        <Typography variant='body2' marginTop={.5} color="#782228" fontSize={10}>
                             {errors.email}
                         </Typography>}
 
@@ -274,11 +272,10 @@ const Contact = () => {
                         value={information.phoneNumber}
                         onChange={e => inputHandler(e)}
                         onFocus={e => focusHandler(e)}
-                        error={errors.phoneNumber}
                     />
                     {errors.phoneNumber &&
                         touched.phoneNumber &&
-                        <Typography variant='body2' marginTop={.5} color={"#d00808"}>
+                        <Typography variant='body2' marginTop={.5} color="#782228" fontSize={10}>
                             {errors.phoneNumber}
                         </Typography>}
 
@@ -293,7 +290,7 @@ const Contact = () => {
                     />
                     {errors.message &&
                         touched.message &&
-                        <Typography variant='body2' marginTop={.5} color={"#d00808"}>
+                        <Typography variant='body2' marginTop={.5} color="#782228" fontSize={10}>
                             {errors.message}
                         </Typography>}
 
