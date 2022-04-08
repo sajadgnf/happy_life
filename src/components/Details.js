@@ -9,15 +9,17 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useDispatch, useSelector } from 'react-redux'
 import React, { useEffect, useState } from 'react';
 
-// icons & image
+// icons & images & gifs
 import { send, bell, heart, security } from '../constants/icons'
 import { searchBox } from '../constants/images'
+import loadingGif from '../assets/gifs/loading.gif'
 
 // redux actions
 import { addItem, decrease, increase, removeItem } from '../redux/cart/cartActions';
 
 // functions
 import { checkCart, quantityCount, useTitle } from '../helper/functions';
+
 
 const useStyle = makeStyles(theme => {
     return {
@@ -166,7 +168,7 @@ const useStyle = makeStyles(theme => {
     }
 })
 
-const Details = ({ category, searchBarText }) => {
+const Details = ({ searchBarText }) => {
 
     const classes = useStyle()
     const [product, setProduct] = useState([])
@@ -190,10 +192,13 @@ const Details = ({ category, searchBarText }) => {
     const handleClose = () => setOpen(false)
 
     useEffect(() => {
-        axios.get(`https://happy-life-api.herokuapp.com/${category}/${id}`)
+        axios.get(`https://happy-life-api.herokuapp.com/${section}/${id}`)
             .then(response => {
                 setProduct(response.data)
                 setLoading(false)
+
+                dispatch({ type: section.toUpperCase() })
+                localStorage.setItem("section", JSON.stringify(section))
             })
     }, [])
 
@@ -234,7 +239,9 @@ const Details = ({ category, searchBarText }) => {
 
     return (
         loading ?
-            <p>loading</p> :
+            <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+                <img src={loadingGif} alt="loading" />
+            </Box> :
             <Paper
                 elevation={0}
                 sx={{

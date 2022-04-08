@@ -1,10 +1,15 @@
-import React from 'react';
-import { Input, Paper, TextField, Typography, InputBase, FormControl, InputLabel } from '@mui/material'
+import React, { useState, useEffect } from 'react';
+import { Button, Input, Paper, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles';
-import { Box, styled, alpha } from '@mui/system';
+import { Box } from '@mui/system';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// toast
+import { notify } from './shared/Toast';
 
 // functions
-import { useTitle } from '../helper/functions';
+import { useTitle, validate } from '../helper/functions';
 
 // images & icons
 import { blurBg } from '../constants/images';
@@ -29,11 +34,12 @@ const useStyle = makeStyles(theme => {
         content: {
             background: "#757575",
             width: 280,
-            minWidth: '60%',
+            minWidth: '70%',
             borderRadius: 14.81,
             padding: "30px 20px",
             [theme.breakpoints.up("sm")]: {
                 padding: '60px 20px',
+                minWidth: '50%',
             },
         },
         info: {
@@ -60,6 +66,11 @@ const useStyle = makeStyles(theme => {
                 fontSize: 18,
             },
         },
+        titleImage: {
+            [theme.breakpoints.up("ml")]: {
+                width: 20
+            }
+        },
         details: {
             fontSize: 12,
             [theme.breakpoints.up("sm")]: {
@@ -76,20 +87,23 @@ const useStyle = makeStyles(theme => {
             border: "1px solid #333",
             borderRadius: 14.81,
             padding: '30px 20px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
             [theme.breakpoints.up("xs")]: {
-                margin:"0 20px"
+                margin: "0 20px"
             },
             [theme.breakpoints.up("lg")]: {
                 padding: '30px',
-                margin:"0 80px"
+                margin: "0 60px"
             },
             [theme.breakpoints.up("xl")]: {
                 padding: '30px 50px',
-                margin:"0 120px"
+                margin: "0 100px"
             },
             [theme.breakpoints.up("xxl")]: {
                 padding: '30px 50px',
-                margin:"0 180px"
+                margin: "0 120px"
             },
         },
         textarea: {
@@ -102,6 +116,7 @@ const useStyle = makeStyles(theme => {
             borderRadius: 4,
             width: "100%",
             fontSize: 12,
+            marginTop: 66,
             transition: 'all .5s ease',
             "&::placeholder": {
                 color: "#c0c0c0"
@@ -128,9 +143,42 @@ const Contact = () => {
 
     useTitle("تماس با ما - هپی لایف")
 
-    const formHandler = () => {
+    const [touched, setTouched] = useState({})
+    const [errors, setErrors] = useState({})
+    const [information, setInformation] = useState({
+        name: "",
+        email: "",
+        phoneNumber: "",
+        message: ""
+    })
 
+    const inputHandler = event => {
+        setInformation({ ...information, [event.target.name]: event.target.value })
     }
+
+    const focusHandler = event => setTouched({ ...touched, [event.target.name]: true })
+
+    useEffect(() => {
+        setErrors(validate(information, "contact"))
+    }, [information, touched])
+
+    const submitHandler = event => {
+        event.preventDefault()
+
+        if (!Object.keys(errors).length) {
+            notify('پیام شما با موفقیت ارسال شد', "success")
+        } else {
+            notify('لطفا اطلاعات خود را به صورت صحیح وارد نمایید', "error")
+            setTouched({
+                name: true,
+                email: true,
+                phoneNumber: true,
+                message: true
+            })
+        }
+    }
+
+    console.log(errors);
 
     return (
         <Paper elevation={0} className={classes.container}>
@@ -139,7 +187,7 @@ const Contact = () => {
             <div className={classes.content}>
                 <Box className={classes.info}>
                     <Box className={classes.title}>
-                        <img src={email} alt="ایمیل" />
+                        <img className={classes.titleImage} src={email} alt="ایمیل" />
                         <Typography className={classes.titleText}>ایمیل سازمانی</Typography>
                     </Box>
                     <Typography
@@ -153,7 +201,7 @@ const Contact = () => {
 
                 <Box className={classes.info}>
                     <Box className={classes.title}>
-                        <img src={callIcon} alt="تلفن تماس" />
+                        <img className={classes.titleImage} src={callIcon} alt="تلفن تماس" />
                         <Typography className={classes.titleText}>تلفن تماس</Typography>
                     </Box>
                     <Typography
@@ -168,52 +216,97 @@ const Contact = () => {
 
                 <Box className={classes.info}>
                     <Box className={classes.title}>
-                        <img src={office} alt="دفتر مرکزی هپی لایف" />
+                        <img className={classes.titleImage} src={office} alt="دفتر مرکزی هپی لایف" />
                         <Typography className={classes.titleText}>دفتر مرکزی هپی لایف</Typography>
                     </Box>
-                    <Typography className={classes.details} marginBottom={{xxs:3, sm: 5,xl: 8}}>
+                    <Typography className={classes.details} marginBottom={{ xxs: 3, sm: 5, xl: 8 }}>
                         تهران - خیابان شادی - پلاک ۴۴ - ساختمان هپی لایف
                     </Typography>
                 </Box>
 
-                <form className={classes.form} autoCapitalize='off' noValidate onSubmit={e => formHandler(e)}>
+                <form
+                    className={classes.form}
+                    autoCapitalize='off'
+                    noValidate onSubmit={e => submitHandler(e)}
+                >
                     <Input
                         placeholder="نام و نام خانوادگی"
                         name='name'
                         color='focus'
                         fullWidth
                         required
-                        sx={{ marginBottom: {xxs:2, sm: 4}, color: "#fff", fontSize: {xxs:12, sm: 14, lg: 16} }}
-                    // color='white'
-                    // value={"title"}
-                    // onChange={e => inputHandler(e)}
-                    // error={"titleError"}
+                        sx={{ color: "#fff", fontSize: { xxs: 12, sm: 14, lg: 16 } }}
+                        value={information.name}
+                        onChange={e => inputHandler(e)}
+                        onFocus={e => focusHandler(e)}
+                        error={errors.name}
                     />
+                    {errors.name &&
+                        touched.name &&
+                        <Typography variant='body2' marginTop={.5} color={"#d00808"}>
+                            {errors.name}
+                        </Typography>}
+
                     <Input
                         placeholder="پست الکترونیکی"
                         name='email'
                         color='focus'
                         fullWidth
                         required
-                        sx={{ marginBottom: {xxs:2, sm: 4}, color: "#fff", fontSize: {xxs:12, sm: 14, lg: 16} }}
-                    // value={"title"}
-                    // onChange={e => inputHandler(e)}
-                    // error={"titleError"}
+                        sx={{ marginTop: { xxs: 2, sm: 4 }, color: "#fff", fontSize: { xxs: 12, sm: 14, lg: 16 } }}
+                        value={information.email}
+                        onChange={e => inputHandler(e)}
+                        onFocus={e => focusHandler(e)}
+                        error={errors.email}
                     />
+                    {errors.email &&
+                        touched.email &&
+                        <Typography variant='body2' marginTop={.5} color={"#d00808"}>
+                            {errors.email}
+                        </Typography>}
+
                     <Input
                         placeholder="تلفن تماس"
                         name='phoneNumber'
+                        type="number"
                         color='focus'
                         fullWidth
                         required
-                        sx={{ marginBottom: {xxs:5, sm: 8}, color: "#fff", fontSize: {xxs:12, sm: 14, lg: 16} }}
-                    // value={"title"}
-                    // onChange={e => inputHandler(e)}
-                    // error={"titleError"}
+                        sx={{ marginTop: { xxs: 5 }, color: "#fff", fontSize: { xxs: 12, sm: 14, lg: 16 } }}
+                        value={information.phoneNumber}
+                        onChange={e => inputHandler(e)}
+                        onFocus={e => focusHandler(e)}
+                        error={errors.phoneNumber}
                     />
-                    <textarea rows={5} placeholder='پیام متن' className={classes.textarea} />
+                    {errors.phoneNumber &&
+                        touched.phoneNumber &&
+                        <Typography variant='body2' marginTop={.5} color={"#d00808"}>
+                            {errors.phoneNumber}
+                        </Typography>}
+
+                    <textarea
+                        rows={5}
+                        value={information.message}
+                        onChange={e => inputHandler(e)}
+                        onFocus={e => focusHandler(e)}
+                        placeholder='پیام متن'
+                        name='message'
+                        className={classes.textarea}
+                    />
+                    {errors.message &&
+                        touched.message &&
+                        <Typography variant='body2' marginTop={.5} color={"#d00808"}>
+                            {errors.message}
+                        </Typography>}
+
+                    <Button variant='outlined' type="submit" color="focus" sx={{ mt: 3, }}>
+                        ثبت و ارسال
+                    </Button>
+
                 </form>
             </div>
+
+            <ToastContainer theme="colored" />
         </Paper>
     );
 };

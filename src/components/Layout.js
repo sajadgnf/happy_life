@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Box } from '@mui/system';
 
 // components
 import Contact from './Contact';
@@ -14,10 +15,13 @@ import Details from './Details';
 import Support from './Support';
 import AboutUs from './AboutUs'
 import Cart from "./Cart"
-import { Paper } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 
 // api
 import { fetchProducts } from '../redux/products/productsAction';
+
+// gif
+import loadingGif from '../assets/gifs/loading.gif'
 
 const Layout = () => {
 
@@ -55,9 +59,13 @@ const Layout = () => {
 
     return (
         loading ?
-            <p>Loading</p> :
+            <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+                <img src={loadingGif} alt="loading" />
+            </Box> :
             error ?
-                <p>Something went wrong</p> :
+                <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+                    <Typography variant='h6'>Something went wrong</Typography>
+                </Box> :
                 <Paper elevation={0}>
                     <Navbar show={show} />
                     <Routes>
@@ -66,7 +74,7 @@ const Layout = () => {
                         <Route path='/mobiles' element={<Mobiles show={show} productsState={productsState} />} />
                         <Route path='/accessories' element={<Accessories show={show} productsState={productsState} />} />
                         <Route path='/headphones' element={<Headphones show={show} productsState={productsState} />} />
-                        <Route path={`${productsCategories}/:id`} element={<Details category={productsCategories} searchBarText={searchBarText} />} />
+                        <Route path={`${productsCategories}/:id`} element={<Details searchBarText={searchBarText} />} />
                         <Route path='/support' element={<Support show={show} />} />
                         <Route path='/contact' element={<Contact />} />
                         <Route path='/aboutUs' element={<AboutUs />} />

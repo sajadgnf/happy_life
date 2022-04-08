@@ -1,19 +1,25 @@
-const category = 'mobile'
+const category = JSON.parse(localStorage.getItem('section'))
 
 export const productsCategories = (state = category, action) => {
     switch (action.type) {
         case "MOBILES":
-            return  state= "mobiles" 
+            localStorage.setItem("section", JSON.stringify("mobiles"))
+            return state = "mobiles"
         case "ACCESSORIES":
-            return  state= "accessories" 
+            localStorage.setItem("section", JSON.stringify("accessories"))
+            return state = "accessories"
         case "HEADPHONES":
-            return  state= "headphones" 
+            localStorage.setItem("section", JSON.stringify("headphones"))
+            return state = "headphones"
         case "AMAZING":
-            return  state= "amazing" 
+            localStorage.setItem("section", JSON.stringify("amazing"))
+            return state = "amazing"
         case "MOST-VISITED":
-            return state= "most-visited" 
+            localStorage.setItem("section", JSON.stringify("most-visited"))
+            return state = "most-visited"
         case "MOST-SALES":
-            return state= "most-sales" 
+            localStorage.setItem("section", JSON.stringify("most-sales"))
+            return state = "most-sales"
         default:
             return state
     }

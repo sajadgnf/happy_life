@@ -158,9 +158,13 @@ const Login = () => {
             })
         })
             .then((response) => {
-                if (!Object.keys(errors).length) {
+                if (!Object.keys(errors).length && response.success) {
                     notify('شما با موفقیت وارد شدید', "success")
-                } else {
+                }
+                else if (!Object.keys(errors).length && !response.success) {
+                    notify('ایمیل یا پسورد را به صورت اشتباه وارد کرده اید', "error")
+                }
+                else {
                     notify('لطفا اطلاعات خود را به صورت صحیح وارد نمایید', "error")
                     setTouched({
                         email: true,
