@@ -178,8 +178,6 @@ const Contact = () => {
         }
     }
 
-    console.log(errors);
-
     return (
         <Paper elevation={0} className={classes.container}>
             <img className={classes.containerIcon} src={contactUs} alt="contact-us" />
