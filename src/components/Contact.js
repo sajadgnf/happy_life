@@ -243,7 +243,7 @@ const Contact = () => {
                     />
                     {errors.name &&
                         touched.name &&
-                        <Typography variant='body2' marginTop={.5} color="#782228" fontSize={10} >
+                        <Typography variant='body2' marginTop={.5} color="#782228" fontSize={{xxs:10, xl: 12}} >
                             {errors.name}
                         </Typography>}
 
@@ -260,7 +260,7 @@ const Contact = () => {
                     />
                     {errors.email &&
                         touched.email &&
-                        <Typography variant='body2' marginTop={.5} color="#782228" fontSize={10}>
+                        <Typography variant='body2' marginTop={.5} color="#782228" fontSize={{xxs:10, xl: 12}}>
                             {errors.email}
                         </Typography>}
 
@@ -278,7 +278,7 @@ const Contact = () => {
                     />
                     {errors.phoneNumber &&
                         touched.phoneNumber &&
-                        <Typography variant='body2' marginTop={.5} color="#782228" fontSize={10}>
+                        <Typography variant='body2' marginTop={.5} color="#782228" fontSize={{xxs:10, xl: 12}}>
                             {errors.phoneNumber}
                         </Typography>}
 
@@ -293,7 +293,7 @@ const Contact = () => {
                     />
                     {errors.message &&
                         touched.message &&
-                        <Typography variant='body2' marginTop={.5} color="#782228" fontSize={10}>
+                        <Typography variant='body2' marginTop={.5} color="#782228" fontSize={{xxs:10, xl: 12}}>
                             {errors.message}
                         </Typography>}
 
