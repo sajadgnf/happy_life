@@ -90,15 +90,20 @@ const useStyle = makeStyles(theme => {
                 height: 350
             },
             [theme.breakpoints.up('sm')]: {
-                height: 480,
+                height: 558,
             },
             [theme.breakpoints.up('lg')]: {
-                height: 500
+                height: 630
             },
             [theme.breakpoints.up('xl')]: {
                 background: `url(${frame1}) no-repeat bottom`,
                 backgroundSize: 'cover',
-                height: 520,
+                height: 634,
+            },
+            [theme.breakpoints.up('xxl')]: {
+                background: `url(${frame1}) no-repeat bottom`,
+                backgroundSize: 'cover',
+                height: 662,
             },
         },
         searchBox: {
