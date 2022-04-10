@@ -109,8 +109,9 @@ const useStyle = makeStyles(theme => {
                 height: 513,
             },
             [theme.breakpoints.up('xxl')]: {
-                background: `url(${frame1}) no-repeat bottom`,
-                backgroundSize: 'cover',
+                height: 560,
+            },
+            [theme.breakpoints.up('ul')]: {
                 height: 620,
             },
         },
