@@ -128,7 +128,7 @@ const useStyle = makeStyles(theme => {
                 borderColor: "#000"
             },
             "&:focus": {
-                borderColor: "#92E3A9"
+                borderColor: "#36bdb4"
             },
             [theme.breakpoints.up("sm")]: {
                 fontSize: 14,
