@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Button, Input, Paper, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // toast
@@ -298,14 +297,18 @@ const Contact = () => {
                             {errors.message}
                         </Typography>}
 
-                    <Button variant='outlined' type="submit" color="focus" sx={{ mt: 3, }}>
+                    <Button
+                        variant='outlined'
+                        type="submit"
+                        color="focus"
+                        sx={{ mt: 3, mx: 'auto', "&:hover": { background: "#1a5a56", borderColor: "#1a5a56" } }}
+                    >
                         ثبت و ارسال
                     </Button>
 
                 </form>
             </div>
 
-            <ToastContainer theme="colored" />
         </Paper>
     );
 };

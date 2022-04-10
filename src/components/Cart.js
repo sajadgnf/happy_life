@@ -4,7 +4,6 @@ import { makeStyles } from '@mui/styles'
 import DeleteOutlineSharpIcon from '@mui/icons-material/DeleteOutlineSharp';
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from "react-router-dom"
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // toast
@@ -251,7 +250,7 @@ const Cart = () => {
                         </Button>
                     </CardActions>
                 </Card>
-                <ToastContainer theme="colored" />
+          
             </Paper>
     );
 };

@@ -12,6 +12,7 @@ import ErrorPage from "./components/ErrorPage";
 // redux
 import store from "./redux/store";
 import shadows from "@mui/material/styles/shadows";
+import { ToastContainer } from "react-toastify";
 
 const theme = createTheme({
   direction: 'rtl',
@@ -64,10 +65,10 @@ const theme = createTheme({
       light: "#e4e4e4",
       dark: '#959595'
     },
-    focus:{
-      main: "#92E3A9",
-      light: "#fff",
-      dark: '#f1f1f1'
+    focus: {
+      main: "#36bdb4",
+      light: "#baebe8",
+      dark: '#1a5a56'
     }
   },
 
@@ -92,6 +93,7 @@ const App = () => {
             <Route path="/error" element={<ErrorPage />} />
           </Routes>
         </div>
+        <ToastContainer theme="colored" />
       </Provider>
     </ThemeProvider>
   );

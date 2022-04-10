@@ -341,9 +341,16 @@ const Details = ({ searchBarText }) => {
                     >
                         {product.enTitle}
                     </Typography>
-                    <Typography className={classes.productProperty} >
-                        ویژگی ها
-                    </Typography>
+                    {
+                        product.internalMemory || product.size || product.connection || product.ears ?
+                            <Typography className={classes.productProperty} >
+                                ویژگی ها
+                            </Typography> :
+                            <Typography className={classes.productProperty} color="textSecondary" sx={{ pl: 5}}>
+                                <Typography color={"#000"}>معرفی :</Typography> {product.details}
+                            </Typography>
+
+                    }
                     {
                         product.internalMemory &&
                         <Typography className={classes.productProperty}>

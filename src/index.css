@@ -81,7 +81,6 @@
     font-family: "estedad";
 }
 
-
 .my-masonry-grid {
     display: -webkit-box; /* Not needed if autoprefixing */
     display: -ms-flexbox; /* Not needed if autoprefixing */
@@ -90,7 +89,7 @@
     width: auto;
 }
 .my-masonry-grid_column {
-    padding-left: 30px; 
+    padding-left: 30px;
     background-clip: padding-box;
 }
 
@@ -99,25 +98,34 @@
     margin-bottom: 16px;
 }
 
-
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 0;
+    width: 10px;
+    height: 0;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: transparent; 
+    background: transparent;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #c9c9c9; 
+    background: #c9c9c9;
     border-radius: 100px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+    background: #555;
+}
+
+.Toastify__toast-container {
+    transform: translateX(16px);
+}
+.Toastify__toast--success {
+    background: #36bdb4 !important;
+}
+.Toastify__toast--error {
+    background: #782228 !important;
 }

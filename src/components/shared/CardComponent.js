@@ -98,6 +98,7 @@ const CardComponent = ({ item, section }) => {
                                     fontSize={{ xxs: '9.2px', sm: "11px", xl: '13px' }}
                                     fontWeight='400'
                                     color='secondary'
+                                    fontFamily='shabnam'
                                     sx={{
                                         textDecoration: "line-through",
                                         marginLeft: { xxs: 4, sm: 5, xl: 5.5 }

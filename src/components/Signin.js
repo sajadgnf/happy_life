@@ -4,7 +4,6 @@ import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // toast
@@ -289,7 +288,6 @@ const Signin = () => {
                 </form>
             </Box>
 
-            <ToastContainer theme="colored" />
         </Paper>
     );
 };
