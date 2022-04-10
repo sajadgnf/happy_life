@@ -81,29 +81,37 @@ const useStyle = makeStyles(theme => {
         bgImage: {
             background: `url(${frame}) no-repeat center`,
             backgroundSize: 'cover',
-            height: 276,
+            height: 220,
             width: "100%",
             position: 'relative',
             transition: ".5s all linear",
+            marginTop: 30,
 
-            [theme.breakpoints.up('xs')]: {
+            [theme.breakpoints.up('xsm')]: {
                 height: 350
             },
+            [theme.breakpoints.up('xs')]: {
+                height: 336
+            },
             [theme.breakpoints.up('sm')]: {
-                height: 558,
+                height: 397,
+            },
+            [theme.breakpoints.up('ml')]: {
+                marginTop: 45,
+                height: 510
             },
             [theme.breakpoints.up('lg')]: {
-                height: 630
-            },
-            [theme.breakpoints.up('xl')]: {
                 background: `url(${frame1}) no-repeat bottom`,
                 backgroundSize: 'cover',
-                height: 634,
+                height: 487
+            },
+            [theme.breakpoints.up('xl')]: {
+                height: 513,
             },
             [theme.breakpoints.up('xxl')]: {
                 background: `url(${frame1}) no-repeat bottom`,
                 backgroundSize: 'cover',
-                height: 662,
+                height: 620,
             },
         },
         searchBox: {
