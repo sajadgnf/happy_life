@@ -4,8 +4,10 @@ import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowCircleLeftRoundedIcon from '@mui/icons-material/ArrowCircleLeftRounded';
+import { Box } from '@mui/system';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 //components
 import FeaturesCard from './shared/FeaturesCard';
@@ -32,7 +34,6 @@ import {
     headphone,
     moneyBag
 } from "../constants/icons"
-
 
 const features = [
     {
@@ -179,6 +180,13 @@ const useStyle = makeStyles(theme => {
         mainLogo: {
             width: "100%",
             height: "100%"
+        },
+        searchProductsImage: {
+            width: 40
+        },
+        searchLink: {
+            textDecoration: "none",
+            color: "#333",
         },
 
         // features
@@ -381,11 +389,14 @@ const Landing = ({ searchBarText, productsState }) => {
     useTitle("فروشگاه هپی لایف")
     const sales = useRef()
     const visited = useRef()
+    const dispatch = useDispatch()
     const [gridValue, setGridValue] = useState({
         sales: 0,
         visited: 0
     })
     const classes = useStyle()
+    const [search, setSearch] = useState("")
+    let allProducts = []
 
     // scroll handler
     const scrollHandler = ref => {
@@ -406,6 +417,20 @@ const Landing = ({ searchBarText, productsState }) => {
 
     const { amazing, mostVisited, mostSales } = productsState.products
 
+    // add section for link to details page
+    const addSection = (...sections) => {
+        sections.map(section => {
+            productsState.products[section].map(item => {
+                item = { ...item, section: section }
+                allProducts.push(item)
+            })
+        })
+    }
+    addSection("mobiles", "accessories")
+
+    // searchResult
+    const searchResult = allProducts.filter(product => product.title.toLowerCase().includes(search.toLowerCase()))
+
     return (
         <Paper elevation={0}>
             <div className={classes.bgImage}>
@@ -414,6 +439,7 @@ const Landing = ({ searchBarText, productsState }) => {
                     component="form"
                     sx={{ p: '4px 8px', display: 'flex', alignItems: 'center' }}
                     elevation={15}
+                    onSubmit={e => e.preventDefault()}
                 >
                     <InputBase
                         sx={{
@@ -424,13 +450,55 @@ const Landing = ({ searchBarText, productsState }) => {
                                 lg: 14
                             }
                         }}
+                        type="search"
                         placeholder={searchBarText}
+                        value={search}
+                        onChange={e => setSearch(e.target.value)}
                     />
                     <SearchSharpIcon
                         fontSize="medium"
                         className={classes.searchIcon}
                     />
                 </Paper>
+                {
+                    search.length ?
+                        <Box
+                            sx={{
+                                width: { xxs: 219, sm: 319, lg: 500 },
+                                height: 300,
+                                background: "#fff",
+                                position: "absolute",
+                                bottom: -335,
+                                border: "1px solid silver",
+                                borderRadius: 1,
+                                left: "50%",
+                                transform: "translate(-50%)",
+                                padding: 2,
+                                overflow: "auto",
+                            }}
+                        >
+                            {
+                                searchResult.length ?
+                                    searchResult.map(item => (
+                                        <Link
+                                            className={classes.searchLink}
+                                            key={item.id + item.section}
+                                            to={`/${item.section}/${item.id}`}
+                                            onClick={() => dispatch({ type: item.section.toUpperCase() })}
+                                            title={item.title}
+                                        >
+                                            <Box display='flex' alignItems='center' marginBottom={2} sx={{ cursor: "pointer" }}>
+                                                <img className={classes.searchProductsImage} src={item.image.main} alt="عکس محصول" />
+                                                <Typography noWrap>{item.title}</Typography>
+                                            </Box>
+                                        </Link>
+                                    )) :
+                                    <Typography textAlign="center">هیج موردی یافت نشد</Typography>
+                            }
+                        </Box> :
+                        ''
+                }
+
             </div>
             <div className={classes.mainLogoContainer}>
                 <img className={classes.mainLogo} src={logo} alt="logo" />

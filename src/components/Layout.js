@@ -74,7 +74,7 @@ const Layout = () => {
                         <Route path='/mobiles' element={<Mobiles show={show} productsState={productsState} />} />
                         <Route path='/accessories' element={<Accessories show={show} productsState={productsState} />} />
                         <Route path='/headphones' element={<Headphones show={show} productsState={productsState} />} />
-                        <Route path={`${productsCategories}/:id`} element={<Details searchBarText={searchBarText} />} />
+                        <Route path={`${productsCategories}/:id`} element={<Details searchBarText={searchBarText} productsState={productsState} />} />
                         <Route path='/support' element={<Support show={show} />} />
                         <Route path='/contact' element={<Contact />} />
                         <Route path='/aboutUs' element={<AboutUs />} />

@@ -7,6 +7,7 @@ import ReactTooltip from 'react-tooltip'
 import { Container } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 // icons & images & gifs
@@ -164,11 +165,18 @@ const useStyle = makeStyles(theme => {
             height: 45,
             borderRadius: 10,
             overflow: 'hidden'
-        }
+        },
+        searchProductsImage: {
+            width: 40
+        },
+        searchLink: {
+            textDecoration: "none",
+            color: "#333",
+        },
     }
 })
 
-const Details = ({ searchBarText }) => {
+const Details = ({ searchBarText, productsState }) => {
 
     const classes = useStyle()
     const [product, setProduct] = useState([])
@@ -178,18 +186,26 @@ const Details = ({ searchBarText }) => {
     const [open, setOpen] = useState(false)
     const [selectedColor, setSelectedColor] = useState([])
     const [openSearch, setOpenSearch] = useState(false)
+    const [search, setSearch] = useState('')
     const dispatch = useDispatch()
     const cartState = useSelector(store => store.cartState)
     const params = useParams()
     const id = params.id
     const section = params['*'].split('/')[0]
     const colors = []
+    let allProducts = []
 
     const handleOpen = event => {
         setOpen(true)
         setShowImage(event.currentTarget.firstElementChild.src);
     }
     const handleClose = () => setOpen(false)
+
+    const searchHandler = item => {
+        dispatch({ type: item.section.toUpperCase() })
+        setSearch('')
+        setOpenSearch(false)
+    }
 
     useEffect(() => {
         axios.get(`https://happy-life-api.herokuapp.com/${section}/${id}`)
@@ -200,7 +216,7 @@ const Details = ({ searchBarText }) => {
                 dispatch({ type: section.toUpperCase() })
                 localStorage.setItem("section", JSON.stringify(section))
             })
-    }, [])
+    }, [params])
 
     const selectedHandler = (event, newSelected) => {
 
@@ -214,26 +230,40 @@ const Details = ({ searchBarText }) => {
 
     if (!loading) {
         product.colors.map(color => {
-            if (color === "black") {
+            if (color === "مشکی") {
                 colors.push({ title: "مشکی", hex: "#333" })
             }
-            if (color === "white") {
+            if (color === "سفید") {
                 colors.push({ title: "سفید", hex: "#fff" })
             }
-            if (color === "blue") {
+            if (color === "آبی") {
                 colors.push({ title: "آبی", hex: "#1388cd" })
             }
-            if (color === "gold") {
+            if (color === "طلایی") {
                 colors.push({ title: "طلایی", hex: "#cda113" })
             }
-            if (color === "red") {
+            if (color === "قرمز") {
                 colors.push({ title: "قرمز", hex: "#bd0310" })
             }
-            if (color === "gray") {
+            if (color === "خاکستری") {
                 colors.push({ title: "خاکستری", hex: "#878787" })
             }
         })
     }
+
+    // add section for link to details page
+    const addSection = (...sections) => {
+        sections.map(section => {
+            productsState.products[section].map(item => {
+                item = { ...item, section: section }
+                allProducts.push(item)
+            })
+        })
+    }
+    addSection("mobiles", "accessories")
+
+    // searchResult
+    const searchResult = allProducts.filter(product => product.title.toLowerCase().includes(search.toLowerCase()))
 
     useTitle(product.title)
 
@@ -346,9 +376,12 @@ const Details = ({ searchBarText }) => {
                             <Typography className={classes.productProperty} >
                                 ویژگی ها
                             </Typography> :
-                            <Typography className={classes.productProperty} color="textSecondary" sx={{ pl: 5}}>
-                                <Typography color={"#000"}>معرفی :</Typography> {product.details}
-                            </Typography>
+                            <>
+                                <Typography color={"#000"}>معرفی :</Typography>
+                                <Typography className={classes.productProperty} color="textSecondary" sx={{ pl: 5 }}>
+                                    {product.details}
+                                </Typography>
+                            </>
 
                     }
                     {
@@ -523,8 +556,48 @@ const Details = ({ searchBarText }) => {
                                 { xxs: { transform: 'translate(0)', display: "inline-block" }, ml: { transform: 'translateY(0px)', display: "inline-block" } }
                         }
                     >
-                        <input type="text" placeholder={searchBarText} className={classes.searchBox} />
+                        <input type="text" placeholder={searchBarText} className={classes.searchBox} value={search} onChange={e => setSearch(e.target.value)} />
                     </Box>
+
+                    {
+                        search.length ?
+                            <Box
+                                sx={{
+                                    width: '90%',
+                                    height: 300,
+                                    background: "#fff",
+                                    position: "absolute",
+                                    bottom: 69,
+                                    border: "1px solid silver",
+                                    borderRadius: 1,
+                                    left: "50%",
+                                    transform: "translate(-50%)",
+                                    padding: 2,
+                                    overflow: "auto",
+                                    zIndex: 3
+                                }}
+                            >
+                                {
+                                    searchResult.length ?
+                                        searchResult.map(item => (
+                                            <Link
+                                                className={classes.searchLink}
+                                                key={item.id + item.section}
+                                                to={`/${item.section}/${item.id}`}
+                                                onClick={() => searchHandler(item)}
+                                                title={item.title}
+                                            >
+                                                <Box display='flex' alignItems='center' marginBottom={2} sx={{ cursor: "pointer" }}>
+                                                    <img className={classes.searchProductsImage} src={item.image.main} alt="عکس محصول" />
+                                                    <Typography noWrap>{item.title}</Typography>
+                                                </Box>
+                                            </Link>
+                                        )) :
+                                        <Typography textAlign="center">هیج موردی یافت نشد</Typography>
+                                }
+                            </Box> :
+                            ''
+                    }
                 </Container>
 
                 <Modal
