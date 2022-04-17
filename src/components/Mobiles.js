@@ -5,8 +5,9 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { makeStyles } from "@mui/styles"
 import Grid from "@mui/material/Grid"
-import { styled } from "@mui/system";
-import React, { useEffect, useState } from 'react';
+import { styled, alpha } from '@mui/system';
+import SliderUnstyled, { sliderUnstyledClasses } from '@mui/base/SliderUnstyled';
+import React, { useEffect, useRef, useState } from 'react';
 
 // components
 import CardComponent from "./shared/CardComponent";
@@ -36,6 +37,18 @@ const BpIcon = styled('span')(({ theme }) => ({
         outline: '2px auto rgba(19,124,189,.6)',
         outlineOffset: 2,
         background: "#227872",
+    },
+    [theme.breakpoints.up('xs')]: {
+        width: 15,
+        height: 15
+    },
+    [theme.breakpoints.up('ml')]: {
+        width: 18,
+        height: 18
+    },
+    [theme.breakpoints.up('xxl')]: {
+        width: 22,
+        height: 22
     },
 }));
 
@@ -68,17 +81,44 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
     '&:active': {
         '& .MuiSwitch-thumb': {
             width: 8,
+            [theme.breakpoints.up('ml')]: {
+                width: 18,
+            },
         },
         '& .MuiSwitch-switchBase.Mui-checked': {
             transform: 'translate(3px, -1.2px)',
+            [theme.breakpoints.up('xs')]: {
+                transform: 'translate(6px, -1.2px)'
+            },
+            [theme.breakpoints.up('ml')]: {
+                transform: 'translate(18px, -1.2px)'
+            },
         },
     },
     '& .MuiSwitch-switchBase': {
         padding: 2,
         transform: 'translate(-1px, -1.2px)',
+        [theme.breakpoints.up('ml')]: {
+            transform: 'translate(-1px, -0.8px)'
+        },
+        [theme.breakpoints.up('ml')]: {
+            transform: 'translate(-1px, -0.8px)'
+        },
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'translate(0, -0.2px)'
+        },
         '&.Mui-checked': {
             transform: 'translate(5px, -1.2px)',
             color: '#fff',
+            [theme.breakpoints.up('xs')]: {
+                transform: 'translate(8px, -1.2px)'
+            },
+            [theme.breakpoints.up('ml')]: {
+                transform: 'translate(17px, -0.8px)'
+            },
+            [theme.breakpoints.up('xxl')]: {
+                transform: 'translate(21px, -0.2px)'
+            },
             '& + .MuiSwitch-track': {
                 opacity: 1,
                 backgroundColor: theme.palette.mode === 'dark' ? '#227872' : '#227872',
@@ -93,6 +133,18 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
         transition: theme.transitions.create(['width'], {
             duration: 200,
         }),
+        [theme.breakpoints.up('xs')]: {
+            width: 8,
+            height: 8,
+        },
+        [theme.breakpoints.up('ml')]: {
+            width: 10.5,
+            height: 10,
+        },
+        [theme.breakpoints.up('xxl')]: {
+            width: 12.5,
+            height: 13
+        },
     },
     '& .MuiSwitch-track': {
         borderRadius: 16 / 2,
@@ -100,6 +152,18 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
         backgroundColor:
             theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(0,0,0,.25)',
         boxSizing: 'border-box',
+    },
+    [theme.breakpoints.up('xs')]: {
+        width: 20,
+        height: 10,
+    },
+    [theme.breakpoints.up('ml')]: {
+        width: 30,
+        height: 12
+    },
+    [theme.breakpoints.up('xxl')]: {
+        width: 38,
+        height: 17
     },
 }));
 
@@ -114,7 +178,7 @@ const Accordion = styled((props) => (
 
 const AccordionSummary = styled((props) => (
     <MuiAccordionSummary
-        expandIcon={<KeyboardArrowDownIcon sx={{ fontSize: 8 }} />}
+        expandIcon={<KeyboardArrowDownIcon sx={{ fontSize: { xxs: 8, xs: 12, ml: 18 } }} />}
         {...props}
     />
 ))(({ theme }) => ({
@@ -132,12 +196,120 @@ const AccordionSummary = styled((props) => (
     '& .MuiAccordionSummary-content': {
         marginLeft: theme.spacing(1),
     },
+    [theme.breakpoints.up('xs')]: {
+        height: 25,
+        minHeight: 25,
+    },
+    [theme.breakpoints.up('ml')]: {
+        height: 30,
+        minHeight: 30,
+    },
+    [theme.breakpoints.up('xxl')]: {
+        height: 40,
+        minHeight: 40,
+    },
 }));
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
     padding: 0,
     paddingBottom: 10
 }));
+
+const StyledSlider = styled(SliderUnstyled)(
+    ({ theme }) => `
+  color: ${theme.palette.mode === 'light' ? '#227872' : '#90caf9'};
+  height: 4px;
+  width: 95%;
+  padding: 13px 0;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0.75;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.${sliderUnstyledClasses.disabled} { 
+    pointer-events: none;
+    cursor: default;
+    color: #bdbdbd; 
+  }
+
+  & .${sliderUnstyledClasses.rail} {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background-color: currentColor;
+    opacity: 0.38;
+  }
+
+  & .${sliderUnstyledClasses.track} {
+    display: block;
+    position: absolute;
+    height: 4px;
+    border-radius: 2px;
+    background-color: currentColor;
+  }
+
+  & .${sliderUnstyledClasses.thumb} {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    margin-left: -6px;
+    margin-top: -5px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    outline: 0;
+    border: 2px solid currentColor;
+    background-color: #fff;
+
+    :hover,
+    &.${sliderUnstyledClasses.focusVisible} {
+      box-shadow: 0 0 0 0.25rem ${alpha(
+        theme.palette.mode === 'light' ? '#227872' : '#90caf9',
+        0.15,
+    )};
+    }
+
+    &.${sliderUnstyledClasses.active} {
+      box-shadow: 0 0 0 0.25rem ${alpha(
+        theme.palette.mode === 'light' ? '#227872' : '#90caf9',
+        0.3,
+    )};
+    }
+  }
+
+  & .${sliderUnstyledClasses.mark} {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: currentColor;
+    top: 50%;
+    opacity: 0.7;
+    transform: translateX(-50%);
+  }
+
+  & .${sliderUnstyledClasses.markActive} {
+    background-color: #fff;
+  }
+
+  & .${sliderUnstyledClasses.valueLabel} {
+    font-family: IBM Plex Sans;
+    font-size: 14px;
+    display: block;
+    position: relative;
+    top: 0.8em;
+    text-align: center;
+    transform: translateX(33%);
+  }
+`,
+);
 
 // styles
 const useStyle = makeStyles(theme => {
@@ -170,11 +342,29 @@ const useStyle = makeStyles(theme => {
             }
         },
         filterTitle: {
-            fontSize: 7.6
+            fontSize: 7.6,
+            [theme.breakpoints.up('xs')]: {
+                fontSize: 10,
+            },
+            [theme.breakpoints.up('ml')]: {
+                fontSize: 13,
+            },
+            [theme.breakpoints.up('xxl')]: {
+                fontSize: 16,
+            },
         },
         radioFilter: {
             "& span": {
                 fontSize: 6.6,
+                [theme.breakpoints.up('xs')]: {
+                    fontSize: 8.8,
+                },
+                [theme.breakpoints.up('ml')]: {
+                    fontSize: 11,
+                },
+                [theme.breakpoints.up('xxl')]: {
+                    fontSize: 14,
+                },
             },
             "& *:hover": {
                 background: 'transparent',
@@ -183,7 +373,18 @@ const useStyle = makeStyles(theme => {
         accordionContent: {
             fontSize: 6.6,
             cursor: 'pointer',
-            padding: '2px 0'
+            padding: '2px 0',
+            [theme.breakpoints.up('xs')]: {
+                fontSize: 8.8,
+                padding: '4px 0',
+            },
+            [theme.breakpoints.up('ml')]: {
+                fontSize: 11,
+                padding: '8px 0',
+            },
+            [theme.breakpoints.up('xxl')]: {
+                fontSize: 14,
+            },
         }
     }
 })
@@ -193,12 +394,14 @@ const Mobiles = ({ show, productsState }) => {
     useTitle("خرید و قیمت موبایل")
 
     const classes = useStyle()
+    const ref = useRef()
     const [expanded, setExpanded] = useState('')
     const [mobiles, setMobiles] = useState([...productsState.products.mobiles])
     const [categories, setCategories] = useState({
         price: "",
         brand: "",
         color: "",
+        priceRange: [0, 20000000],
         available: false
     })
     let colors = []
@@ -219,55 +422,112 @@ const Mobiles = ({ show, productsState }) => {
 
 
     useEffect(() => {
-        if (categories.brand && categories.color && categories.available) {
-            setMobiles(productsState.products.mobiles.filter(item => {
-                item.available &&
+
+        if (categories.available && !categories.color) {
+            if (categories.brand) {
+                setMobiles(mobiles => mobiles.filter(item => item.available))
+            } else {
+                setMobiles(productsState.products.mobiles.filter(item => item.available))
+            }
+        }
+
+        if (!categories.available && !categories.color) {
+            if (categories.brand) {
+                setMobiles(productsState.products.mobiles.filter(item =>
+                    item.brand === categories.brand
+                ))
+            } else {
+                setMobiles([...productsState.products.mobiles])
+            }
+        }
+
+        if (categories.color) {
+            if (categories.brand && categories.available) {
+                setMobiles(productsState.products.mobiles.filter(item =>
+                    item.colors.find(color => color === categories.color) &&
                     item.brand === categories.brand &&
-                    item.colors.find(color => color === categories.color)
-            }))
+                    item.available
+                ))
+            } else if (categories.brand) {
+                setMobiles(productsState.products.mobiles.filter(item =>
+                    item.colors.find(color => color === categories.color) &&
+                    item.brand === categories.brand
+                ))
+            } else if (categories.available) {
+                setMobiles(productsState.products.mobiles.filter(item =>
+                    item.colors.find(color => color === categories.color) &&
+                    item.available
+                ))
+            } else {
+                setMobiles(productsState.products.mobiles.filter(item => item.colors.find(color => color === categories.color)))
+            }
         }
-        else if (categories.brand && categories.color) {
-            setMobiles(productsState.products.mobiles.filter(item => {
-                item.brand === categories.brand &&
-                    item.colors.find(color => color === categories.color)
-            }))
+
+        if (categories.priceRange) {
+            setMobiles(mobiles => mobiles.filter(
+                item => item.price <= categories.priceRange[1] &&
+                    item.price >= categories.priceRange[0]
+            ))
         }
-        else if (categories.brand && categories.available) {
-            setMobiles(productsState.products.mobiles.filter(item => item.brand === categories.brand && item.available))
-        }
-        else if (categories.color && categories.available) {
-            setMobiles(productsState.products.mobiles.filter(item => {
-                item.available &&
-                    item.colors.find(color => color === categories.color)
-            }))
-        }
-        else if (categories.brand) {
-            setMobiles(productsState.products.mobiles.filter(item => item.brand === categories.brand))
-        }
-        else if (categories.color) {
-            setMobiles(productsState.products.mobiles.filter(item => item.colors.find(color => color === categories.color)))
-        }
-        else if (categories.available) {
-            setMobiles(productsState.products.mobiles.filter(item => item.available))
-        }
-        else if (!categories.available) (
-            setMobiles([...productsState.products.mobiles])
-        )
 
         if (categories.price === "highestPrice") setMobiles(mobiles => mobiles.sort((a, b) => b.price - a.price))
         if (categories.price === "lowestPrice") setMobiles(mobiles => mobiles.sort((a, b) => a.price - b.price))
-        console.log(mobiles)
 
     }, [categories])
+
+    useEffect(() => {
+        if (categories.brand) {
+            if (categories.available) {
+                setMobiles(productsState.products.mobiles.filter(item => item.available && item.brand === categories.brand))
+            }
+            else if (categories.color) {
+                setMobiles(productsState.products.mobiles.filter(item =>
+                    item.colors.find(color => color === categories.color) &&
+                    item.brand === categories.brand
+                ))
+            }
+            else if (categories.color && categories.available) {
+                setMobiles(productsState.products.mobiles.filter(item =>
+                    item.colors.find(color => color === categories.color) &&
+                    item.brand === categories.brand &&
+                    item.brand === categories.brand
+                ))
+            }
+            else {
+                setMobiles(productsState.products.mobiles.filter(item => item.brand === categories.brand))
+            }
+        }
+    }, [categories.brand])
 
     const categoriesHandler = event => {
         if (event.target.id === 'available') {
             setCategories({ ...categories, [event.target.id]: !categories[event.target.id] })
+            if (!ref.current.classList.contains("Mui-checked")) ref.current.classList.add("Mui-checked")
         } else if (event.target.id === 'price') {
             setCategories({ ...categories, [event.target.id]: event.target.value })
         } else {
             setCategories({ ...categories, [event.target.id]: event.target.innerText })
         }
+    }
+
+    const priceRangeHandler = (e, data) => {
+        setCategories({ ...categories, priceRange: data })
+    }
+
+    const valuetext = () => categories.priceRange
+
+    const clearFilterHandler = () => {
+        setMobiles([...productsState.products.mobiles])
+        setCategories({
+            price: "",
+            brand: "",
+            color: "",
+            priceRange: [0, 20000000],
+            available: false
+        })
+        ref.current.firstElementChild.checked = false
+        ref.current.checked = false
+        ref.current.classList.remove("Mui-checked")
     }
 
     return (
@@ -286,13 +546,25 @@ const Mobiles = ({ show, productsState }) => {
                     }
                 }}
             >
-                {/* <Box sx={{ ml: 1, width: 134 }}>
+                <Box
+                    sx={{
+                        ml: { xxs: 1, ml: 2, xxl: 6 },
+                        width: { xxs: 134, xs: 220, xxl: 350 },
+
+                    }}>
                     <Box display='flex' justifyContent='space-between'>
                         <Typography className={classes.filterTitle} color="primary">فیلتر</Typography>
-                        <Typography className={classes.filterTitle} color="#782228">حذف فیلترها</Typography>
+                        <Typography
+                            className={classes.filterTitle}
+                            color="#782228"
+                            sx={{ cursor: "pointer" }}
+                            onClick={() => clearFilterHandler()}
+                        >
+                            حذف فیلترها
+                        </Typography>
                     </Box>
-                    <Box sx={{ border: '1px solid silver', py: 2, px: 1 }}>
-                        <FormControl sx={{ borderBottom: '1px solid #cbcbcb', pb: .5 }}>
+                    <Box sx={{ border: '1px solid silver', py: 2, px: 1, borderRadius: 1.5 }}>
+                        <FormControl sx={{ borderBottom: '1px solid #cbcbcb', pb: .5, width: '100%' }}>
                             <FormLabel
                                 className={classes.filterTitle}
                                 sx={{ mb: .5 }}
@@ -335,9 +607,10 @@ const Mobiles = ({ show, productsState }) => {
                                 flexDirection: 'row-reverse',
                                 justifyContent: "space-between",
                                 borderBottom: '1px solid #cbcbcb',
-                                py: 1
+                                py: { xxs: 1, ml: 1.5 },
+                                width: '100%'
                             }}
-                            control={<AntSwitch id="available" onClick={(event) => categoriesHandler(event)} />}
+                            control={<AntSwitch ref={ref} id="available" onClick={(event) => categoriesHandler(event)} />}
                             label="فقط کالاهای موجود"
                         />
 
@@ -381,34 +654,23 @@ const Mobiles = ({ show, productsState }) => {
                             </AccordionDetails>
                         </Accordion>
 
-                        <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                            <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-                                <Typography className={classes.accordionContent}>حافظه داخلی</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Typography className={classes.accordionContent}>
-                                    تا 8 گیگابایت
-                                </Typography>
-                                <Typography className={classes.accordionContent}>
-                                    16 گیگابایت
-                                </Typography>
-                                <Typography className={classes.accordionContent}>
-                                    32 گیگابایت
-                                </Typography>
-                                <Typography className={classes.accordionContent}>
-                                    64 گیگابایت
-                                </Typography>
-                                <Typography className={classes.accordionContent}>
-                                    تا 126 گیگابایت 1 ترابایت
-                                </Typography>
-                            </AccordionDetails>
-                        </Accordion>
+                        <Box marginTop={2} textAlign='center'>
+                            <Typography textAlign='start' className={classes.filterTitle}>قیمت</Typography>
+                            <StyledSlider
+                                value={categories.priceRange}
+                                onChange={priceRangeHandler}
+                                valueLabelDisplay="auto"
+                                getAriaValueText={valuetext}
+                                min={0}
+                                max={20000000}
+                            />
+                        </Box>
                     </Box>
-                </Box> */}
+                </Box>
 
                 <Grid
                     container
-                    spacing={{ xxs: 1, xl: 5, xxl: 6 }}
+                    spacing={{ xxs: 1, ml: 2, xl: 5, xxl: 6 }}
                 >
                     {
                         mobiles.map(item => (
