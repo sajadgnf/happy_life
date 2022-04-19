@@ -666,8 +666,8 @@ const Mobiles = ({ show, productsState }) => {
                                         justifyContent="space-between"
                                         sx={{ transform: "translateY(-10px)" }}
                                     >
-                                        <Typography className={classes.priceRangeNumber}>تا {categories.priceRange[1].toLocaleString()} تومان</Typography>
                                         <Typography className={classes.priceRangeNumber}>از {categories.priceRange[0].toLocaleString()} تومان</Typography>
+                                        <Typography className={classes.priceRangeNumber}>تا {categories.priceRange[1].toLocaleString()} تومان</Typography>
                                     </Box>
                                 </Box>
                             </Box>
@@ -830,8 +830,8 @@ const Mobiles = ({ show, productsState }) => {
                                             justifyContent="space-between"
                                             sx={{ transform: "translateY(-10px)" }}
                                         >
-                                            <Typography className={classes.priceRangeNumber}>تا {categories.priceRange[1].toLocaleString()} تومان</Typography>
                                             <Typography className={classes.priceRangeNumber}>از {categories.priceRange[0].toLocaleString()} تومان</Typography>
+                                            <Typography className={classes.priceRangeNumber}>تا {categories.priceRange[1].toLocaleString()} تومان</Typography>
                                         </Box>
                                     </Box>
                                 </Box>
