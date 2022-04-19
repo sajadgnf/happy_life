@@ -11,7 +11,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 //components
 import FeaturesCard from './shared/FeaturesCard';
-import CardComponent from './shared/CardComponent';
+import LandingCard from './shared/LandingCard';
 
 // images
 import { frame, frame1 } from '../constants/images'
@@ -539,7 +539,7 @@ const Landing = ({ searchBarText, productsState }) => {
                         {
                             amazing.map(item => (
                                 <Grid item key={item.id} xxs={6} xs={6} lg={3}>
-                                    <CardComponent item={item} section="amazing" />
+                                    <LandingCard item={item} section="amazing" />
                                 </Grid>
                             ))
                         }
@@ -589,7 +589,7 @@ const Landing = ({ searchBarText, productsState }) => {
                                         key={item.id}
                                         sx={{ minWidth: { xxs: 150, ml: 308, lg: 250, xxl: 340 } }}
                                     >
-                                        <CardComponent item={item} section="most-visited" />
+                                        <LandingCard item={item} section="most-visited" />
                                     </Grid>
                                 ))
                             }
@@ -729,7 +729,7 @@ const Landing = ({ searchBarText, productsState }) => {
                                         key={item.id}
                                         sx={{ minWidth: { xxs: 150, ml: 308, lg: 250, xxl: 340 } }}
                                     >
-                                        <CardComponent item={item} section="most-sales" />
+                                        <LandingCard item={item} section="most-sales" />
                                     </Grid>
                                 ))
                             }

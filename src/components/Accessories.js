@@ -371,6 +371,19 @@ const useStyle = makeStyles(theme => {
                 background: 'transparent',
             },
         },
+        accordionTitle: {
+            fontSize: 8,
+            fontWeight: 400,
+            [theme.breakpoints.up('xs')]: {
+                fontSize: 10,
+            },
+            [theme.breakpoints.up('ml')]: {
+                fontSize: 12,
+            },
+            [theme.breakpoints.up('xxl')]: {
+                fontSize: 16,
+            },
+        },
         accordionContent: {
             fontSize: 6.6,
             cursor: 'pointer',
@@ -615,7 +628,7 @@ const Accessories = ({ show, productsState }) => {
 
                         <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                             <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                                <Typography className={classes.accordionContent}>برند</Typography>
+                                <Typography className={classes.accordionTitle}>برند</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 {
@@ -624,6 +637,7 @@ const Accessories = ({ show, productsState }) => {
                                             key={item}
                                             className={classes.accordionContent}
                                             id='brand'
+                                            color={item === categories.brand && "primary"}
                                             onClick={event => categoriesHandler(event)}
                                         >
                                             {item}
@@ -635,7 +649,7 @@ const Accessories = ({ show, productsState }) => {
 
                         <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
                             <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-                                <Typography className={classes.accordionContent}>رنگ</Typography>
+                                <Typography className={classes.accordionTitle}>رنگ</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 {
@@ -643,6 +657,7 @@ const Accessories = ({ show, productsState }) => {
                                         <Typography
                                             key={item}
                                             className={classes.accordionContent}
+                                            color={item === categories.color && "primary"}
                                             id='color'
                                             onClick={event => categoriesHandler(event)}
                                         >

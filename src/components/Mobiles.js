@@ -1,4 +1,4 @@
-import { Box, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, Switch, Typography } from "@mui/material";
+import { Box, Button, Container, Divider, FormControl, FormControlLabel, FormLabel, IconButton, Paper, Radio, RadioGroup, SwipeableDrawer, Switch, Typography } from "@mui/material";
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
@@ -6,14 +6,16 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { makeStyles } from "@mui/styles"
 import Grid from "@mui/material/Grid"
 import { styled, alpha } from '@mui/system';
+import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp"
 import SliderUnstyled, { sliderUnstyledClasses } from '@mui/base/SliderUnstyled';
 import React, { useEffect, useRef, useState } from 'react';
 
 // components
 import CardComponent from "./shared/CardComponent";
 
-// images
-import { eidOffer } from "../constants/images"
+// images & icons
+import { eidOffer, productsFrame } from "../constants/images"
+import { tune } from "../constants/icons";
 
 // functions
 import { useTitle } from "../helper/functions";
@@ -21,8 +23,8 @@ import { useTitle } from "../helper/functions";
 // customization styles
 const BpIcon = styled('span')(({ theme }) => ({
     borderRadius: 2,
-    width: 10,
-    height: 10,
+    width: 18,
+    height: 18,
     marginLeft: 2,
     boxShadow:
         theme.palette.mode === 'dark'
@@ -37,14 +39,6 @@ const BpIcon = styled('span')(({ theme }) => ({
         outline: '2px auto rgba(19,124,189,.6)',
         outlineOffset: 2,
         background: "#227872",
-    },
-    [theme.breakpoints.up('xs')]: {
-        width: 15,
-        height: 15
-    },
-    [theme.breakpoints.up('ml')]: {
-        width: 18,
-        height: 18
     },
     [theme.breakpoints.up('xxl')]: {
         width: 22,
@@ -74,47 +68,32 @@ function BpRadio(props) {
 }
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
-    width: 14,
-    height: 8,
+    width: 30,
+    height: 12,
     padding: 0,
     display: 'flex',
     '&:active': {
         '& .MuiSwitch-thumb': {
-            width: 8,
-            [theme.breakpoints.up('ml')]: {
-                width: 18,
-            },
+            width: 18,
         },
         '& .MuiSwitch-switchBase.Mui-checked': {
-            transform: 'translate(3px, -1.2px)',
-            [theme.breakpoints.up('xs')]: {
-                transform: 'translate(6px, -1.2px)'
-            },
-            [theme.breakpoints.up('ml')]: {
-                transform: 'translate(18px, -1.2px)'
-            },
+            transform: 'translate(18px, -1.2px)'
         },
     },
     '& .MuiSwitch-switchBase': {
         padding: 2,
-        transform: 'translate(-1px, -1.2px)',
+        transform: 'translate(0px, -0.8px)',
         [theme.breakpoints.up('ml')]: {
-            transform: 'translate(-1px, -0.8px)'
-        },
-        [theme.breakpoints.up('ml')]: {
-            transform: 'translate(-1px, -0.8px)'
+            transform: 'translate(0, -1.1px)'
         },
         [theme.breakpoints.up('xxl')]: {
             transform: 'translate(0, -0.2px)'
         },
         '&.Mui-checked': {
-            transform: 'translate(5px, -1.2px)',
+            transform: 'translate(17px, -0.8px)',
             color: '#fff',
-            [theme.breakpoints.up('xs')]: {
-                transform: 'translate(8px, -1.2px)'
-            },
             [theme.breakpoints.up('ml')]: {
-                transform: 'translate(17px, -0.8px)'
+                transform: 'translate(21px, -1.1px)'
             },
             [theme.breakpoints.up('xxl')]: {
                 transform: 'translate(21px, -0.2px)'
@@ -124,23 +103,18 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
                 backgroundColor: theme.palette.mode === 'dark' ? '#227872' : '#227872',
             },
         },
+        [theme.breakpoints.up('xxl')]: {
+            transform: 'translate(0, -0.2px)'
+        },
     },
     '& .MuiSwitch-thumb': {
         boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
-        width: 5.5,
-        height: 6,
+        width: 10.5,
+        height: 10,
         borderRadius: 6,
         transition: theme.transitions.create(['width'], {
             duration: 200,
         }),
-        [theme.breakpoints.up('xs')]: {
-            width: 8,
-            height: 8,
-        },
-        [theme.breakpoints.up('ml')]: {
-            width: 10.5,
-            height: 10,
-        },
         [theme.breakpoints.up('xxl')]: {
             width: 12.5,
             height: 13
@@ -152,14 +126,6 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
         backgroundColor:
             theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(0,0,0,.25)',
         boxSizing: 'border-box',
-    },
-    [theme.breakpoints.up('xs')]: {
-        width: 20,
-        height: 10,
-    },
-    [theme.breakpoints.up('ml')]: {
-        width: 30,
-        height: 12
     },
     [theme.breakpoints.up('xxl')]: {
         width: 38,
@@ -178,13 +144,14 @@ const Accordion = styled((props) => (
 
 const AccordionSummary = styled((props) => (
     <MuiAccordionSummary
-        expandIcon={<KeyboardArrowDownIcon sx={{ fontSize: { xxs: 8, xs: 12, ml: 18 } }} />}
+        expandIcon={<KeyboardArrowDownIcon sx={{ fontSize: 18 }} />}
         {...props}
     />
 ))(({ theme }) => ({
     padding: 0,
-    height: 20,
-    minHeight: 20,
+    marginBottom: 8,
+    height: 30,
+    minHeight: 30,
     flexDirection: 'row',
     backgroundColor:
         theme.palette.mode === 'dark'
@@ -195,14 +162,6 @@ const AccordionSummary = styled((props) => (
     },
     '& .MuiAccordionSummary-content': {
         marginLeft: theme.spacing(1),
-    },
-    [theme.breakpoints.up('xs')]: {
-        height: 25,
-        minHeight: 25,
-    },
-    [theme.breakpoints.up('ml')]: {
-        height: 30,
-        minHeight: 30,
     },
     [theme.breakpoints.up('xxl')]: {
         height: 40,
@@ -306,7 +265,7 @@ const StyledSlider = styled(SliderUnstyled)(
     position: relative;
     top: 0.8em;
     text-align: center;
-    transform: translateX(33%);
+    transform: translateX(53%);
   }
 `,
 );
@@ -321,47 +280,43 @@ const useStyle = makeStyles(theme => {
                 padding: "0 40px"
             },
             [theme.breakpoints.up('ml')]: {
-                padding: "0 80px"
+                padding: "0 60px"
             },
-            [theme.breakpoints.up('lg')]: {
-                padding: "0 108px"
-            }
         },
         headerImage: {
-            background: `url(${eidOffer}) no-repeat center`,
             backgroundSize: 'cover',
             height: 180,
-            marginTop: '89px',
+            marginTop: '30px',
+
+            [theme.breakpoints.up('sm')]: {
+                width: "100%",
+                height: 220,
+                margin: "30px auto 0",
+            },
+
+            [theme.breakpoints.up('ml')]: {
+                width: "90%",
+                height: 200,
+                marginTop: '89px',
+            },
 
             [theme.breakpoints.up('lg')]: {
                 marginTop: '120px',
-                height: 225
+                height: 285
             },
             [theme.breakpoints.up('xxl')]: {
-                height: 306,
+                height: 316,
             }
         },
         filterTitle: {
-            fontSize: 7.6,
-            [theme.breakpoints.up('xs')]: {
-                fontSize: 10,
-            },
-            [theme.breakpoints.up('ml')]: {
-                fontSize: 13,
-            },
+            fontSize: 13.5,
             [theme.breakpoints.up('xxl')]: {
                 fontSize: 16,
             },
         },
         radioFilter: {
             "& span": {
-                fontSize: 6.6,
-                [theme.breakpoints.up('xs')]: {
-                    fontSize: 8.8,
-                },
-                [theme.breakpoints.up('ml')]: {
-                    fontSize: 11,
-                },
+                fontSize: 12,
                 [theme.breakpoints.up('xxl')]: {
                     fontSize: 14,
                 },
@@ -370,22 +325,36 @@ const useStyle = makeStyles(theme => {
                 background: 'transparent',
             },
         },
+        accordionTitle: {
+            fontSize: 12,
+            fontWeight: 400,
+            [theme.breakpoints.up('xxl')]: {
+                fontSize: 16,
+            },
+        },
         accordionContent: {
-            fontSize: 6.6,
+            fontSize: 12,
             cursor: 'pointer',
-            padding: '2px 0',
-            [theme.breakpoints.up('xs')]: {
-                fontSize: 8.8,
-                padding: '4px 0',
-            },
-            [theme.breakpoints.up('ml')]: {
-                fontSize: 11,
-                padding: '8px 0',
-            },
+            padding: '8px 0',
+            textAlign: 'right',
             [theme.breakpoints.up('xxl')]: {
                 fontSize: 14,
             },
-        }
+        },
+        priceRangeNumber: {
+            fontSize: 14,
+            fontFamily: "shabnam",
+            [theme.breakpoints.up('ml')]: {
+                fontSize: 12,
+            },
+            [theme.breakpoints.up('lg')]: {
+                fontSize: 14,
+            },
+        },
+        paper: {
+            transform: "translate(0) !important",
+            width: "100%"
+        },
     }
 })
 
@@ -397,11 +366,12 @@ const Mobiles = ({ show, productsState }) => {
     const ref = useRef()
     const [expanded, setExpanded] = useState('')
     const [mobiles, setMobiles] = useState([...productsState.products.mobiles])
+    const [open, setOpen] = useState(false)
     const [categories, setCategories] = useState({
         price: "",
         brand: "",
         color: "",
-        priceRange: [0, 20000000],
+        priceRange: [0, 50000000],
         available: false
     })
     let colors = []
@@ -514,15 +484,13 @@ const Mobiles = ({ show, productsState }) => {
         setCategories({ ...categories, priceRange: data })
     }
 
-    const valuetext = () => categories.priceRange
-
     const clearFilterHandler = () => {
         setMobiles([...productsState.products.mobiles])
         setCategories({
             price: "",
             brand: "",
             color: "",
-            priceRange: [0, 20000000],
+            priceRange: [0, 50000000],
             available: false
         })
         ref.current.firstElementChild.checked = false
@@ -531,156 +499,347 @@ const Mobiles = ({ show, productsState }) => {
     }
 
     return (
-        <Paper elevation={0} className={classes.container}>
+        <Paper elevation={0} >
 
-            {show && <div className={classes.headerImage}></div>}
-
+            {/* header image */}
             <Box
-                sx={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    m: {
-                        xxs: "90px 0 40px !important",
-                        ml: '65px 0 50px !important',
-                        lg: '90px 0 !important'
-                    }
-                }}
-            >
+                sx={
+                    show ?
+                        { background: `url(${eidOffer}) no-repeat center` } :
+                        { background: `url(${productsFrame}) no-repeat center` }
+                }
+                className={classes.headerImage}
+            ></Box>
+
+            <div className={classes.container}>
+
+                {/* filters button */}
+                {
+                    !show &&
+                    <Button
+                        onClick={() => setOpen(true)}
+                        sx={{
+                            display: 'flex',
+                            alignItems: "center",
+                            color: '#333',
+                            m: "40px 0 20px !important"
+                        }}>
+                        <img src={tune} alt="tune" />
+                        <Typography marginRight>فیلتر </Typography>
+                    </Button>
+                }
+
                 <Box
                     sx={{
-                        ml: { xxs: 1, ml: 2, xxl: 6 },
-                        width: { xxs: 134, xs: 220, xxl: 350 },
-
-                    }}>
-                    <Box display='flex' justifyContent='space-between'>
-                        <Typography className={classes.filterTitle} color="primary">فیلتر</Typography>
-                        <Typography
-                            className={classes.filterTitle}
-                            color="#782228"
-                            sx={{ cursor: "pointer" }}
-                            onClick={() => clearFilterHandler()}
-                        >
-                            حذف فیلترها
-                        </Typography>
-                    </Box>
-                    <Box sx={{ border: '1px solid silver', py: 2, px: 1, borderRadius: 1.5 }}>
-                        <FormControl sx={{ borderBottom: '1px solid #cbcbcb', pb: .5, width: '100%' }}>
-                            <FormLabel
-                                className={classes.filterTitle}
-                                sx={{ mb: .5 }}
-                            >
-                                مرتب سازی بر اساس :
-                            </FormLabel>
-
-                            <RadioGroup
-                                value={categories.price}
-                                className={classes.radioFilter}
-                                onChange={event => categoriesHandler(event)}
-                            >
-                                <FormControlLabel
-                                    sx={{
-                                        margin: 0,
-                                        flexDirection: 'row-reverse',
-                                        justifyContent: "space-between"
-                                    }}
-                                    value="highestPrice"
-                                    label="بیشترین قیمت"
-                                    control={<BpRadio id="price" sx={{ py: .5, px: 0 }} />}
-                                />
-                                <FormControlLabel
-                                    sx={{
-                                        margin: 0,
-                                        flexDirection: 'row-reverse',
-                                        justifyContent: "space-between"
-                                    }}
-                                    value="lowestPrice"
-                                    label="کمترین قیمت"
-                                    control={<BpRadio id="price" sx={{ py: .5, px: 0 }} />}
-                                />
-                            </RadioGroup>
-                        </FormControl>
-
-                        <FormControlLabel
-                            className={classes.radioFilter}
-                            sx={{
-                                m: 0,
-                                flexDirection: 'row-reverse',
-                                justifyContent: "space-between",
-                                borderBottom: '1px solid #cbcbcb',
-                                py: { xxs: 1, ml: 1.5 },
-                                width: '100%'
-                            }}
-                            control={<AntSwitch ref={ref} id="available" onClick={(event) => categoriesHandler(event)} />}
-                            label="فقط کالاهای موجود"
-                        />
-
-                        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                            <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                                <Typography className={classes.accordionContent}>برند</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                {
-                                    brands.map(item =>
-                                        < Typography
-                                            key={item}
-                                            className={classes.accordionContent}
-                                            id='brand'
-                                            onClick={event => categoriesHandler(event)}
-                                        >
-                                            {item}
-                                        </Typography>
-                                    )
-                                }
-                            </AccordionDetails>
-                        </Accordion>
-
-                        <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                            <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-                                <Typography className={classes.accordionContent}>رنگ</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                {
-                                    colors.filter(unique).map(item =>
-                                        <Typography
-                                            key={item}
-                                            className={classes.accordionContent}
-                                            id='color'
-                                            onClick={event => categoriesHandler(event)}
-                                        >
-                                            {item}
-                                        </Typography>
-                                    )
-                                }
-                            </AccordionDetails>
-                        </Accordion>
-
-                        <Box marginTop={2} textAlign='center'>
-                            <Typography textAlign='start' className={classes.filterTitle}>قیمت</Typography>
-                            <StyledSlider
-                                value={categories.priceRange}
-                                onChange={priceRangeHandler}
-                                valueLabelDisplay="auto"
-                                getAriaValueText={valuetext}
-                                min={0}
-                                max={20000000}
-                            />
-                        </Box>
-                    </Box>
-                </Box>
-
-                <Grid
-                    container
-                    spacing={{ xxs: 1, ml: 2, xl: 5, xxl: 6 }}
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        mb: 7,
+                        m: {
+                            ml: '65px 0 50px !important',
+                            lg: '90px 0 !important'
+                        }
+                    }}
                 >
                     {
-                        mobiles.map(item => (
-                            <Grid item key={item.id} xxs={6} lg={4}>
-                                <CardComponent item={item} section="mobiles" />
-                            </Grid>
-                        ))
+                        show &&
+                        <Box
+                            sx={{
+                                ml: { xxs: 1, ml: 2, xxl: 6 },
+                                width: { xxs: 340, xxl: 400 },
+
+                            }}>
+                            <Box display='flex' justifyContent='space-between'>
+                                <Typography className={classes.filterTitle} color="primary">فیلتر</Typography>
+                                <Typography
+                                    className={classes.filterTitle}
+                                    color="#782228"
+                                    sx={{ cursor: "pointer" }}
+                                    onClick={() => clearFilterHandler()}
+                                >
+                                    حذف فیلترها
+                                </Typography>
+                            </Box>
+                            <Box sx={{ border: '1px solid silver', py: 2, px: 1, borderRadius: 1.5 }}>
+                                <FormControl sx={{ borderBottom: '1px solid #cbcbcb', pb: .5, width: '100%' }}>
+                                    <FormLabel
+                                        className={classes.filterTitle}
+                                        sx={{ mb: .5 }}
+                                    >
+                                        مرتب سازی بر اساس :
+                                    </FormLabel>
+
+                                    <RadioGroup
+                                        value={categories.price}
+                                        className={classes.radioFilter}
+                                        onChange={event => categoriesHandler(event)}
+                                    >
+                                        <FormControlLabel
+                                            sx={{
+                                                margin: 0,
+                                                flexDirection: 'row-reverse',
+                                                justifyContent: "space-between"
+                                            }}
+                                            value="highestPrice"
+                                            label="بیشترین قیمت"
+                                            control={<BpRadio id="price" sx={{ py: .5, px: 0 }} />}
+                                        />
+                                        <FormControlLabel
+                                            sx={{
+                                                margin: 0,
+                                                flexDirection: 'row-reverse',
+                                                justifyContent: "space-between"
+                                            }}
+                                            value="lowestPrice"
+                                            label="کمترین قیمت"
+                                            control={<BpRadio id="price" sx={{ py: .5, px: 0 }} />}
+                                        />
+                                    </RadioGroup>
+                                </FormControl>
+
+                                <FormControlLabel
+                                    className={classes.radioFilter}
+                                    sx={{
+                                        m: 0,
+                                        flexDirection: 'row-reverse',
+                                        justifyContent: "space-between",
+                                        borderBottom: '1px solid #cbcbcb',
+                                        py: { xxs: 1, ml: 1.5 },
+                                        width: '100%'
+                                    }}
+                                    control={<AntSwitch ref={ref} id="available" onClick={(event) => categoriesHandler(event)} />}
+                                    label="فقط کالاهای موجود"
+                                />
+
+                                <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                                    <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+                                        <Typography className={classes.accordionTitle}>برند</Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        {
+                                            brands.map(item =>
+                                                < Typography
+                                                    key={item}
+                                                    className={classes.accordionContent}
+                                                    id='brand'
+                                                    color={item === categories.brand && "primary"}
+                                                    onClick={event => categoriesHandler(event)}
+                                                >
+                                                    {item}
+                                                </Typography>
+                                            )
+                                        }
+                                    </AccordionDetails>
+                                </Accordion>
+
+                                <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                                    <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+                                        <Typography className={classes.accordionTitle}>رنگ</Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        {
+                                            colors.filter(unique).map(item =>
+                                                <Typography
+                                                    key={item}
+                                                    className={classes.accordionContent}
+                                                    color={item === categories.color && "primary"}
+                                                    id='color'
+                                                    onClick={event => categoriesHandler(event)}
+                                                >
+                                                    {item}
+                                                </Typography>
+                                            )
+                                        }
+                                    </AccordionDetails>
+                                </Accordion>
+
+                                <Box marginTop={2} textAlign='center'>
+                                    <Typography textAlign='start' className={classes.filterTitle}>قیمت</Typography>
+                                    <StyledSlider
+                                        value={categories.priceRange}
+                                        onChange={priceRangeHandler}
+                                        valueLabelDisplay="off"
+                                        min={0}
+                                        max={50000000}
+                                    />
+                                    <Box
+                                        display='flex'
+                                        justifyContent="space-between"
+                                        sx={{ transform: "translateY(-10px)" }}
+                                    >
+                                        <Typography className={classes.priceRangeNumber}>تا {categories.priceRange[1].toLocaleString()} تومان</Typography>
+                                        <Typography className={classes.priceRangeNumber}>از {categories.priceRange[0].toLocaleString()} تومان</Typography>
+                                    </Box>
+                                </Box>
+                            </Box>
+                        </Box>
                     }
-                </Grid>
-            </Box>
+
+                    <Grid
+                        container
+                        spacing={{ xxs: 2, xl: 5, xxl: 6 }}
+                    >
+                        {
+                            mobiles.map(item => (
+                                <Grid item key={item.id} xxs={12} xs={6} lg={4}>
+                                    <CardComponent item={item} section="mobiles" />
+                                </Grid>
+                            ))
+                        }
+                    </Grid>
+                </Box>
+
+                <Container>
+                    <SwipeableDrawer
+                        anchor='right'
+                        open={open}
+                        classes={{ paper: classes.paper }}
+                        onOpen={() => setOpen(true)}
+                        onClose={() => setOpen(false)}
+                    >
+                        <IconButton
+                            disableRipple
+                            sx={{ justifyContent: "start" }}
+                            onClick={() => setOpen(false)}
+                        >
+                            <ArrowForwardSharpIcon />
+                        </IconButton>
+
+                        <Divider sx={{ display: 'unset', mt: 2 }}>
+                            <Box
+                                sx={{
+                                    ml: { xxs: 1, ml: 2, xxl: 6 },
+                                    width: "92vw",
+
+                                }}>
+                                <Box display='flex' justifyContent='space-between' sx={{ pb: 1, borderBottom: '1px solid #cdcdcd' }}>
+                                    <Typography className={classes.filterTitle} color="primary">فیلتر</Typography>
+                                    <Typography
+                                        className={classes.filterTitle}
+                                        color="#782228"
+                                        sx={{ cursor: "pointer" }}
+                                        onClick={() => clearFilterHandler()}
+                                    >
+                                        حذف فیلترها
+                                    </Typography>
+                                </Box>
+                                <Box sx={{ py: 2, px: 1 }}>
+                                    <FormControl sx={{ borderBottom: '1px solid #cbcbcb', pb: .5, width: '100%' }}>
+                                        <FormLabel
+                                            className={classes.filterTitle}
+                                            sx={{ mb: 1, textAlign: "start" }}
+                                        >
+                                            مرتب سازی بر اساس :
+                                        </FormLabel>
+
+                                        <RadioGroup
+                                            value={categories.price}
+                                            className={classes.radioFilter}
+                                            onChange={event => categoriesHandler(event)}
+                                        >
+                                            <FormControlLabel
+                                                sx={{
+                                                    margin: 0,
+                                                    flexDirection: 'row-reverse',
+                                                    justifyContent: "space-between"
+                                                }}
+                                                value="highestPrice"
+                                                label="بیشترین قیمت"
+                                                control={<BpRadio id="price" sx={{ py: .5, px: 0 }} />}
+                                            />
+                                            <FormControlLabel
+                                                sx={{
+                                                    margin: 0,
+                                                    flexDirection: 'row-reverse',
+                                                    justifyContent: "space-between"
+                                                }}
+                                                value="lowestPrice"
+                                                label="کمترین قیمت"
+                                                control={<BpRadio id="price" sx={{ py: .5, px: 0 }} />}
+                                            />
+                                        </RadioGroup>
+                                    </FormControl>
+
+                                    <FormControlLabel
+                                        className={classes.radioFilter}
+                                        sx={{
+                                            m: 0,
+                                            display: { xxs: 'flex', ml: 'unset' },
+                                            flexDirection: 'row-reverse',
+                                            justifyContent: "space-between",
+                                            borderBottom: '1px solid #cbcbcb',
+                                            py: { xxs: 1, ml: 1.5 },
+                                            width: '100%'
+                                        }}
+                                        control={<AntSwitch ref={ref} id="available" onClick={(event) => categoriesHandler(event)} />}
+                                        label="فقط کالاهای موجود"
+                                    />
+
+                                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                                        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+                                            <Typography className={classes.accordionTitle}>برند</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            {
+                                                brands.map(item =>
+                                                    < Typography
+                                                        key={item}
+                                                        className={classes.accordionContent}
+                                                        id='brand'
+                                                        color={item === categories.brand && "primary"}
+                                                        onClick={event => categoriesHandler(event)}
+                                                    >
+                                                        {item}
+                                                    </Typography>
+                                                )
+                                            }
+                                        </AccordionDetails>
+                                    </Accordion>
+
+                                    <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                                        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+                                            <Typography className={classes.accordionTitle}>رنگ</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            {
+                                                colors.filter(unique).map(item =>
+                                                    <Typography
+                                                        key={item}
+                                                        className={classes.accordionContent}
+                                                        color={item === categories.color && "primary"}
+                                                        id='color'
+                                                        onClick={event => categoriesHandler(event)}
+                                                    >
+                                                        {item}
+                                                    </Typography>
+                                                )
+                                            }
+                                        </AccordionDetails>
+                                    </Accordion>
+
+                                    <Box marginTop={2} textAlign='center'>
+                                        <Typography textAlign='start' className={classes.filterTitle}>قیمت</Typography>
+                                        <StyledSlider
+                                            value={categories.priceRange}
+                                            onChange={priceRangeHandler}
+                                            valueLabelDisplay="off"
+                                            min={0}
+                                            max={50000000}
+                                        />
+                                        <Box
+                                            display='flex'
+                                            justifyContent="space-between"
+                                            sx={{ transform: "translateY(-10px)" }}
+                                        >
+                                            <Typography className={classes.priceRangeNumber}>تا {categories.priceRange[1].toLocaleString()} تومان</Typography>
+                                            <Typography className={classes.priceRangeNumber}>از {categories.priceRange[0].toLocaleString()} تومان</Typography>
+                                        </Box>
+                                    </Box>
+                                </Box>
+                            </Box>
+                        </Divider>
+                    </SwipeableDrawer>
+                </Container>
+            </div>
         </Paper >
     );
 };

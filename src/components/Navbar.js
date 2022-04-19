@@ -197,7 +197,6 @@ const Navbar = ({ show }) => {
                                         onClick={() => setOpen(false)}
                                     >
                                         <Typography fontSize={{ xxs: 14, ml: 16 }} marginLeft={1} color="primary">صفحه اصلی</Typography>
-                                        {/* <img src={musicPlay} alt="headphone" /> */}
                                     </Link>
                                 </ListItem>
                             }
