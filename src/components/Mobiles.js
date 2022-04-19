@@ -41,8 +41,8 @@ const BpIcon = styled('span')(({ theme }) => ({
         background: "#227872",
     },
     [theme.breakpoints.up('xxl')]: {
-        width: 22,
-        height: 22
+        width: 20,
+        height: 20
     },
 }));
 
@@ -169,7 +169,6 @@ const StyledSlider = styled(SliderUnstyled)(
   touch-action: none;
   -webkit-tap-highlight-color: transparent;
   opacity: 0.75;
-
   &:hover {
     opacity: 1;
   }
@@ -202,7 +201,7 @@ const StyledSlider = styled(SliderUnstyled)(
     position: absolute;
     width: 14px;
     height: 14px;
-    margin-left: -6px;
+    margin-right: -6px;
     margin-top: -5px;
     box-sizing: border-box;
     border-radius: 50%;
@@ -641,6 +640,7 @@ const Mobiles = ({ show, productsState }) => {
                                         value={categories.priceRange}
                                         onChange={priceRangeHandler}
                                         valueLabelDisplay="off"
+                                        isRtl
                                         min={0}
                                         max={50000000}
                                     />
@@ -805,6 +805,7 @@ const Mobiles = ({ show, productsState }) => {
                                             value={categories.priceRange}
                                             onChange={priceRangeHandler}
                                             valueLabelDisplay="off"
+                                            isRtl
                                             min={0}
                                             max={50000000}
                                         />
