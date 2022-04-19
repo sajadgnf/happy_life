@@ -37,7 +37,7 @@ const useStyle = makeStyles(theme => {
         },
 
         title: {
-            fontSize: 13,
+            fontSize: 11,
             fontWeight: '400',
             fontFamily: 'estedad', height: 50,
 

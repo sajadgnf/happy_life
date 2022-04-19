@@ -18,8 +18,10 @@ import mobile from "../assets/images/icons/mobile.svg"
 import musicPlay from "../assets/images/icons/music-play.svg"
 import facebook from "../assets/images/icons/facebook.svg"
 import send from "../assets/images/icons/send.svg"
+import send1 from "../assets/images/icons/send1.svg"
 import bell from "../assets/images/icons/bell.svg"
 import heart from "../assets/images/icons/heart.svg"
+import heart1 from "../assets/images/icons/heart1.svg"
 import security from "../assets/images/icons/security.svg"
 import aboutUs from "../assets/images/icons/aboutUs.svg"
 import contactIcon from "../assets/images/icons/contactIcon.svg"
@@ -70,4 +72,6 @@ export {
     email,
     callIcon, 
     tune,
+    send1,
+    heart1
 }

@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 // icons & images & gifs
-import { send, bell, heart, security } from '../constants/icons'
+import { send, bell, heart, security, heart1, send1 } from '../constants/icons'
 import { searchBox } from '../constants/images'
 import loadingGif from '../assets/gifs/loading.gif'
 
@@ -285,14 +285,15 @@ const Details = ({ searchBarText, productsState }) => {
                     flexDirection: { xxs: 'column', ml: 'row-reverse' }
                 }}
             >
-                <Container sx={{
-                    display: "flex",
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginBottom: 4,
-                    width: { ml: "50%" },
-                    flexDirection: { ml: 'column', lg: 'row' },
-                }}
+                <Container
+                    sx={{
+                        display: "flex",
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginBottom: 4,
+                        width: { ml: "50%" },
+                        flexDirection: { ml: 'column', lg: 'row' },
+                    }}
                 >
                     <ToggleButtonGroup
                         sx={{ flexDirection: "column" }}
@@ -307,7 +308,7 @@ const Details = ({ searchBarText, productsState }) => {
                             data-tip="لایک"
                             className={classes.iconContainer}
                         >
-                            <img className={classes.productIcons} src={heart} alt="لایک" />
+                            <img className={classes.productIcons} src={selected.includes('like') ? heart1 : heart} alt="لایک" />
                         </ToggleButton>
                         <ToggleButton
                             value='bell'
@@ -325,7 +326,7 @@ const Details = ({ searchBarText, productsState }) => {
                             data-tip="اشتراک"
                             className={classes.iconContainer}
                         >
-                            <img className={classes.productIcons} src={send} alt="اشتراک" />
+                            <img className={classes.productIcons} src={selected.includes('share') ? send1 : send} alt="اشتراک" />
                         </ToggleButton>
                     </ToggleButtonGroup>
 

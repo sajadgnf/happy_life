@@ -68,8 +68,8 @@ function BpRadio(props) {
 }
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
-    width: 30,
-    height: 12,
+    width: 40,
+    height: 18,
     padding: 0,
     display: 'flex',
     '&:active': {
@@ -82,43 +82,30 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
     },
     '& .MuiSwitch-switchBase': {
         padding: 2,
-        transform: 'translate(0px, -0.8px)',
+        transform: 'translate(0px, -0.4px)',
         [theme.breakpoints.up('ml')]: {
-            transform: 'translate(0, -1.1px)'
-        },
-        [theme.breakpoints.up('xxl')]: {
-            transform: 'translate(0, -0.2px)'
+            transform: 'translate(0, -0.4px)'
         },
         '&.Mui-checked': {
-            transform: 'translate(17px, -0.8px)',
+            transform: 'translate(21px, -0.4px)',
             color: '#fff',
             [theme.breakpoints.up('ml')]: {
-                transform: 'translate(21px, -1.1px)'
-            },
-            [theme.breakpoints.up('xxl')]: {
-                transform: 'translate(21px, -0.2px)'
+                transform: 'translate(21px, -0.4px)'
             },
             '& + .MuiSwitch-track': {
                 opacity: 1,
                 backgroundColor: theme.palette.mode === 'dark' ? '#227872' : '#227872',
             },
         },
-        [theme.breakpoints.up('xxl')]: {
-            transform: 'translate(0, -0.2px)'
-        },
     },
     '& .MuiSwitch-thumb': {
         boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
-        width: 10.5,
-        height: 10,
-        borderRadius: 6,
+        width: 15,
+        height: 15,
+        borderRadius: '100%',
         transition: theme.transitions.create(['width'], {
             duration: 200,
         }),
-        [theme.breakpoints.up('xxl')]: {
-            width: 12.5,
-            height: 13
-        },
     },
     '& .MuiSwitch-track': {
         borderRadius: 16 / 2,
@@ -126,10 +113,6 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
         backgroundColor:
             theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(0,0,0,.25)',
         boxSizing: 'border-box',
-    },
-    [theme.breakpoints.up('xxl')]: {
-        width: 38,
-        height: 17
     },
 }));
 
