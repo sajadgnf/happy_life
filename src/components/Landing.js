@@ -7,7 +7,7 @@ import ArrowCircleLeftRoundedIcon from '@mui/icons-material/ArrowCircleLeftRound
 import { Box } from '@mui/system';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 //components
 import FeaturesCard from './shared/FeaturesCard';
@@ -19,6 +19,7 @@ import { frame, frame1 } from '../constants/images'
 // functions
 import { useTitle } from "../helper/functions"
 
+// icons
 import {
     logo,
     delivery,
@@ -501,7 +502,8 @@ const Landing = ({ searchBarText, productsState }) => {
 
             </div>
             <div className={classes.mainLogoContainer}>
-                <img className={classes.mainLogo} src={logo} alt="logo" />
+                <link className={classes.mainLogo} rel="preload" as="image" href={logo}></link>
+                <img className={classes.mainLogo} src={logo} alt="logo" fetchpriority="high" />
             </div>
 
             {/* features */}

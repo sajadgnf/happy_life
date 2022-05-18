@@ -129,13 +129,13 @@ const Footer = () => {
             </Container>
 
             <Box position='absolute' bottom="0" left="50%" sx={{ transform: "translateX(-50%)" }}>
-                <IconButton className={classes.socialMedia}>
+                <IconButton className={classes.socialMedia} aria-label="TwitterIcon">
                     <TwitterIcon className={classes.socialMediaIcon} />
                 </IconButton>
-                <IconButton className={classes.socialMedia}>
+                <IconButton className={classes.socialMedia} aria-label="facebook">
                     <img className={classes.socialMediaIcon} src={facebook} alt="facebook" />
                 </IconButton>
-                <IconButton className={classes.socialMedia}>
+                <IconButton className={classes.socialMedia} aria-label="InstagramIcon">
                     <InstagramIcon className={classes.socialMediaIcon} />
                 </IconButton>
             </Box>

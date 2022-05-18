@@ -3,36 +3,42 @@
     font-family: "estedad";
     font-weight: 100;
     src: url(assets/fonts/Estedad/ttf/Estedad-Light.ttf);
+    font-display: swap;
 }
 
 @font-face {
     font-family: "estedad";
     font-weight: 200;
     src: url(assets/fonts/Estedad/ttf/Estedad-Black.ttf);
+    font-display: swap;
 }
 
 @font-face {
     font-family: "estedad";
     font-weight: 300;
     src: url(assets/fonts/Estedad/ttf/Estedad-Regular.ttf);
+    font-display: swap;
 }
 
 @font-face {
     font-family: "estedad";
     font-weight: 400;
     src: url(assets/fonts/Estedad/ttf/Estedad-Medium.ttf);
+    font-display: swap;
 }
 
 @font-face {
     font-family: "estedad";
     font-weight: 500;
     src: url(assets/fonts/Estedad/ttf/Estedad-Bold.ttf);
+    font-display: swap;
 }
 
 @font-face {
     font-family: "estedad";
     font-weight: 600;
     src: url(assets/fonts/Estedad/ttf/Estedad-SemiBold.ttf);
+    font-display: swap;
 }
 
 /* shabnam */
@@ -40,24 +46,28 @@
     font-family: "shabnam";
     font-weight: 100;
     src: url(assets/fonts/shabnam/Shabnam-Light-FD.ttf);
+    font-display: swap;
 }
 
 @font-face {
     font-family: "shabnam";
     font-weight: 300;
     src: url(assets/fonts/shabnam/Shabnam-FD.ttf);
+    font-display: swap;
 }
 
 @font-face {
     font-family: "shabnam";
     font-weight: 400;
     src: url(assets/fonts/shabnam/Shabnam-Medium-FD.ttf);
+    font-display: swap;
 }
 
 @font-face {
     font-family: "shabnam";
     font-weight: 500;
     src: url(assets/fonts/shabnam/Shabnam-Bold-FD.ttf);
+    font-display: swap;
 }
 
 /* arsoo */
@@ -65,6 +75,7 @@
     font-family: "arsoo";
     font-weight: 700;
     src: url(assets/fonts/arsoo/FP_Arsoo.ttf);
+    font-display: swap;
 }
 
 /* maktab */
@@ -72,6 +83,7 @@
     font-family: "maktab";
     font-weight: 700;
     src: url(assets/fonts/maktab/MaktabRita-Regular.otf);
+    font-display: swap;
 }
 
 * {
@@ -129,4 +141,3 @@
 .Toastify__toast--error {
     background: #782228 !important;
 }
-

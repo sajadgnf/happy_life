@@ -1,6 +1,8 @@
 import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
+import shadows from "@mui/material/styles/shadows";
+import { ToastContainer } from "react-toastify";
 
 // components
 import Login from "./components/Login";
@@ -11,8 +13,6 @@ import ErrorPage from "./components/ErrorPage";
 
 // redux
 import store from "./redux/store";
-import shadows from "@mui/material/styles/shadows";
-import { ToastContainer } from "react-toastify";
 
 const theme = createTheme({
   direction: 'rtl',

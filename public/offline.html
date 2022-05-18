@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="mobile and accessories online shop" />
+    <link rel="icon" href="./logo.svg" />
+    <link rel="apple-touch-icon" href="./logo.svg" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="offline.css">
+    <title>فروشگاه هپی لایف</title>
+    <style>
+        .offlineContainer {
+            background-color: #227872;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .offlineHeader {
+            color: #fff;
+        }
+
+        .offlineButton {
+            color: #333;
+            text-decoration: none;
+            font-size: 1rem;
+            border-radius: 10px;
+            background-color: #fff;
+            width: 200px;
+            height: 40px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .offlineButton:hover {
+            background-color: #c9c9c9;
+        }
+    </style>
+</head>
+
+<body dir="rtl">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div>
+        <article class="offlineContainer">
+            <h1 class="offlineHeader">
+                لطفا اتصال به اینترنت خود را بررسی فرمایید و دوباره امتحان کنید
+            </h1>
+            <a class="offlineButton" href="/">بازگشت به صفحه اصلی</a>
+        </article>
+    </div>
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("./serviceWorker.js")
+                    .then(reg => console.log(reg))
+                    .catch(err => console.log(err))
+            })
+        }
+    </script>
+</body>
+
+</html>
