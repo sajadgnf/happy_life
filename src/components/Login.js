@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, FormControl, InputLabel, InputBase, Paper, Typography } from '@mui/material'
+import { Button, FormControl, InputLabel, InputBase, Paper, Typography, InputAdornment } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
 import 'react-toastify/dist/ReactToastify.css';
@@ -124,13 +126,14 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-const Login = () => {
+const Login = ({setLoggedIn}) => {
 
     useTitle("فروشگاه هپی لایف - ورود")
 
     const classes = useStyle()
     const [touched, setTouched] = useState({})
     const [errors, setErrors] = useState({})
+    const [showPass, setShowPass] = useState(false)
     const [information, setInformation] = useState({
         email: '',
         password: ''
@@ -157,10 +160,11 @@ const Login = () => {
             })
         })
             .then((response) => {
-                if (!Object.keys(errors).length && response.success) {
+                if (!Object.keys(errors).length && 200 <= response.status && response.status < 300) {
                     notify('شما با موفقیت وارد شدید', "success")
+                    setLoggedIn(true)
                 }
-                else if (!Object.keys(errors).length && !response.success) {
+                else if (!Object.keys(errors).length) {
                     notify('ایمیل یا پسورد را به صورت اشتباه وارد کرده اید', "error")
                 }
                 else {
@@ -226,6 +230,19 @@ const Login = () => {
                             value={information.password}
                             onChange={event => inputHandler(event)}
                             onFocus={event => focusHandler(event)}
+                            type={showPass ? "text" : "password"}
+                            endAdornment={
+                                <InputAdornment
+                                    position="end"
+                                    sx={{ position: 'absolute', left: 5, cursor: "pointer" }}
+                                >
+                                    {
+                                        showPass ?
+                                            <VisibilityOffIcon onClick={() => setShowPass(false)} /> :
+                                            <VisibilityIcon onClick={() => setShowPass(true)} />
+                                    }
+                                </InputAdornment>
+                            }
                         />
                         {errors.password && touched.password && <Typography variant='body2' marginTop={.5} color={"#782228"}>{errors.password}</Typography>}
                     </FormControl>

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, FormControl, InputLabel, InputBase, Paper, Typography } from '@mui/material'
+import { Button, FormControl, InputLabel, InputBase, Paper, Typography, InputAdornment } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import { Link } from 'react-router-dom';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { styled } from '@mui/system';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -130,6 +132,8 @@ const Signin = () => {
     const classes = useStyle()
     const [errors, setErrors] = useState({})
     const [touched, setTouched] = useState({})
+    const [showPass, setShowPass] = useState(false)
+    const [showConfirmPass, setShowConfirmPass] = useState(false)
     const [information, setInformation] = useState({
         email: '',
         userName: '',
@@ -162,9 +166,9 @@ const Signin = () => {
             })
         })
             .then((response) => {
-                if (!Object.keys(errors).length) {
+                if (!Object.keys(errors).length && 200 <= response.status && response.status < 300) {
                     notify("حساب کاربری با موفقیت ساخته شد", "success")
-                } else {
+                } else if (Object.keys(errors).length) {
                     notify("لطفا اطلاعات خود را با دقت وارد کنید", "error")
                     setTouched({
                         userName: true,
@@ -175,8 +179,15 @@ const Signin = () => {
                 }
                 return response.json()
             })
-            .then((json) => console.log(json))
-
+            .then((json) => {
+                if (json.message === "E-mail exist please try with another") {
+                    notify("این ایمیل قبلا ثبت شده است ", "error")
+                }
+                else if (json.message === "Too many send request") {
+                    notify("لطفا دقایقی دیگر اقدام فرمایید ", "error")
+                }
+                console.log(json)
+            })
     }
 
     return (
@@ -252,6 +263,19 @@ const Signin = () => {
                             value={information.password}
                             onChange={e => inputHandler(e)}
                             onFocus={event => focusHandler(event)}
+                            type={showPass ? "text" : "password"}
+                            endAdornment={
+                                <InputAdornment
+                                    position="end"
+                                    sx={{ position: 'absolute', left: 5, cursor: "pointer" }}
+                                >
+                                    {
+                                        showPass ?
+                                            <VisibilityOffIcon onClick={() => setShowPass(false)} /> :
+                                            <VisibilityIcon onClick={() => setShowPass(true)} />
+                                    }
+                                </InputAdornment>
+                            }
                         />
                         {errors.password && touched.password && <Typography variant='body2' marginTop={.5} color={"#782228"}>{errors.password}</Typography>}
                     </FormControl>
@@ -273,6 +297,19 @@ const Signin = () => {
                             value={information.confirmPassword}
                             onChange={e => inputHandler(e)}
                             onFocus={event => focusHandler(event)}
+                            type={showConfirmPass ? "text" : "password"}
+                            endAdornment={
+                                <InputAdornment
+                                    position="end"
+                                    sx={{ position: 'absolute', left: 5, cursor: "pointer" }}
+                                >
+                                    {
+                                        showConfirmPass ?
+                                            <VisibilityOffIcon onClick={() => setShowConfirmPass(false)} /> :
+                                            <VisibilityIcon onClick={() => setShowConfirmPass(true)} />
+                                    }
+                                </InputAdornment>
+                            }
                         />
                         {errors.confirmPassword && touched.confirmPassword && <Typography variant='body2' marginTop={.5} color={"#782228"}>{errors.confirmPassword}</Typography>}
                     </FormControl>
@@ -283,7 +320,7 @@ const Signin = () => {
                         fullWidth
                         className={classes.submitBtn}
                     >
-ثبت نام
+                        ثبت نام
                     </Button>
                 </form>
             </Box>

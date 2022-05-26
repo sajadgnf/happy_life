@@ -78,7 +78,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     }
 }))
 
-const Navbar = ({ show }) => {
+const Navbar = ({ show, loggedIn }) => {
 
     const classes = useStyle()
     const [open, setOpen] = useState(false)
@@ -145,7 +145,7 @@ const Navbar = ({ show }) => {
                         disableRipple
                         className={classes.root}
                     >
-                        <Link to="/logIn">
+                        <Link to={loggedIn ? "/profile" : "/logIn"}>
                             <img className={classes.navItem} src={user} alt="login" />
                         </Link>
                     </IconButton>

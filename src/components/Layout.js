@@ -32,7 +32,7 @@ const Support = lazy(() => import('./Support'))
 const AboutUs = lazy(() => import('./AboutUs'))
 const Cart = lazy(() => import('./Cart'))
 
-const Layout = () => {
+const Layout = ({ loggedIn }) => {
 
     const dispatch = useDispatch()
     const productsState = useSelector(store => store.productsState)
@@ -76,7 +76,7 @@ const Layout = () => {
                     <Typography variant='h6'>Something went wrong</Typography>
                 </Box> :
                 <Paper elevation={0}>
-                    <Navbar show={show} />
+                    <Navbar show={show} loggedIn={loggedIn} />
                     <Suspense fallback={<div>Loading...</div>}>
                         <Routes>
                             <Route path='/' element={<Landing searchBarText={searchBarText} productsState={productsState} />} />
