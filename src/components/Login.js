@@ -172,6 +172,7 @@ const Login = ({ setLoggedIn }) => {
                 if (!Object.keys(errors).length && 200 <= response.status && response.status < 300) {
                     notify('شما با موفقیت وارد شدید', "success")
                     setLoggedIn(true)
+                    window.location.href = "/profile"
                 }
                 else if (!Object.keys(errors).length) {
                     notify('ایمیل یا پسورد را به صورت اشتباه وارد کرده اید', "error")
