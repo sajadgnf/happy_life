@@ -17,6 +17,7 @@ import { useTitle, validate } from '../helper/functions';
 // images & icons
 import { forestBg } from '../constants/images';
 import { loginLogo } from "../constants/icons"
+import loader from "../assets/gifs/loading.gif"
 
 const useStyle = makeStyles(theme => {
     return {
@@ -95,6 +96,12 @@ const useStyle = makeStyles(theme => {
             [theme.breakpoints.up("lg")]: {
                 height: 43,
             }
+        },
+        loader: {
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 4
         }
     }
 })
@@ -134,6 +141,7 @@ const Signin = () => {
     const [touched, setTouched] = useState({})
     const [showPass, setShowPass] = useState(false)
     const [showConfirmPass, setShowConfirmPass] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [information, setInformation] = useState({
         email: '',
         userName: '',
@@ -155,6 +163,8 @@ const Signin = () => {
 
     const submitHandler = event => {
         event.preventDefault()
+        setLoading(true)
+
         fetch('https://api.freerealapi.com/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -177,6 +187,7 @@ const Signin = () => {
                         confirmPassword: true,
                     })
                 }
+                setLoading(false)
                 return response.json()
             })
             .then((json) => {
@@ -186,6 +197,7 @@ const Signin = () => {
                 else if (json.message === "Too many send request") {
                     notify("لطفا دقایقی دیگر اقدام فرمایید ", "error")
                 }
+                setLoading(false)
                 console.log(json)
             })
     }
@@ -325,6 +337,12 @@ const Signin = () => {
                 </form>
             </Box>
 
+            {
+                loading &&
+                <Box>
+                    <img className={classes.loader} src={loader} alt="loading" />
+                </Box>
+            }
         </Paper>
     );
 };

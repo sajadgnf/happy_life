@@ -14,6 +14,7 @@ import { useTitle, validate } from '../helper/functions';
 // images & icons
 import { forestBg } from '../constants/images';
 import { loginLogo } from "../constants/icons"
+import loader from "../assets/gifs/loading.gif"
 
 // toast
 import { notify } from './shared/Toast';
@@ -95,6 +96,12 @@ const useStyle = makeStyles(theme => {
             [theme.breakpoints.up("lg")]: {
                 height: 43,
             }
+        },
+        loader: {
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 4
         }
     }
 })
@@ -126,7 +133,7 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-const Login = ({setLoggedIn}) => {
+const Login = ({ setLoggedIn }) => {
 
     useTitle("فروشگاه هپی لایف - ورود")
 
@@ -134,6 +141,7 @@ const Login = ({setLoggedIn}) => {
     const [touched, setTouched] = useState({})
     const [errors, setErrors] = useState({})
     const [showPass, setShowPass] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [information, setInformation] = useState({
         email: '',
         password: ''
@@ -151,6 +159,7 @@ const Login = ({setLoggedIn}) => {
 
     const submitHandler = event => {
         event.preventDefault()
+        setLoading(true)
         fetch('https://api.freerealapi.com/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -174,6 +183,7 @@ const Login = ({setLoggedIn}) => {
                         password: true
                     })
                 }
+                setLoading(false)
                 return response.json()
             })
             .then((json) => console.log(json))
@@ -265,6 +275,13 @@ const Login = ({setLoggedIn}) => {
                     </Button>
                 </form>
             </Box>
+
+            {
+                loading &&
+                <Box>
+                    <img className={classes.loader} src={loader} alt="loading" />
+                </Box>
+            }
 
         </Paper>
     );
