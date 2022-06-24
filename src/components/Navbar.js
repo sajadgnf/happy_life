@@ -78,11 +78,12 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     }
 }))
 
-const Navbar = ({ show, loggedIn }) => {
+const Navbar = ({ show }) => {
 
     const classes = useStyle()
     const [open, setOpen] = useState(false)
     const counter = useSelector(store => store.cartState.itemsCounter)
+    const loggedIn = useSelector(store => store.authState.loggedIn)
 
     return (
         <AppBar

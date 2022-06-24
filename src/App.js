@@ -3,18 +3,16 @@ import { ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import shadows from "@mui/material/styles/shadows";
 import { ToastContainer } from "react-toastify";
+import { Provider } from "react-redux";
 
 // components
 import Login from "./components/Login";
 import Signin from "./components/Signin";
 import Layout from "./components/Layout";
-import { Provider } from "react-redux";
 import ErrorPage from "./components/ErrorPage";
-import Profile from "./components/Profile";
 
 // redux
 import store from "./redux/store";
-import { useState } from "react";
 
 const theme = createTheme({
   direction: 'rtl',
@@ -83,22 +81,17 @@ const theme = createTheme({
   }
 })
 
-
 const App = () => {
-
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [signedIn, setSignedIn] = useState(false)
 
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <div>
           <Routes>
-            <Route path="/*" element={<Layout loggedIn={loggedIn} />} />
-            <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
+            <Route path="/*" element={<Layout />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/error" element={<ErrorPage />} />
-            <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
         <ToastContainer theme="colored" />

@@ -6,10 +6,9 @@ import { Link } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { styled } from '@mui/system';
+import { useDispatch, useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 
-// toast
-import { notify } from './shared/Toast';
 
 // functions
 import { useTitle, validate } from '../helper/functions';
@@ -18,6 +17,9 @@ import { useTitle, validate } from '../helper/functions';
 import { forestBg } from '../constants/images';
 import { loginLogo } from "../constants/icons"
 import loader from "../assets/gifs/loading.gif"
+
+// redux
+import { FetchSignIn } from '../redux/authentication/authActions';
 
 const useStyle = makeStyles(theme => {
     return {
@@ -141,13 +143,15 @@ const Signin = () => {
     const [touched, setTouched] = useState({})
     const [showPass, setShowPass] = useState(false)
     const [showConfirmPass, setShowConfirmPass] = useState(false)
-    const [loading, setLoading] = useState(false)
     const [information, setInformation] = useState({
         email: '',
         userName: '',
         password: '',
         confirmPassword: ''
     })
+
+    const dispatch = useDispatch()
+    const authState = useSelector(store => store.authState)
 
     useTitle("فروشگاه هپی لایف - ثبت نام")
 
@@ -163,43 +167,7 @@ const Signin = () => {
 
     const submitHandler = event => {
         event.preventDefault()
-        setLoading(true)
-
-        fetch('https://api.freerealapi.com/auth/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                name: information.userName,
-                email: information.email,
-                password: information.password,
-                confirmPassword: information.confirmPassword,
-            })
-        })
-            .then((response) => {
-                if (!Object.keys(errors).length && 200 <= response.status && response.status < 300) {
-                    notify("حساب کاربری با موفقیت ساخته شد", "success")
-                } else if (Object.keys(errors).length) {
-                    notify("لطفا اطلاعات خود را با دقت وارد کنید", "error")
-                    setTouched({
-                        userName: true,
-                        email: true,
-                        password: true,
-                        confirmPassword: true,
-                    })
-                }
-                setLoading(false)
-                return response.json()
-            })
-            .then((json) => {
-                if (json.message === "E-mail exist please try with another") {
-                    notify("این ایمیل قبلا ثبت شده است ", "error")
-                }
-                else if (json.message === "Too many send request") {
-                    notify("لطفا دقایقی دیگر اقدام فرمایید ", "error")
-                }
-                setLoading(false)
-                console.log(json)
-            })
+        dispatch(FetchSignIn(information, errors, setTouched))
     }
 
     return (
@@ -338,7 +306,7 @@ const Signin = () => {
             </Box>
 
             {
-                loading &&
+                authState.loading &&
                 <Box>
                     <img className={classes.loader} src={loader} alt="loading" />
                 </Box>

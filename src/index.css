@@ -133,7 +133,7 @@
 }
 
 .Toastify__toast-container {
-    transform: translateX(16px);
+    transform: translateX(16px) !important;
 }
 .Toastify__toast--success {
     background: #36bdb4 !important;

@@ -19,7 +19,7 @@ import loadingGif from '../assets/gifs/loading.gif'
 import { addItem, decrease, increase, removeItem } from '../redux/cart/cartActions';
 
 // functions
-import { checkCart, quantityCount, useTitle } from '../helper/functions';
+import { checkCart, colorObject, quantityCount, useTitle } from '../helper/functions';
 
 
 const useStyle = makeStyles(theme => {
@@ -184,7 +184,7 @@ const Details = ({ searchBarText, productsState }) => {
     const [selected, setSelected] = useState(() => [])
     const [showImage, setShowImage] = useState('')
     const [open, setOpen] = useState(false)
-    const [selectedColor, setSelectedColor] = useState([])
+    const [selectedColor, setSelectedColor] = useState({})
     const [openSearch, setOpenSearch] = useState(false)
     const [search, setSearch] = useState('')
     const dispatch = useDispatch()
@@ -230,24 +230,7 @@ const Details = ({ searchBarText, productsState }) => {
 
     if (!loading) {
         product.colors.map(color => {
-            if (color === "مشکی") {
-                colors.push({ title: "مشکی", hex: "#333" })
-            }
-            if (color === "سفید") {
-                colors.push({ title: "سفید", hex: "#fff" })
-            }
-            if (color === "آبی") {
-                colors.push({ title: "آبی", hex: "#1388cd" })
-            }
-            if (color === "طلایی") {
-                colors.push({ title: "طلایی", hex: "#cda113" })
-            }
-            if (color === "قرمز") {
-                colors.push({ title: "قرمز", hex: "#bd0310" })
-            }
-            if (color === "خاکستری") {
-                colors.push({ title: "خاکستری", hex: "#878787" })
-            }
+            colorObject(color, colors)
         })
     }
 

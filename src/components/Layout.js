@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/system';
 
@@ -7,14 +7,6 @@ import { Box } from '@mui/system';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import Landing from './Landing';
-// import Contact from './Contact';
-// import Mobiles from './Mobiles';
-// import Accessories from './Accessories'
-// import Headphones from "./Headphones"
-// import Details from './Details';
-// import Support from './Support';
-// import AboutUs from './AboutUs'
-// import Cart from "./Cart"
 import { Paper, Typography } from '@mui/material';
 
 // api
@@ -31,8 +23,15 @@ const Details = lazy(() => import('./Details'))
 const Support = lazy(() => import('./Support'))
 const AboutUs = lazy(() => import('./AboutUs'))
 const Cart = lazy(() => import('./Cart'))
+const Profile = lazy(() => import('./Profile'))
+const UserInfo = lazy(() => import('./dashboard/UserInfo'))
+const Addresses = lazy(() => import('./dashboard/Addresses'))
+const Messages = lazy(() => import('./dashboard/Messages'))
+const ReturnGoods = lazy(() => import('./dashboard/ReturnGoods'))
+const UserLikes = lazy(() => import('./dashboard/UserLikes'))
+const UserOrders = lazy(() => import('./dashboard/UserOrders'))
 
-const Layout = ({ loggedIn }) => {
+const Layout = () => {
 
     const dispatch = useDispatch()
     const productsState = useSelector(store => store.productsState)
@@ -61,10 +60,11 @@ const Layout = ({ loggedIn }) => {
         })
 
         // get Products
-        if (!productsState.products.length) dispatch(fetchProducts())
+        if (!!productsState.products) dispatch(fetchProducts())
     }, [])
 
     const { loading, error } = productsState
+    const param = useParams()
 
     return (
         loading ?
@@ -76,11 +76,14 @@ const Layout = ({ loggedIn }) => {
                     <Typography variant='h6'>Something went wrong</Typography>
                 </Box> :
                 <Paper elevation={0}>
-                    <Navbar show={show} loggedIn={loggedIn} />
+                    <Navbar show={show} />
                     <Suspense fallback={<div>Loading...</div>}>
                         <Routes>
                             <Route path='/' element={<Landing searchBarText={searchBarText} productsState={productsState} />} />
-                            <Route path="*" element={<Navigate to="/error" />} />
+                            {
+                                !param["*"].includes("profile") &&
+                                <Route path="*" element={<Navigate to="/error" />} />
+                            }
                             <Route path='/mobiles' element={<Mobiles show={show} productsState={productsState} />} />
                             <Route path='/accessories' element={<Accessories show={show} productsState={productsState} />} />
                             <Route path='/headphones' element={<Headphones show={show} productsState={productsState} />} />
@@ -89,6 +92,14 @@ const Layout = ({ loggedIn }) => {
                             <Route path='/contact' element={<Contact />} />
                             <Route path='/aboutUs' element={<AboutUs />} />
                             <Route path='/cart' element={<Cart />} />
+                            <Route path="/profile" element={<Profile show={show} />}>
+                                <Route path='/profile/info' element={<UserInfo />} />
+                                <Route path='/profile/addresses' element={<Addresses />} />
+                                <Route path='/profile/messages' element={<Messages />} />
+                                <Route path='/profile/return-goods' element={<ReturnGoods />} />
+                                <Route path='/profile/likes' element={<UserLikes />} />
+                                <Route path='/profile/my-orders' element={<UserOrders />} />
+                            </Route>
                         </Routes>
                     </Suspense>
                     <Footer />

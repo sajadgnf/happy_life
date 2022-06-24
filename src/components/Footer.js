@@ -91,7 +91,7 @@ const Footer = () => {
     const classes = useStyle()
 
     useEffect(() => {
-        if (param['*'].replace(/[^0-9]/g, '')) {
+        if (param['*'].replace(/[^0-9]/g, '') || param['*'].includes("profile")) {
             setShow(false)
         } else {
             setShow(true)

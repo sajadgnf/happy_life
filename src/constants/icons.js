@@ -17,6 +17,7 @@ import moneyBag from "../assets/images/icons/money_bag.svg"
 import mobile from "../assets/images/icons/mobile.svg"
 import musicPlay from "../assets/images/icons/music-play.svg"
 import facebook from "../assets/images/icons/facebook.svg"
+import map from "../assets/images/icons/map.svg"
 import send from "../assets/images/icons/send.svg"
 import send1 from "../assets/images/icons/send1.svg"
 import bell from "../assets/images/icons/bell.svg"
@@ -27,14 +28,23 @@ import aboutUs from "../assets/images/icons/aboutUs.svg"
 import contactIcon from "../assets/images/icons/contactIcon.svg"
 import supportIcon from "../assets/images/icons/supportIcon.svg"
 import wallet from "../assets/images/icons/wallet.svg"
+import dashboardPhone from "../assets/images/icons/dashboardPhone.svg"
 import loginLogo from "../assets/images/icons/loginLogo.svg"
 import office from "../assets/images/icons/office.svg"
 import email from "../assets/images/icons/email.svg"
 import tune from "../assets/images/icons/tune.svg"
+import person from "../assets/images/icons/personIcon.svg"
+import address from "../assets/images/icons/addressIcon.svg"
 import emptyCart from "../assets/images/icons/empty_cart.svg"
 import arrowDown from "../assets/images/icons/arrow-down.svg"
 import contactUs from "../assets/images/icons/contact-us.svg"
 import callIcon from "../assets/images/icons/call-icon.svg"
+import dashUser from "../assets/images/icons/dash-user.svg"
+import dashCart from "../assets/images/icons/dash-cart.svg"
+import dashWeb from "../assets/images/icons/dash-web.svg"
+import dashChat from "../assets/images/icons/dash-chat.svg"
+import dashRedo from "../assets/images/icons/dash-redo.svg"
+import dashLogin from "../assets/images/icons/dash-login.svg"
 
 export {
     logo,
@@ -70,8 +80,18 @@ export {
     contactUs,
     office,
     email,
-    callIcon, 
+    callIcon,
     tune,
     send1,
-    heart1
+    heart1,
+    dashUser,
+    dashCart,
+    dashWeb,
+    dashChat,
+    dashRedo,
+    dashLogin,
+    address,
+    person,
+    dashboardPhone,
+    map
 }

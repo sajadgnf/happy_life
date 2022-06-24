@@ -11,6 +11,7 @@ import phone from "../assets/images/phone.svg"
 import gift from "../assets/images/gift.svg"
 import headphone from "../assets/images/headphone.svg"
 import error404 from "../assets/images/error404.svg"
+import mailBox from "../assets/images/mailBox.svg"
 import productsFrame from "../assets/images/products-frame.svg"
 
 
@@ -28,5 +29,6 @@ export {
     gift,
     headphone,
     error404,
-    productsFrame
+    productsFrame,
+    mailBox
 }

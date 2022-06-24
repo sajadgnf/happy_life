@@ -6,6 +6,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
+import { useDispatch, useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 
 // functions
@@ -16,8 +17,8 @@ import { forestBg } from '../constants/images';
 import { loginLogo } from "../constants/icons"
 import loader from "../assets/gifs/loading.gif"
 
-// toast
-import { notify } from './shared/Toast';
+// redux
+import { fetchLogin } from '../redux/authentication/authActions';
 
 const useStyle = makeStyles(theme => {
     return {
@@ -133,7 +134,7 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-const Login = ({ setLoggedIn }) => {
+const Login = () => {
 
     useTitle("فروشگاه هپی لایف - ورود")
 
@@ -141,11 +142,13 @@ const Login = ({ setLoggedIn }) => {
     const [touched, setTouched] = useState({})
     const [errors, setErrors] = useState({})
     const [showPass, setShowPass] = useState(false)
-    const [loading, setLoading] = useState(false)
     const [information, setInformation] = useState({
         email: '',
         password: ''
     })
+
+    const dispatch = useDispatch()
+    const authState = useSelector(store => store.authState)
 
     const inputHandler = event => {
         setInformation({ ...information, [event.target.id]: event.target.value })
@@ -159,38 +162,8 @@ const Login = ({ setLoggedIn }) => {
 
     const submitHandler = event => {
         event.preventDefault()
-        setLoading(true)
-        fetch('https://api.freerealapi.com/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                email: information.email,
-                password: information.password,
-            })
-        })
-            .then((response) => {
-                if (!Object.keys(errors).length && 200 <= response.status && response.status < 300) {
-                    notify('شما با موفقیت وارد شدید', "success")
-                    setLoggedIn(true)
-                    window.location.href = "/profile"
-                }
-                else if (!Object.keys(errors).length) {
-                    notify('ایمیل یا پسورد را به صورت اشتباه وارد کرده اید', "error")
-                }
-                else {
-                    notify('لطفا اطلاعات خود را به صورت صحیح وارد نمایید', "error")
-                    setTouched({
-                        email: true,
-                        password: true
-                    })
-                }
-                setLoading(false)
-                return response.json()
-            })
-            .then((json) => console.log(json))
+        dispatch(fetchLogin(information, setTouched, errors))
     }
-
-
 
     return (
         <Paper elevation={0} className={classes.container}>
@@ -278,7 +251,7 @@ const Login = ({ setLoggedIn }) => {
             </Box>
 
             {
-                loading &&
+                authState.loading &&
                 <Box>
                     <img className={classes.loader} src={loader} alt="loading" />
                 </Box>
