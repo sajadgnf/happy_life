@@ -50,6 +50,8 @@ const useStyle = makeStyles(theme => {
             outline: 'none',
             borderRadius: 5,
             padding: "5px 10px",
+            fontSize: 20,
+            textAlign: "center",
             "&:focus": {
                 borderColor: theme.palette.primary.main
             }
@@ -120,20 +122,18 @@ const UserBankInfo = () => {
                         <BorderColorIcon sx={{ fontSize: 20, color: "#333" }} />
                         <Typography className={classes.contentTitle}>شماره شبا</Typography>
                     </Box>
+
                     <Box display='flex' alignItems='center'>
-                        <TextField
+                        <InputMask
                             disabled={editInfo ? false : true}
-                            type='number'
+                            mask="99-999-999999999999999999"
+                            className={classes.input}
                             value={info.shabaNumber}
                             name="shabaNumber"
                             required
                             onChange={e => infoHandler(e)}
-                            onInput={e => inputValueHandler(e, 19)}
-                            InputProps={{
-                                className: classes.input,
-                                sx: { width: "265px !important" }
-                            }}
-                        />
+                        >
+                        </InputMask>
                         <Typography marginRight>IR</Typography>
                     </Box>
                 </Box>
