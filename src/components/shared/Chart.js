@@ -60,7 +60,7 @@ const Gauge = ({ id = "gauge" }) => {
             <Paper elevation={0}>
                 <Doughnut
                     width={100}
-                    height={45}
+                    height={40}
                     id={id}
                     data={data}
                     options={{
