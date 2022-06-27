@@ -70,7 +70,7 @@ const Addresses = () => {
 
     return (
         !deleteAddress &&
-        <Paper elevation={0} sx={{ padding: '30px' }}>
+        <Paper elevation={0} sx={{ p: { xxs: '17px', xsm: "30px" } }}>
             {
                 !changeAddress ?
                     <>
