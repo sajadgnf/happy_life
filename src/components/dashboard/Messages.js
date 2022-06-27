@@ -32,7 +32,7 @@ const Messages = () => {
             }}
         >
             <img className={classes.mailBoxIcon} src={mailBox} alt="صندق پیام ها" />
-            <Typography fontWeight='bold'>هنوز هیج پیامی نیومده</Typography>
+            <Typography fontWeight='bold'>هنوز هیچ پیامی نیومده</Typography>
         </Paper>
     );
 };

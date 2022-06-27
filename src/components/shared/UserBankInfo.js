@@ -21,7 +21,11 @@ const useStyle = makeStyles(theme => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginBottom: 20
+            marginBottom: 20,
+            flexDirection: 'column',
+            [theme.breakpoints.up('xs')]: {
+                flexDirection: 'row'
+            }
         },
         contentHeader: {
             display: 'flex',
@@ -45,7 +49,7 @@ const useStyle = makeStyles(theme => {
         input: {
             direction: "ltr",
             height: 38,
-            width: 280,
+            width: 220,
             backgroundColor: 'transparent',
             outline: 'none',
             borderRadius: 5,
@@ -54,6 +58,9 @@ const useStyle = makeStyles(theme => {
             textAlign: "center",
             "&:focus": {
                 borderColor: theme.palette.primary.main
+            },
+            [theme.breakpoints.up('xs')]:{
+                width: 280,
             }
         }
     }

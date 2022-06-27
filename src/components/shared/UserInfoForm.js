@@ -6,27 +6,34 @@ import { useState } from 'react';
 // functions
 import { validate } from '../../helper/functions';
 
-const useStyle = makeStyles({
-    contentContainer: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    content: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    contentTitle:{
-        color: "#757575",
-        marginBottom: "10px"
-    },
-    infoButton: {
-        position: 'absolute',
-        bottom: -18, left: '50%',
-        transform: 'translateX(-50%)',
-        borderRadius: 10
+const useStyle = makeStyles(theme => {
+    return {
+        contentContainer: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: 'column',
+            [theme.breakpoints.up('xs')]: {
+                flexDirection: 'row'
+            }
+        },
+        content: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 20,
+        },
+        contentTitle: {
+            color: "#757575",
+            marginBottom: "10px"
+        },
+        infoButton: {
+            position: 'absolute',
+            bottom: -18, left: '50%',
+            transform: 'translateX(-50%)',
+            borderRadius: 10
+        }
     }
 })
 
@@ -60,13 +67,12 @@ const UserInfoForm = () => {
             elevation={0}
             sx={{
                 display: "flex",
-                alignItems: "space-between",
-                flexDirection: 'column',
-                justifyContent: 'center',
+                justifyContent: { xxs: 'space-between', xs: 'center' },
+                flexDirection: "column",
                 p: 6,
                 position: 'relative'
             }}>
-            <Box className={classes.contentContainer} marginBottom={7}>
+            <Box className={classes.contentContainer} marginBottom={{xs:7}}>
 
                 <Box className={classes.content}>
                     <Typography className={classes.contentTitle}>نام و نام خانوادگی</Typography>

@@ -42,21 +42,24 @@ const UserInfo = () => {
                 display='flex'
                 justifyContent="space-between"
                 alignItems="center"
-                height={234}
+                flexDirection={{ xxs: "column", lg: 'row' }}
+                height={{ lg: 234 }}
             >
                 <Box
-                    height="100%"
+                    height={{ lg: "100%" }}
                     backgroundColor="#fff"
-                    width="48%"
+                    width={{ xxs: '100%', lg: "48%" }}
                     borderRadius='10px'
+                    marginBottom={{xxs: 5, lg: 0}}
+                    marginTop={{xxs: 5, lg:0}}
                 >
                     <Gauge />
                 </Box>
 
                 <Box
                     backgroundColor="#D0F0CB"
-                    height="100%"
-                    width="48%"
+                    height={{ lg: "100%" }}
+                    width={{ xxs: '100%', lg: "48%" }}
                     borderRadius='10px'
                     padding={6}
                     display="flex"
@@ -86,6 +89,7 @@ const UserInfo = () => {
                     </Box>
                 </Box>
             </Box>
+
             <Box>
                 <Box className={classes.infoTitleContainer}>
                     <Typography variant='h5' fontFamily='shabnam'>
@@ -96,6 +100,7 @@ const UserInfo = () => {
                     <UserInfoForm />
                 </Box>
             </Box>
+
             <Box>
                 <Box className={classes.infoTitleContainer}>
                     <Typography variant='h5' fontFamily='shabnam'>
