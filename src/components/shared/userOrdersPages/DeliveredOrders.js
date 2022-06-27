@@ -5,18 +5,29 @@ import DoneIcon from '@mui/icons-material/Done';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import React from 'react';
 
-const useStyle = makeStyles({
-    list: {
-        display: "flex",
-        marginTop: 8,
-        "& li": {
-            marginLeft: 30,
-            color: '#757575',
-            fontSize: 12,
-            fontFamily:'shabnam'
-        },
-        "& li:first-child": {
-            listStyle: 'none'
+const useStyle = makeStyles(theme => {
+    return {
+        list: {
+            display: "flex",
+            flexDirection: 'column',
+            marginTop: 8,
+            "& li": {
+                marginLeft: 30,
+                color: '#757575',
+                fontSize: 12,
+                fontFamily: 'shabnam',
+                listStyle: 'none',
+                marginBottom: 10
+            },
+            "& li:first-child": {
+                listStyle: 'none'
+            },
+            [theme.breakpoints.up('xs')]: {
+                flexDirection: 'row',
+                "& li": {
+                    listStyle: 'disc',
+                }
+            }
         }
     }
 })

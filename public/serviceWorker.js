@@ -1,5 +1,5 @@
-const staticCaches = 'staticCaches-v40'
-const dynamicCaches = 'dynamicCaches-v40'
+const staticCaches = 'staticCaches-v41'
+const dynamicCaches = 'dynamicCaches-v41'
 
 const assets = [
     "/",
