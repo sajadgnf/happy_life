@@ -1,4 +1,4 @@
-import { Button, Input, Modal, Paper, TextField, Typography } from '@mui/material';
+import { Button, Modal, Paper, TextField, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -40,7 +40,6 @@ const style = {
     left: 60,
     width: 400,
     bgcolor: 'background.paper',
-    boxShadow: 24,
     pt: 2,
     px: 1,
     pb: 3,

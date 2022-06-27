@@ -1,8 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux"
 import { Doughnut } from "react-chartjs-2";
-import { Chart } from 'chart.js'
-import styled from "styled-components";
+import { Chart } from 'chart.js';
 import { Paper } from "@mui/material";
 
 const Gauge = ({ id = "gauge" }) => {

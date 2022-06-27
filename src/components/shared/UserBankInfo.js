@@ -1,6 +1,6 @@
-import { Button, Paper, Typography, Box, TextField, ThemeProvider } from '@mui/material';
+import { Button, Typography, Box, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React, { useEffect } from 'react';
+import React from 'react';
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import InputMask from "react-input-mask"
 import { useState } from 'react';
@@ -15,7 +15,8 @@ const useStyle = makeStyles(theme => {
             padding: 48,
             position: 'relative',
             backgroundColor: "#fff",
-            borderRadius: '10px'
+            borderRadius: '10px',
+            marginBottom:50
         },
         content: {
             display: 'flex',
