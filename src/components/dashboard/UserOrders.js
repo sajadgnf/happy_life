@@ -5,9 +5,9 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 // components
-import CurrentOrders from "../shared/userOrdersPages/CurrentOrders"
-import DeliveredOrders from "../shared/userOrdersPages/DeliveredOrders"
-import ReferredOrders from "../shared/userOrdersPages/ReferredOrders"
+import CurrentOrders from "./userOrdersPages/CurrentOrders"
+import DeliveredOrders from "./userOrdersPages/DeliveredOrders"
+import ReferredOrders from "./userOrdersPages/ReferredOrders"
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {

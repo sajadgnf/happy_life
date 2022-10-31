@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Grid, Paper } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // components
-import DashboardCard from "../shared/DashboardCard"
+import DashboardCard from "./DashboardCard"
 
 const UserLikes = () => {
 

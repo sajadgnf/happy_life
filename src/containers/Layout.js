@@ -5,8 +5,8 @@ import { Box } from '@mui/system';
 
 // components
 import Footer from './Footer';
-import Navbar from './Navbar';
-import Landing from './Landing';
+import Navbar from './Header';
+import Landing from '../components/Landing';
 import { Paper, Typography } from '@mui/material';
 
 // api
@@ -15,21 +15,21 @@ import { fetchProducts } from '../redux/products/productsAction';
 // gif
 import loadingGif from '../assets/gifs/loading.gif'
 
-const Contact = lazy(() => import('./Contact'))
-const Mobiles = lazy(() => import('./Mobiles'))
-const Accessories = lazy(() => import('./Accessories'))
-const Headphones = lazy(() => import('./Headphones'))
-const Details = lazy(() => import('./Details'))
-const Support = lazy(() => import('./Support'))
-const AboutUs = lazy(() => import('./AboutUs'))
-const Cart = lazy(() => import('./Cart'))
-const Profile = lazy(() => import('./Profile'))
-const UserInfo = lazy(() => import('./dashboard/UserInfo'))
-const Addresses = lazy(() => import('./dashboard/Addresses'))
-const Messages = lazy(() => import('./dashboard/Messages'))
-const ReturnGoods = lazy(() => import('./dashboard/ReturnGoods'))
-const UserLikes = lazy(() => import('./dashboard/UserLikes'))
-const UserOrders = lazy(() => import('./dashboard/UserOrders'))
+const Contact = lazy(() => import('../components/Contact'))
+const Mobiles = lazy(() => import('../components/Mobiles'))
+const Accessories = lazy(() => import('../components/Accessories'))
+const Headphones = lazy(() => import('../components/Headphones'))
+const Details = lazy(() => import('../components/Details'))
+const Support = lazy(() => import('../components/Support'))
+const AboutUs = lazy(() => import('../components/AboutUs'))
+const Cart = lazy(() => import('../components/Cart'))
+const Profile = lazy(() => import('../components/Profile'))
+const UserInfo = lazy(() => import('../components/dashboard/UserInfo'))
+const Addresses = lazy(() => import('../components/dashboard/Addresses'))
+const Messages = lazy(() => import('../components/dashboard/Messages'))
+const ReturnGoods = lazy(() => import('../components/dashboard/ReturnGoods'))
+const UserLikes = lazy(() => import('../components/dashboard/UserLikes'))
+const UserOrders = lazy(() => import('../components/dashboard/UserOrders'))
 
 const Layout = () => {
 
@@ -103,7 +103,7 @@ const Layout = () => {
                         </Routes>
                     </Suspense>
                     <Footer />
-                </Paper >
+                </Paper>
     );
 };
 

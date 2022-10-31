@@ -5,9 +5,9 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import React from 'react';
 
 // components
-import Gauge from '../shared/Chart';
-import UserInfoForm from '../shared/UserInfoForm';
-import UserBankInfo from '../shared/UserBankInfo';
+import Gauge from './Chart';
+import UserInfoForm from './UserInfoForm';
+import UserBankInfo from './UserBankInfo';
 
 const useStyle = makeStyles({
     walletInfo: {

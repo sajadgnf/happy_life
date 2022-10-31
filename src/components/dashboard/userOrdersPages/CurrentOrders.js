@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@mui/styles';
 
 // components
-import DashboardCard from "../../shared/DashboardCard"
+import DashboardCard from "../DashboardCard"
 
 // api
 import { fetchProducts } from '../../../redux/products/productsAction';
