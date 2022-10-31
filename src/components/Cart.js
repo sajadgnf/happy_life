@@ -20,7 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { notify } from "./shared/Toast";
 
 // functions
-import { useTitle } from "../helper/useTitle";
+import useTitle from "../helper/useTitle";
 
 // icon
 import { wallet, security, emptyCart } from "../constants/icons";

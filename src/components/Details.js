@@ -31,12 +31,10 @@ import {
 } from "../redux/cart/cartActions";
 
 // functions
-import {
-  checkCart,
-  colorObject,
-  quantityCount,
-  useTitle,
-} from "../helper/useTitle";
+import useTitle from "../helper/useTitle";
+import checkCart from "../helper/checkCart";
+import colorObject from "../helper/colorObject";
+import quantityCount from "../helper/quantityCount";
 
 const useStyle = makeStyles((theme) => {
   return {

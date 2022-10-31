@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 
 // functions
-import { validate } from "../../helper/useTitle";
+import validate from "../../helper/validate";
 
 const useStyle = makeStyles((theme) => {
   return {

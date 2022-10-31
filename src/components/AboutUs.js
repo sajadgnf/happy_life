@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 import React from "react";
 
 // functions
-import { useTitle } from "../helper/useTitle";
+import useTitle from "../helper/useTitle";
 
 //images
 import { blurBg } from "../constants/images";

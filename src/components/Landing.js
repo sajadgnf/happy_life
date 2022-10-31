@@ -17,7 +17,7 @@ import LandingCard from "./shared/LandingCard";
 import { frame, frame1 } from "../constants/images";
 
 // functions
-import { useTitle } from "../helper/useTitle";
+import useTitle from "../helper/useTitle";
 
 // icons
 import {

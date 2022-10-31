@@ -8,7 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { notify } from "./shared/Toast";
 
 // functions
-import { useTitle, validate } from "../helper/useTitle";
+import useTitle from "../helper/useTitle";
+import validate from "../helper/validate";
 
 // images & icons
 import { blurBg } from "../constants/images";

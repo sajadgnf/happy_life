@@ -18,7 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 
 // functions
-import { useTitle, validate } from "../helper/useTitle";
+import useTitle from "../helper/useTitle";
+import validate from "../helper/validate";
 
 // images & icons
 import { forestBg } from "../constants/images";

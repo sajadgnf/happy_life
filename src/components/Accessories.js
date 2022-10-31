@@ -35,7 +35,7 @@ import { eidOffer, productsFrame } from "../constants/images";
 import { tune } from "../constants/icons";
 
 // functions
-import { useTitle } from "../helper/useTitle";
+import useTitle from "../helper/useTitle";
 
 // customization styles
 const BpIcon = styled("span")(({ theme }) => ({

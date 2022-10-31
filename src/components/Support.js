@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 
 // functions
-import { useTitle } from "../helper/useTitle";
+import useTitle from "../helper/useTitle";
 
 // images & icons
 import { supportBg, blurBg } from "../constants/images";

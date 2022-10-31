@@ -15,7 +15,7 @@ import UserLikes from "./dashboard/UserLikes";
 import UserOrders from "./dashboard/UserOrders";
 
 // functions
-import { useTitle } from "../helper/useTitle";
+import useTitle from "../helper/useTitle";
 
 const useStyles = makeStyles((theme) => {
   return {

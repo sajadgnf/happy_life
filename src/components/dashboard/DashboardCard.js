@@ -26,7 +26,8 @@ import {
 } from "../../redux/cart/cartActions";
 
 // functions
-import { checkCart, quantityCount } from "../../helper/useTitle";
+import checkCart from "../../helper/checkCart";
+import quantityCount from "../../helper/quantityCount";
 
 const useStyle = makeStyles((theme) => {
   return {
@@ -63,9 +64,7 @@ const useStyle = makeStyles((theme) => {
       width: 20,
       marginRight: 3,
     },
-    cardLink: {
-      textDecoration: "none",
-    },
+
     buttonsContainer: {
       border: `2px solid ${theme.palette.primary.main}`,
       display: "flex",
